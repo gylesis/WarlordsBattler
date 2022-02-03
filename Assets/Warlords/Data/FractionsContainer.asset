@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c8c983094e48cf9cca098220706ebf, type: 3}
+  m_Name: FractionsContainer
+  m_EditorClassIdentifier: 
+  WarlordFractions:
+  - Color: {r: 0.5283883, g: 0.8773585, b: 0.26072446, a: 1}
+    Name: Barbarian
+  - Color: {r: 0.9245283, g: 0.7195621, b: 0.7195621, a: 1}
+    Name: Ghost
+  - Color: {r: 0.1724813, g: 0.71175337, b: 0.7169812, a: 1}
+    Name: Amogus
+  - Color: {r: 0.8207547, g: 0.18970275, b: 0.57812935, a: 1}
+    Name: Pinkies
+  - Color: {r: 0.9245283, g: 0.13519046, b: 0.13519046, a: 1}
+    Name: Demon
+  - Color: {r: 0.32858673, g: 0.9811321, b: 0.9743216, a: 1}
+    Name: Murlock
+  - Color: {r: 0.7879868, g: 0.8962264, b: 0.1986917, a: 1}
+    Name: Dragonborn
