@@ -1,30 +1,40 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Reflection;
+using System.Threading.Tasks;
 using UnityEngine;
+using Warlords.Faction;
+using Warlords.Player;
+using Warlords.Utils;
 using Zenject;
 
 namespace Warlords.Infrastracture.Installers
 {
     public class MainMenuInstaller : MonoInstaller, IInitializable
     {
-        [SerializeField] private FractionsContainer _fractionsContainer;
-        [SerializeField] private FractionsView _fractionsView;
-        [SerializeField] private FractionView _fractionViewPrefab;  
+        [SerializeField] private FactionsContainer _factionsContainer;
+        [SerializeField] private FactionsView _factionsView;
+        [SerializeField] private FactionView _factionViewPrefab;
+        [SerializeField] private ListOfUpgradesForHexagons _listOfUpgradesForHexagons;
         
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<MainMenuInstaller>().FromInstance(this).AsSingle();
             
-            Container.Bind<FractionsContainer>().FromInstance(_fractionsContainer).AsSingle();
+            Container.Bind<FactionsContainer>().FromInstance(_factionsContainer).AsSingle();
 
-            Container.Bind<FractionsViewFactory>().AsSingle();
+            Container.Bind<FactionsViewFactory>().AsSingle();
 
-            Container.Bind<FractionView>().FromInstance(_fractionViewPrefab).AsSingle();
+            Container.Bind<FactionView>().FromInstance(_factionViewPrefab).AsSingle();
 
-            Container.Bind<PlayerInfoSetter>().AsSingle();
+            Container.Bind<PlayerInfoSetter>().AsSingle().NonLazy();
             
-            Container.Bind<FilteredFractions>().AsSingle();
+            Container.Bind<FilteredFactions>().AsSingle();
 
-            Container.Bind<IGeneratable>().To<FractionsView>().FromInstance(_fractionsView);
+            Container.Bind<ListOfUpgradesForHexagons>().FromInstance(_listOfUpgradesForHexagons).AsSingle();
+            Container.Bind<IGeneratable>().To<FactionsView>().FromInstance(_factionsView);
+
+            Container.Bind<PlayerInfoChangeRegister>().AsSingle().NonLazy();
+            Container.Bind<PlayerInfoChangedDispatcher>().AsSingle().NonLazy();
         }
 
         public async void Initialize()
@@ -34,8 +44,6 @@ namespace Warlords.Infrastracture.Installers
         
         private async Task Load()
         {
-           // Debug.Log("Load");
-            
             var generatables = Container.ResolveAll<IGeneratable>();
 
             foreach (IGeneratable generatable in generatables)
@@ -43,7 +51,6 @@ namespace Warlords.Infrastracture.Installers
                 await generatable.Generate();
             }
 
-           // Debug.Log("Load Completed");
         }
         
     }
