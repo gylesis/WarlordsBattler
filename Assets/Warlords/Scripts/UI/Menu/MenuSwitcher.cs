@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Warlords.UI.PopUp;
 using Zenject;
 
 namespace Warlords.UI
@@ -11,10 +12,14 @@ namespace Warlords.UI
 
         private MenuContext[] _menuContexts;
         private MenuButton[] _buttons;
+        private MenuTagsContainer _menuTagsContainers;
+        private FirstActionsChecker _firstActionsChecker;
 
         [Inject]
-        private void Init()
+        private void Init(MenuTagsContainer menuTagsContainers, FirstActionsChecker firstActionsChecker)
         {
+            _firstActionsChecker = firstActionsChecker;
+            _menuTagsContainers = menuTagsContainers;
             _buttons = GetComponentsInChildren<MenuButton>(true);
             
             foreach (MenuButton menuButton in _buttons)
@@ -56,6 +61,14 @@ namespace Warlords.UI
                     menu.gameObject.SetActive(false);
                 }
             }
+
+            MenuTag warlordMenuTag = _menuTagsContainers.WarlordTag;
+            
+            if (targetMenu.Tag == warlordMenuTag)
+            {
+                _firstActionsChecker.CheckIfNameTyped();
+            }
+            
         }
         
         private MenuContext FindMenuContextByTag(MenuTag tag)

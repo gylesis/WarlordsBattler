@@ -20,7 +20,7 @@ namespace Warlords.Board
 
             var boardBoardTiles = _board.BoardTiles;
             
-            foreach (UIBoardTile boardBoardTile in _board.BoardTiles)
+            foreach (UIBoardTile boardBoardTile in boardBoardTiles)
             {
                 var uiBoardData = new UIBoardData();
                 uiBoardData.Upgrade = new TileUpgrade();

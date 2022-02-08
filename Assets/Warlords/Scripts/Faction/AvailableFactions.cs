@@ -2,13 +2,13 @@
 
 namespace Warlords.Faction
 {
-    public class FilteredFactions
+    public class AvailableFactions
     {
         private readonly FactionsContainer _factionsContainer;
 
         public WarlordFaction[] WarlordFractions => _factionsContainer.WarlordFractions;
         
-        public FilteredFactions(FactionsContainer factionsContainer)
+        public AvailableFactions(FactionsContainer factionsContainer)
         {
             _factionsContainer = factionsContainer;
         }

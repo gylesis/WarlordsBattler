@@ -10,13 +10,13 @@ namespace Warlords.Faction
 {
     public class FactionsView : MonoBehaviour, IGeneratable
     {
-        private FilteredFactions _factions;
+        private AvailableFactions _factions;
         private FactionsViewFactory _factionsFactory;
         private FactionView _factionViewPrefab;
         private PlayerInfoSetter _playerInfoSetter;
 
         [Inject]
-        private void Init(FilteredFactions factions, FactionsViewFactory factionsFactory,
+        private void Init(AvailableFactions factions, FactionsViewFactory factionsFactory,
             FactionView factionViewPrefab, PlayerInfoSetter playerInfoSetter)
         {
             _playerInfoSetter = playerInfoSetter;

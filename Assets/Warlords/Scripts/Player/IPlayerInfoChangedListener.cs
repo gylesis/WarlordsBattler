@@ -2,6 +2,6 @@
 {
     public interface IPlayerInfoChangedListener
     {
-        void PlayerInfoChanged(PlayerInfo playerInfo);
+       abstract void PlayerInfoChanged(PlayerInfo playerInfo);
     }
 }

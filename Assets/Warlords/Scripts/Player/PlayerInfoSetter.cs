@@ -1,5 +1,4 @@
-﻿using UniRx;
-
+﻿
 namespace Warlords.Player
 {
     public class PlayerInfoSetter 
@@ -14,14 +13,23 @@ namespace Warlords.Player
         {
             _playerInfoChangedDispatcher = playerInfoChangedDispatcher;
             _playerInfo = new PlayerInfo();
-            
         }
         
         public void SetFaction(WarlordFaction faction)
         {
-            _playerInfo._faction = faction;
+            _playerInfo.Faction = faction;
             
             _playerInfoChangedDispatcher.ChangePlayerInfo(_playerInfo);
         }
+
+        public void SetName(string name)
+        {
+            _playerInfo.Name = name;
+
+            _playerInfoChangedDispatcher.ChangePlayerInfo(_playerInfo);
+        }
+        
     }
+    
+    
 }

@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,14 +19,21 @@ namespace Warlords.Utils
         public Subject<ReactiveButtonSender<TSender, TValue>> Clicked =
             new Subject<ReactiveButtonSender<TSender, TValue>>();
 
+        private IDisposable _disposable;
+
         private void Awake()
         {
             var reactiveButtonSender = new ReactiveButtonSender<TSender, TValue>(Sender, Value);
 
-            _button.onClick
+            _disposable = _button.onClick
                 .AsObservable()
                 .TakeUntilDestroy(this)
-                .Subscribe((_ => Clicked.OnNext(reactiveButtonSender)));
+                .Subscribe((_ =>
+                {
+                    Debug.Log($"Value: {reactiveButtonSender.Value}");
+                    
+                    Clicked.OnNext(reactiveButtonSender);
+                }));
         }
     }
 

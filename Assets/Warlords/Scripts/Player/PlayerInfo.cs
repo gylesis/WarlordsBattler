@@ -5,7 +5,8 @@ namespace Warlords.Player
     [Serializable]
     public class PlayerInfo
     {
-        public WarlordFaction _faction;
+        public string Name;
+        public WarlordFaction Faction;
         public LevelInfo Level;
     }
 }
