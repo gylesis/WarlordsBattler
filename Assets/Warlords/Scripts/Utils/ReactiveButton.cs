@@ -16,36 +16,39 @@ namespace Warlords.Utils
         private void Reset() =>
             _button = GetComponent<Button>();
 
-        public Subject<ReactiveButtonSender<TSender, TValue>> Clicked =
-            new Subject<ReactiveButtonSender<TSender, TValue>>();
+        public Subject<ButtonContext<TSender,TValue>> Clicked =
+            new Subject<ButtonContext<TSender,TValue>>();
 
         private IDisposable _disposable;
 
         private void Awake()
         {
-            var reactiveButtonSender = new ReactiveButtonSender<TSender, TValue>(Sender, Value);
-
             _disposable = _button.onClick
                 .AsObservable()
                 .TakeUntilDestroy(this)
                 .Subscribe((_ =>
                 {
-                    Debug.Log($"Value: {reactiveButtonSender.Value}");
-                    
-                    Clicked.OnNext(reactiveButtonSender);
+                    var buttonContext = new ButtonContext<TSender,TValue>();
+
+                    buttonContext.Sender = Sender;
+                    buttonContext.Value = Value;
+
+                    Clicked.OnNext(buttonContext);
                 }));
         }
-    }
 
-    public class ReactiveButtonSender<T1, T2>
+    }
+    
+    public struct ButtonContext<T1, T2>
     {
         public T1 Sender;
         public T2 Value;
 
-        public ReactiveButtonSender(T1 sender, T2 value)
+        public ButtonContext(T1 sender, T2 value)
         {
             Sender = sender;
             Value = value;
         }
     }
+
 }

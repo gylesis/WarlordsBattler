@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Warlords.Faction;
 using Warlords.Player;
 using Warlords.UI;
@@ -11,7 +8,7 @@ using Zenject;
 
 namespace Warlords.Infrastracture.Installers
 {
-    public class MainMenuInstaller : MonoInstaller, IInitializable
+    public class MainMenuInstaller : MonoInstaller
     {
         [SerializeField] private FactionsContainer _factionsContainer;
         [SerializeField] private FactionsView _factionsView;
@@ -23,8 +20,6 @@ namespace Warlords.Infrastracture.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<MainMenuInstaller>().FromInstance(this).AsSingle();
-            
             Container.Bind<CurtainService>().FromInstance(_curtainService).AsSingle();
 
             Container.Bind<FactionsContainer>().FromInstance(_factionsContainer).AsSingle();
@@ -33,12 +28,16 @@ namespace Warlords.Infrastracture.Installers
 
             Container.Bind<FactionView>().FromInstance(_factionViewPrefab).AsSingle();
 
-            Container.Bind<PlayerInfoSetter>().AsSingle().NonLazy();
-
             Container.Bind<AvailableFactions>().AsSingle();
 
             Container.Bind<ListOfUpgradesForHexagons>().FromInstance(_listOfUpgradesForHexagons).AsSingle();
-            Container.Bind<IGeneratable>().To<FactionsView>().FromInstance(_factionsView);
+            
+            Container.Bind<ISaveLoadDataService>().To<PlayerPrefsSaveLoadDataService>().AsSingle().NonLazy();
+
+            Container.Bind<IAsyncLoad>().To<FactionsView>().FromInstance(_factionsView).AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerInfoSetter>().AsSingle().NonLazy();
+            
+            Container.Bind<AsyncLoadingsContext>().FromSubContainerResolve().ByInstaller<AsyncLoadingsInstaller>().AsSingle().NonLazy();
 
             Container.Bind<PlayerInfoChangeRegister>().AsSingle().NonLazy();
             Container.Bind<PlayerInfoChangedDispatcher>().AsSingle().NonLazy();
@@ -51,26 +50,24 @@ namespace Warlords.Infrastracture.Installers
 
             Container.Bind<MenuTagsContainer>().FromInstance(_menuTagsContainer).AsSingle();
 
-            Container.Bind<FirstActionsData>().AsSingle().NonLazy();
-
+            Container
+                .Bind<SceneLoader>()
+                .FromSubContainerResolve()
+                .ByInstaller<SceneLoaderInstaller>()
+                .AsSingle()
+                .NonLazy();
+            
             Container.Bind<PopUpsService>().FromInstance(_popUpsService).AsSingle();
         }
 
-        public async void Initialize()
-        {
-            await Load();
-        }
-        
-        private async Task Load()
-        {
-            var generatables = Container.ResolveAll<IGeneratable>();
+    }
 
-            foreach (IGeneratable generatable in generatables)
-            {
-                await generatable.Generate();
-            }
-
+    public class SceneLoaderInstaller : Installer
+    {
+        public override void InstallBindings()
+        {
+            var sceneLoader = Container.InstantiatePrefabResourceForComponent<SceneLoader>(AssetsPath.SceneLoader);
+            Container.Bind<SceneLoader>().FromInstance(sceneLoader).AsSingle();
         }
-        
     }
 }

@@ -15,8 +15,6 @@ namespace Warlords.UI.PopUp
         private CurtainService _curtainService;
         private PlayerNameSetter _nameSetter;
 
-        private string _playerPopUpPrefabPath = "UI/ChangeNamePopUp";
-
         [Inject]
         private void Init(UIFactory factory, CurtainService curtainService, PlayerNameSetter nameSetter)
         {
@@ -28,17 +26,18 @@ namespace Warlords.UI.PopUp
         public async void SpawnPlayerNamePopUp(Action successNameChanging)
         {
             _curtainService.Show();
-            var task = _factory.Create(_playerPopUpPrefabPath, _popUpsParent);
+            
+            var task = _factory.Create(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
+            
             await task;
 
             PlayerNamePopUp playerNamePopUp = task.Result;
             
             playerNamePopUp.PlayerNamePopUpButton.Clicked.Subscribe(SetName);
             
-            void SetName(ReactiveButtonSender<byte, StringReactiveProperty> sender)
+            void SetName(ButtonContext<byte, string> sender)
             {
-                Debug.Log(sender.Value);
-                _nameSetter.Set(sender.Value.Value);
+                _nameSetter.Set(sender.Value);
                 successNameChanging?.Invoke();
                 Destroy(playerNamePopUp.gameObject);
             }

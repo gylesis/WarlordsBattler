@@ -6,7 +6,7 @@ namespace Warlords.Player
     public class PlayerInfo
     {
         public string Name;
-        public WarlordFaction Faction;
-        public LevelInfo Level;
+        public WarlordFaction Faction = new WarlordFaction();
+        public LevelInfo Level = new LevelInfo();
     }
 }

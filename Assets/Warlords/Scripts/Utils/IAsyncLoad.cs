@@ -2,8 +2,8 @@
 
 namespace Warlords.Utils
 {
-    public interface IGeneratable
+    public interface IAsyncLoad
     {
-        Task Generate();
+        Task AsyncLoad();
     }
 }

@@ -4,21 +4,28 @@ namespace Warlords.UI.PopUp
 {
     public class FirstActionsChecker
     {
-        private readonly FirstActionsData _data;
         private readonly PopUpsService _popUpsService;
+        private ISaveLoadDataService _loadDataService;
 
-        public FirstActionsChecker(FirstActionsData data, PopUpsService popUpsService)
+        public FirstActionsChecker(ISaveLoadDataService loadDataService, PopUpsService popUpsService)
         {
+            _loadDataService = loadDataService;
             _popUpsService = popUpsService;
-            _data = data;
-
-            Debug.Log(data.IsNameTyped);
         }
 
         public void CheckIfNameTyped()
         {
-            if(_data.IsNameTyped) return;
-            _popUpsService.SpawnPlayerNamePopUp((() => _data.IsNameTyped = true));
+            FirstActionsData firstActionsData = _loadDataService.Data.FirstActionsData; 
+            
+            if(firstActionsData.IsNameTyped) return;
+
+            _popUpsService.SpawnPlayerNamePopUp(() =>
+            {
+                _loadDataService.Overwrite(data =>
+                {
+                    data.FirstActionsData.IsNameTyped = true;
+                });
+            });
         }
         
     }

@@ -9,15 +9,9 @@ namespace Warlords.Board
     {
         [SerializeField] private UIBoard _board;
         
-        private PlayerInfoSetter _playerInfoSetter;
-
         [Inject]
-        private void Init(PlayerInfoSetter playerInfoSetter)
+        private void Init()     
         {
-            _playerInfoSetter = playerInfoSetter;
-
-            LevelInfo playerInfoLevel = _playerInfoSetter.PlayerInfo.Level;
-
             var boardBoardTiles = _board.BoardTiles;
             
             foreach (UIBoardTile boardBoardTile in boardBoardTiles)

@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Warlords.Faction
 {
-    public class FactionsView : MonoBehaviour, IGeneratable
+    public class FactionsView : MonoBehaviour, IAsyncLoad
     {
         private AvailableFactions _factions;
         private FactionsViewFactory _factionsFactory;
@@ -25,7 +25,7 @@ namespace Warlords.Faction
             _factions = factions;
         }
 
-        public async Task Generate()
+        public async Task AsyncLoad()
         {
             var fractions = _factions.WarlordFractions;
 
@@ -50,7 +50,7 @@ namespace Warlords.Faction
             await Task.Delay(100);
         }
 
-        private void OnFactionChanged(ReactiveButtonSender<FactionView, WarlordFaction> sender)
+        private void OnFactionChanged(ButtonContext<FactionView, WarlordFaction> sender)
         {
             _playerInfoSetter.SetFaction(sender.Value);
         }

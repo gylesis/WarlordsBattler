@@ -7,7 +7,7 @@ namespace Warlords
     [Serializable]
     public class SaveData
     {
-        public PlayerInfo PlayerInfo;
-        public FirstActionsData FirstActionsData;
+        public PlayerInfo PlayerInfo = new PlayerInfo();
+        public FirstActionsData FirstActionsData = new FirstActionsData();
     }
 }

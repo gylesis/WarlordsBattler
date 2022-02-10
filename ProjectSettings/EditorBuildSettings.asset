@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Warlords/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/Warlords/Scenes/MainMenu.unity
+    guid: 746dd9b05fdbde6488e007774cef747f
+  - enabled: 1
+    path: Assets/Warlords/Scenes/BattleLevel.unity
+    guid: bea236426470d18438fbaddee77df2e0
   m_configObjects: {}
