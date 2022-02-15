@@ -16,8 +16,8 @@ namespace Warlords.Utils
         private void Reset() =>
             _button = GetComponent<Button>();
 
-        public Subject<ButtonContext<TSender,TValue>> Clicked =
-            new Subject<ButtonContext<TSender,TValue>>();
+        public Subject<ButtonContext<TSender, TValue>> Clicked =
+            new Subject<ButtonContext<TSender, TValue>>();
 
         private IDisposable _disposable;
 
@@ -28,7 +28,7 @@ namespace Warlords.Utils
                 .TakeUntilDestroy(this)
                 .Subscribe((_ =>
                 {
-                    var buttonContext = new ButtonContext<TSender,TValue>();
+                    var buttonContext = new ButtonContext<TSender, TValue>();
 
                     buttonContext.Sender = Sender;
                     buttonContext.Value = Value;
@@ -36,7 +36,6 @@ namespace Warlords.Utils
                     Clicked.OnNext(buttonContext);
                 }));
         }
-
     }
     
     public struct ButtonContext<T1, T2>
@@ -50,5 +49,5 @@ namespace Warlords.Utils
             Value = value;
         }
     }
-
+    
 }

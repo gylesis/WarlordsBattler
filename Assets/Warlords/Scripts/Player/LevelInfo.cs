@@ -6,5 +6,9 @@ namespace Warlords.Player
     public class LevelInfo
     {
         public int Value = 1;
+        
+        
+        
+        
     }
 }

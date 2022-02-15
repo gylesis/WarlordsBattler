@@ -6,6 +6,7 @@ namespace Warlords.Utils
     {
         public const string SceneLoader = "SceneLoader";
         public const string PlayerPopUpPrefabPath = "UI/ChangeNamePopUp";
-
+        public const string PlayerAttributesPrefab = "UI/PlayerAttributeViewPrefab";
+        public const string CurtainService = "CurtainService";
     }
 }

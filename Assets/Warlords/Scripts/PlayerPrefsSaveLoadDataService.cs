@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Warlords.Player;
 
 namespace Warlords
 {
@@ -10,7 +10,13 @@ namespace Warlords
         private const string PrefsKey = "SaveData";
 
         private SaveData _data;
+        private readonly IPlayerInfoInitializer _playerInfoInitializer;
 
+        public PlayerPrefsSaveLoadDataService(IPlayerInfoInitializer playerInfoInitializer)
+        {
+            _playerInfoInitializer = playerInfoInitializer;
+        }
+        
         public SaveData Data => _data;
 
         public async Task<SaveData> Load()
@@ -33,7 +39,7 @@ namespace Warlords
 
             _data = saveData;
 
-            await Task.Delay(100);
+            await Task.Delay(0);
             
             return saveData;
         }
@@ -42,6 +48,8 @@ namespace Warlords
         {
             onOverwrite?.Invoke(_data);
 
+            Debug.Log($"Overwriting SaveData:\n {_data}");
+            
             var json = JsonUtility.ToJson(_data);
             
             PlayerPrefs.SetString(PrefsKey,json);
@@ -50,10 +58,9 @@ namespace Warlords
 
         private void InitPlayer(SaveData saveData)
         {
-            saveData.PlayerInfo.Name = $"Player{Random.Range(3000, 9000)}";
-            saveData.PlayerInfo.Faction.Color = Color.black;
-            saveData.PlayerInfo.Faction.Name = "Random";
+            saveData.PlayerInfo = _playerInfoInitializer.Initialize();
         }
+        
         
     }
 }

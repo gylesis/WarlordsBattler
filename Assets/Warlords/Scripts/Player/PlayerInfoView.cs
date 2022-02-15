@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Warlords.Infrastracture;
 using Zenject;
 
 namespace Warlords.Player
@@ -21,5 +22,6 @@ namespace Warlords.Player
         }
 
         public abstract void PlayerInfoChanged(PlayerInfo playerInfo);
+       
     }
 }

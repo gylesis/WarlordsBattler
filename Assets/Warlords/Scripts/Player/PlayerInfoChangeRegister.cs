@@ -13,6 +13,17 @@
         {
             _dispatcher.AddListener(listener);
         }
+    }
+
+    public class PlayerLevelTracker
+    {
+
+        /*
+        public PlayerLevelTracker(ISaveLoadDataService saveLoadDataService)
+        {
+            saveLoadDataService.Data.PlayerInfo.Level
+        }
+        */
         
     }
 }

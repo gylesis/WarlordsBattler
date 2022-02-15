@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Warlords.Faction;
 
-namespace Warlords.Infrastracture
+namespace Warlords.Infrastracture.Factory
 {
     public class FactionsViewFactory
     {

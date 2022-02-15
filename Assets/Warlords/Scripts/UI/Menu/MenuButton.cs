@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Warlords.UI
+namespace Warlords.UI.Menu
 {
     [RequireComponent(typeof(Button))]
     public class MenuButton : MonoBehaviour

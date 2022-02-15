@@ -1,6 +1,5 @@
 ﻿using System;
 using Warlords.Player;
-using Warlords.UI.PopUp;
 
 namespace Warlords
 {

@@ -2,6 +2,8 @@
 using UniRx;
 using UnityEngine;
 using Warlords.Infrastracture;
+using Warlords.Infrastracture.Factory;
+using Warlords.Infrastracture.Installers;
 using Warlords.Player;
 using Warlords.Utils;
 using Zenject;
@@ -17,8 +19,10 @@ namespace Warlords.Faction
 
         [Inject]
         private void Init(AvailableFactions factions, FactionsViewFactory factionsFactory,
-            FactionView factionViewPrefab, PlayerInfoSetter playerInfoSetter)
+            FactionView factionViewPrefab, PlayerInfoSetter playerInfoSetter, AsyncLoadingsRegister asyncLoadingsRegister)
         {
+            asyncLoadingsRegister.Register(this);
+            
             _playerInfoSetter = playerInfoSetter;
             _factionViewPrefab = factionViewPrefab;
             _factionsFactory = factionsFactory;

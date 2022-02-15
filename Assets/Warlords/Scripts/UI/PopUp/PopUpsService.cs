@@ -1,7 +1,7 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
-using Warlords.Infrastracture;
+using Warlords.Infrastracture.Factory;
 using Warlords.Utils;
 using Zenject;
 
@@ -27,7 +27,7 @@ namespace Warlords.UI.PopUp
         {
             _curtainService.Show();
             
-            var task = _factory.Create(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
+            var task = _factory.CreatePopUp(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
             
             await task;
 

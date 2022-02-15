@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Warlords.UI
+namespace Warlords.UI.Menu
 {
     [CreateAssetMenu(menuName = "Menu/MenuTagsContainer", fileName = "MenuTagsContainer", order = 0)]
     public class MenuTagsContainer : ScriptableObject

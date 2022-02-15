@@ -1,4 +1,4 @@
-﻿namespace Warlords.UI
+﻿namespace Warlords.UI.Menu
 {
     public struct MenuContext
     {

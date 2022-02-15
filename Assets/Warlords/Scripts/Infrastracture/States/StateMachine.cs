@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Warlords.Infrastracture.States
 {
   public class StateMachine
   {
-    private Dictionary<Type, IState> _states;
+    private readonly Dictionary<Type, IState> _states;
     private IState _activeState;
 
-    public StateMachine()
+    public StateMachine(IState[] states)
     {
-      _states = new Dictionary<Type, IState>
-      {
-        /*[typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
-        [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
-          services.Single<IPersistentProgressService>(), services.Single<IStaticDataService>(), services.Single<IUIFactory>()),
-        
-        [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IPersistentProgressService>(), services.Single<ISaveLoadService>()),
-        [typeof(GameLoopState)] = new GameLoopState(this),*/
-      };
+      Debug.Log(states.Length);
     }
     
     public void Enter<TState>() where TState : class, IState

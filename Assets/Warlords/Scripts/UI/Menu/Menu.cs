@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Warlords.UI
+namespace Warlords.UI.Menu
 {
     public class Menu : MonoBehaviour
     {

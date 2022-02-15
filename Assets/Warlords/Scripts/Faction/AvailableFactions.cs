@@ -1,6 +1,4 @@
-﻿using Warlords.Player;
-
-namespace Warlords.Faction
+﻿namespace Warlords.Faction
 {
     public class AvailableFactions
     {

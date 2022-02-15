@@ -4,7 +4,7 @@ using UnityEngine;
 using Warlords.UI.PopUp;
 using Zenject;
 
-namespace Warlords.UI
+namespace Warlords.UI.Menu
 {
     public class MenuSwitcher : MonoBehaviour
     {

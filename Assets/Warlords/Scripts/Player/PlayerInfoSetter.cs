@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Warlords.Utils;
+using Warlords.Faction;
+using Warlords.Infrastracture;
 
 namespace Warlords.Player
 {
@@ -7,13 +8,17 @@ namespace Warlords.Player
     {
         private readonly PlayerInfoChangedDispatcher _playerInfoChangedDispatcher;
         private readonly ISaveLoadDataService _saveLoadDataService;
-        private SaveData _saveData;
+        private readonly SaveData _saveData;
 
         public PlayerInfoSetter(PlayerInfoChangedDispatcher playerInfoChangedDispatcher,
-            ISaveLoadDataService saveLoadDataService)
+            ISaveLoadDataService saveLoadDataService, AsyncLoadingsRegister asyncLoadingsRegister)
         {
+            asyncLoadingsRegister.Register(this);
+            
             _saveLoadDataService = saveLoadDataService;
             _playerInfoChangedDispatcher = playerInfoChangedDispatcher;
+            
+            _saveData = saveLoadDataService.Data;
         }
 
         public void SetFaction(WarlordFaction faction)
@@ -34,18 +39,18 @@ namespace Warlords.Player
         {
             _playerInfoChangedDispatcher.ChangePlayerInfo(_saveData.PlayerInfo);
 
-            _saveLoadDataService.Overwrite(data => { data.PlayerInfo = playerInfo; });
+            _saveLoadDataService.Overwrite(data =>
+            {
+                data.PlayerInfo = playerInfo;
+            });
         }
 
         public async Task AsyncLoad()
         {
-            var saveDataAsyncLoad = _saveLoadDataService.Load();
-            
-            await saveDataAsyncLoad;
+            PlayerInfo saveDataPlayerInfo = _saveData.PlayerInfo;
+            _playerInfoChangedDispatcher.ChangePlayerInfo(saveDataPlayerInfo);
 
-            _saveData = saveDataAsyncLoad.Result;
-            
-            _playerInfoChangedDispatcher.ChangePlayerInfo(_saveData.PlayerInfo);
+            await Task.CompletedTask;
         }
     }
 }

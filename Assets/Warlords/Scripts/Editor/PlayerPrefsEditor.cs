@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Warlords.Editor
+namespace Warlords.Scripts.Editor
 {
     public class PlayerPrefsEditor : EditorWindow
     {
