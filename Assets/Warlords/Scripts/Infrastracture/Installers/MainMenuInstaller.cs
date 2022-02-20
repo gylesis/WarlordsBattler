@@ -3,6 +3,7 @@ using Warlords.Faction;
 using Warlords.Infrastracture.Factory;
 using Warlords.Player;
 using Warlords.Player.Attributes;
+using Warlords.Player.Spells;
 using Warlords.UI.Menu;
 using Warlords.UI.PopUp;
 using Warlords.Utils;
@@ -19,7 +20,9 @@ namespace Warlords.Infrastracture.Installers
         [SerializeField] private PopUpsService _popUpsService;
         [SerializeField] private LeftAttributesUpgradesAmountView _leftAttributesUpgradesAmountView;
         [SerializeField] private SaveCancelPlayerInfoService _saveCancelPlayerInfoService;
-        
+        [SerializeField] private AppearanceContainer[] _appearanceContainers;
+        [SerializeField] private SpellDataContainer _spellDataContainer;
+
         public override void InstallBindings()
         {
             Container.Bind<LeftAttributesUpgradesAmountView>().FromInstance(_leftAttributesUpgradesAmountView).AsSingle();
@@ -56,6 +59,11 @@ namespace Warlords.Infrastracture.Installers
 
             Container.Bind<SaveCancelPlayerInfoService>().FromInstance(_saveCancelPlayerInfoService).AsSingle();
 
+            Container.Bind<AppearanceContainer[]>().FromInstance(_appearanceContainers).AsSingle();
+            Container.Bind<AppearanceController>().AsSingle().NonLazy();
+
+            Container.Bind<SpellDataContainer>().FromInstance(_spellDataContainer).AsSingle();
+            Container.Bind<SelectableSpellButtonsHandler>().AsSingle().NonLazy();
         }
 
     }

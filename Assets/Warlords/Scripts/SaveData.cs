@@ -9,4 +9,5 @@ namespace Warlords
         public PlayerInfo PlayerInfo = new PlayerInfo();
         public FirstActionsData FirstActionsData = new FirstActionsData();
     }
+    
 }

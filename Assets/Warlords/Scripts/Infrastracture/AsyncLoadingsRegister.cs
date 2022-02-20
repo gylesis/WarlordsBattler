@@ -1,6 +1,6 @@
 ﻿namespace Warlords.Infrastracture
 {
-    public class AsyncLoadingsRegister
+    public class AsyncLoadingsRegister 
     {
         private readonly AsyncLoadingsDispatcher _dispatcher;
 
@@ -14,4 +14,5 @@
             _dispatcher.AddListener(asyncLoad);
         }
     }
+
 }

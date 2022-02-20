@@ -8,5 +8,6 @@ namespace Warlords.Utils
         public const string PlayerPopUpPrefabPath = "UI/ChangeNamePopUp";
         public const string PlayerAttributesPrefab = "UI/PlayerAttributeViewPrefab";
         public const string CurtainService = "CurtainService";
+        public const string SelectableSpellViewPrefab = "UI/SelectableSpellViewPrefab";
     }
 }

@@ -1,6 +1,4 @@
-﻿using UniRx;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Warlords.UI.PopUp
 {

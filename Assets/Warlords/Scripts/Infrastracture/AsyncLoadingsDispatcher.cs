@@ -1,12 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using UniRx;
 
 namespace Warlords.Infrastracture
 {
-    public class AsyncLoadingsDispatcher
+    public class AsyncLoadingsDispatcher : IDisposable
     {
         private readonly List<IAsyncLoad> _asyncLoads = new List<IAsyncLoad>();
 
+        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource(); 
+        
         public void AddListener(IAsyncLoad asyncLoad)
         {
             _asyncLoads.Add(asyncLoad);
@@ -16,6 +21,8 @@ namespace Warlords.Infrastracture
         {
             foreach (IAsyncLoad asyncLoad in _asyncLoads)
             {
+                var task = new Task((o => asyncLoad.AsyncLoad()), _cancellationToken);
+
                 await asyncLoad.AsyncLoad();
             }
             
@@ -28,6 +35,11 @@ namespace Warlords.Infrastracture
             {
                 await asyncLoad.AsyncLoad();
             }
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

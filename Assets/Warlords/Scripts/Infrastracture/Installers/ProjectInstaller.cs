@@ -29,7 +29,7 @@ namespace Warlords.Infrastracture.Installers
                 .NonLazy();
 
             Container.Bind<AsyncLoadingsRegister>().AsSingle().NonLazy();
-            Container.Bind<AsyncLoadingsDispatcher>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<AsyncLoadingsDispatcher>().AsSingle().NonLazy();
 
             Container.Bind<SceneLoader>().FromMethod(context =>
                     {

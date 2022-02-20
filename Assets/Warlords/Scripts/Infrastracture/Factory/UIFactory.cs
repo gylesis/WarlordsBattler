@@ -8,7 +8,7 @@ namespace Warlords.Infrastracture.Factory
 {
     public class UIFactory
     {
-        public async Task<PlayerNamePopUp> CreatePopUp(string path, Transform parent)
+        public async Task<PlayerNamePopUp> CreatePlayerNamePopUp(string path, Transform parent)
         {
             var async = LoadAndSpawn<PlayerNamePopUp>(path, parent);
             await async;

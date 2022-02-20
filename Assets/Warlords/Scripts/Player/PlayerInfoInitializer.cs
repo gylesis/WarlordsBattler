@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Warlords.Player.Spells;
 using Warlords.Utils;
 
 namespace Warlords.Player
@@ -22,7 +22,7 @@ namespace Warlords.Player
             playerInfo.PlayerAttributes.Attributes = playerAttributes;
             playerInfo.Faction = _staticData.WarlordFaction.WarlordFaction;
             playerInfo.PlayerAttributes.LeftUpgrades = _staticData.PlayerAttributes.Upgrades.GetUpgradesAmount(1);
-            
+
             return playerInfo;
         }
     }

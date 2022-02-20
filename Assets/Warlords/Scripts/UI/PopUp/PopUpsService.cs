@@ -27,15 +27,17 @@ namespace Warlords.UI.PopUp
         {
             _curtainService.Show();
             
-            var task = _factory.CreatePopUp(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
+            var task = _factory.CreatePlayerNamePopUp(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
             
             await task;
 
             PlayerNamePopUp playerNamePopUp = task.Result;
             
-            playerNamePopUp.PlayerNamePopUpButton.Clicked.Subscribe(SetName);
+            playerNamePopUp.PlayerNamePopUpButton.Clicked
+                .TakeUntilDestroy(playerNamePopUp)
+                .Subscribe(SetName);
             
-            void SetName(ButtonContext<byte, string> sender)
+            void SetName(ButtonContext<string> sender)
             {
                 _nameSetter.Set(sender.Value);
                 successNameChanging?.Invoke();
