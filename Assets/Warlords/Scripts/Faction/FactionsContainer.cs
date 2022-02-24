@@ -6,6 +6,6 @@ namespace Warlords.Faction
     [CreateAssetMenu(fileName = "FactionsContainer", menuName = "FactionsContainer", order = 0)]
     public class FactionsContainer : ScriptableObject
     {
-        public WarlordFaction[] WarlordFractions;
+        public WarlordFaction[] WarlordFactions;
     }
 }

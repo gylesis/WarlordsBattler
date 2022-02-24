@@ -6,7 +6,7 @@ namespace Warlords.Faction
     [Serializable]
     public class WarlordFaction
     {
-        public Color Color = Color.black;
         public string Name;
+        public Color Color = Color.black;
     }
 }

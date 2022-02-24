@@ -4,7 +4,7 @@
     {
         private readonly FactionsContainer _factionsContainer;
 
-        public WarlordFaction[] WarlordFractions => _factionsContainer.WarlordFractions;
+        public WarlordFaction[] WarlordFactions => _factionsContainer.WarlordFactions;
         
         public AvailableFactions(FactionsContainer factionsContainer)
         {

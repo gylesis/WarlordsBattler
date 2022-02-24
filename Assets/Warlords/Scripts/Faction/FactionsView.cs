@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using Warlords.Infrastracture;
@@ -29,9 +30,9 @@ namespace Warlords.Faction
             _factions = factions;
         }
 
-        public async Task AsyncLoad()
+        public async UniTask AsyncLoad()
         {
-            var fractions = _factions.WarlordFractions;
+            var fractions = _factions.WarlordFactions;
 
             foreach (WarlordFaction warlordFraction in fractions)
             {
@@ -51,7 +52,7 @@ namespace Warlords.Faction
                     .Subscribe(OnFactionChanged);
             }
 
-            await Task.Delay(100);
+            await UniTask.Delay(100);
         }
 
         private void OnFactionChanged(ButtonContext<FactionView, WarlordFaction> sender)

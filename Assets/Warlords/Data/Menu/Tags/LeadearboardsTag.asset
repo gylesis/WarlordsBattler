@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce0d4ebb09a428caffca2a54033cdaf, type: 3}
+  m_Name: LeadearboardsTag
+  m_EditorClassIdentifier: 
+  URL: https://www.google.com/search?q=leaderboards&sxsrf=APq-WBtksCyiZYsSLK8Gi3d-uEx48Vw3Yg%3A1645731263017&source=hp&ei=vt0XYrCOO9GFrwSm6ZugAw&iflsig=AHkkrS4AAAAAYhfrz-IR_U3ReKpEaNlc0tPczAA4-rs7&ved=0ahUKEwiw5czaipn2AhXRwosKHab0BjQQ4dUDCAc&uact=5&oq=leaderboards&gs_lcp=Cgdnd3Mtd2l6EAMyCAgAEIAEELEDMgUIABCABDIFCAAQgAQyCggAEIAEEIcCEBQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgjEOoCECc6BggjECcQEzoECCMQJzoLCAAQgAQQsQMQgwE6CAgAELEDEIMBOg4ILhCABBCxAxDHARCjAjoECAAQQzoFCC4QgAQ6DQguELEDEMcBEKMCEEM6BwgAELEDEEM6CwguEIAEELEDENQCOgsILhCABBDHARCvAToHCAAQgAQQCjoFCAAQywE6BwgAEAoQywFQrwRYoy1g5i5oBHAAeACAAVyIAcgHkgECMTKYAQCgAQGwAQo&sclient=gws-wiz

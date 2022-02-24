@@ -19,7 +19,7 @@ namespace Warlords.Player.Attributes
             _preSaver = preSaver;
             _leftAttributesUpgradesAmountView = leftAttributesUpgradesAmountView;
 
-            _preSaver.PlayerInfoChangedDiscard
+            _preSaver.PlayerInfoDiscarded
                 .TakeUntilDestroy(_leftAttributesUpgradesAmountView)
                 .Subscribe(PlayerInfoDiscarded);
 

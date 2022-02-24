@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Warlords.Infrastracture;
 using Warlords.Infrastracture.Factory;
@@ -28,16 +29,13 @@ namespace Warlords.Player.Attributes
             _factory = factory;
         }
 
-        public async Task AsyncLoad()
+        public async UniTask AsyncLoad()
         {
             var attributes = _saveLoadDataService.Data.PlayerInfo.PlayerAttributes.Attributes;
 
             foreach (PlayerAttribute attribute in attributes)
             {
-                var asyncLoad = _factory.CreatePlayerAttributeView(AssetsPath.PlayerAttributesPrefab, _parent);
-                await asyncLoad;
-
-                PlayerAttributeView attributeView = asyncLoad.Result;
+                PlayerAttributeView attributeView = await _factory.CreatePlayerAttributeView(AssetsPath.PlayerAttributesPrefab, _parent);
 
                 var playerAttribute = new PlayerAttribute();
 

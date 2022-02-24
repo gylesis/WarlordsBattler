@@ -12,11 +12,12 @@ namespace Warlords.Player.Attributes
         private PlayerInfo _oldPlayerInfo;
 
         private readonly ISaveLoadDataService _saveLoadDataService;
-        public readonly Subject<PlayerInfo> PlayerInfoChanged = new Subject<PlayerInfo>();
-        public readonly Subject<PlayerInfo> PlayerInfoChangedDiscard = new Subject<PlayerInfo>();
+        private readonly PlayerInfoChangedDispatcher _playerInfoChangedDispatcher;
+        public Subject<PlayerInfo> PlayerInfoDiscarded { get; } = new Subject<PlayerInfo>();
         
-        public PlayerInfoPreSaver(ISaveLoadDataService saveLoadDataService)
+        public PlayerInfoPreSaver(ISaveLoadDataService saveLoadDataService, PlayerInfoChangedDispatcher playerInfoChangedDispatcher)
         {
+            _playerInfoChangedDispatcher = playerInfoChangedDispatcher;
             _saveLoadDataService = saveLoadDataService;
             _playerInfo = _saveLoadDataService.Data.PlayerInfo;
             _oldPlayerInfo = _playerInfo.Copy();
@@ -26,7 +27,7 @@ namespace Warlords.Player.Attributes
         {
             overwrite?.Invoke(_playerInfo);
 
-            PlayerInfoChanged.OnNext(_playerInfo);
+            _playerInfoChangedDispatcher.ChangePlayerInfo(_playerInfo);
         }
 
         public void Save()
@@ -38,8 +39,6 @@ namespace Warlords.Player.Attributes
                 playerInfo.PlayerInfo = playerInfoCopy;
                 _oldPlayerInfo = playerInfoCopy;
             });
-            
-            PlayerInfoChanged.OnNext(_playerInfo);
         }
 
         public void Discard()
@@ -48,9 +47,7 @@ namespace Warlords.Player.Attributes
             
             _playerInfo = _oldPlayerInfo.Copy();
             
-            PlayerInfoChangedDiscard.OnNext(_playerInfo);
+            PlayerInfoDiscarded.OnNext(_playerInfo);
         }
-        
-        
     }
 }

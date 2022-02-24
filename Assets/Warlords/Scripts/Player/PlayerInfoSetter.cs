@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Warlords.Faction;
 using Warlords.Infrastracture;
 
@@ -45,12 +46,12 @@ namespace Warlords.Player
             });
         }
 
-        public async Task AsyncLoad()
+        public async UniTask AsyncLoad()
         {
             PlayerInfo saveDataPlayerInfo = _saveData.PlayerInfo;
             _playerInfoChangedDispatcher.ChangePlayerInfo(saveDataPlayerInfo);
 
-            await Task.CompletedTask;
+            await UniTask.CompletedTask;
         }
     }
 }

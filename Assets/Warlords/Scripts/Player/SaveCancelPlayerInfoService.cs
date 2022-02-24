@@ -6,24 +6,25 @@ using Zenject;
 
 namespace Warlords.Player
 {
-    public class SaveCancelPlayerInfoService : MonoBehaviour
+    public class SaveCancelPlayerInfoService : MonoBehaviour, IPlayerInfoChangedListener
     {
         [SerializeField] private DefaultReactiveButton _saveButton;
         [SerializeField] private DefaultReactiveButton _cancelButton;
         
         private PlayerInfoPreSaver _playerInfoPreSaver;
 
+        private bool _temp = false;
+        
         [Inject]
-        private void Init(PlayerInfoPreSaver playerInfoPreSaver)
+        private void Init(PlayerInfoPreSaver playerInfoPreSaver, PlayerInfoChangeRegister playerInfoChangeRegister)
         {
+            playerInfoChangeRegister.Register(this);
+
             _saveButton.gameObject.SetActive(false);
             _cancelButton.gameObject.SetActive(false);
             
             _playerInfoPreSaver = playerInfoPreSaver;
             
-            _playerInfoPreSaver.PlayerInfoChanged
-                .Subscribe(PlayerInfoChanged);
-
             _saveButton.Clicked
                 .TakeUntilDestroy(this)
                 .Subscribe(SaveButtonClicked);
@@ -46,8 +47,14 @@ namespace Warlords.Player
             
             SetButtons(false);
         }
-        private void PlayerInfoChanged(PlayerInfo playerInfo)
+        public void PlayerInfoChanged(PlayerInfo playerInfo)
         {
+            if (_temp == false)
+            {
+                _temp = true;
+                return;
+            }
+            
             SetButtons(true);
         }
 

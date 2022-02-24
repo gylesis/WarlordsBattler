@@ -21,8 +21,6 @@ namespace Warlords.Infrastracture
         {
             foreach (IAsyncLoad asyncLoad in _asyncLoads)
             {
-                var task = new Task((o => asyncLoad.AsyncLoad()), _cancellationToken);
-
                 await asyncLoad.AsyncLoad();
             }
             

@@ -1,78 +1,19 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using Warlords.Utils;
+using Zenject;
 
 namespace Warlords.UI.Menu
 {
-    [RequireComponent(typeof(Button))]
-    public class MenuButton : MonoBehaviour
+    public class MenuButton : ReactiveButton<MenuButton,MenuTag>
     {
         [SerializeField] private MenuTag _menuTagToOpen;
-        
-        private Button _button;
-        private MenuSwitcher _menuSwitcher;
+        protected override MenuTag Value => _menuTagToOpen;
+        protected override MenuButton Sender => this;
 
-        private void Reset()
+        [Inject]
+        private void Init(MenuButtonsHandler menuButtonsHandler)
         {
-            _button = GetComponent<Button>();
-        }
-
-        public void Init(MenuSwitcher menuSwitcher)
-        {
-            _menuSwitcher = menuSwitcher;
-        }
-        
-        private void Awake()
-        {
-            if (_button == null) _button = GetComponent<Button>();
-            
-            _button.onClick.AddListener(ProcessClick);
-        }
-
-        private void ProcessClick()
-        {
-            _menuSwitcher.OpenMenu(_menuTagToOpen);
-        }
-
-        private void OnDestroy()
-        {
-            _button.onClick.RemoveListener(ProcessClick);
+            menuButtonsHandler.Register(this);
         }
     }
-    
-    [RequireComponent(typeof(Button))]
-    public class AdditionalMenuButton : MonoBehaviour
-    {
-        [SerializeField] private MenuTag _menuTagToOpen;
-        
-        private Button _button;
-        private MenuSwitcher _menuSwitcher;
-
-        private void Reset()    
-        {
-            _button = GetComponent<Button>();
-        }
-
-        public void Init(MenuSwitcher menuSwitcher)
-        {
-            _menuSwitcher = menuSwitcher;
-        }
-        
-        private void Awake()
-        {
-            if (_button == null) _button = GetComponent<Button>();
-            
-            _button.onClick.AddListener(ProcessClick);
-        }
-
-        private void ProcessClick()
-        {
-            _menuSwitcher.OpenMenu(_menuTagToOpen);
-        }
-
-        private void OnDestroy()
-        {
-            _button.onClick.RemoveListener(ProcessClick);
-        }
-    }
-    
 }

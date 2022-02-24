@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Warlords.Player.Spells;
 using Warlords.Utils;
 
 namespace Warlords.Player
@@ -17,6 +18,17 @@ namespace Warlords.Player
             newPlayerInfo.Faction.Color = factionColor;
             newPlayerInfo.Faction.Name = factionName;
             newPlayerInfo.Level.Value = levelValue;
+
+            newPlayerInfo.SpellInfo = new PlayerSpellInfo();
+            
+            for (var i = 0; i < newPlayerInfo.SpellInfo.SpellDatas.Length; i++)
+            {
+                SpellData newSpellData = newPlayerInfo.SpellInfo.SpellDatas[i];
+                SpellData oldSpellData = playerInfo.SpellInfo.SpellDatas[i];
+
+                newSpellData.Index = oldSpellData.Index;
+                newSpellData.Type = oldSpellData.Type;
+            }
             
             for (var i = 0; i < playerInfo.PlayerAttributes.Attributes.Count; i++)
             {

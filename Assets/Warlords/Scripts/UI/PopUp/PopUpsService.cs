@@ -27,11 +27,7 @@ namespace Warlords.UI.PopUp
         {
             _curtainService.Show();
             
-            var task = _factory.CreatePlayerNamePopUp(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
-            
-            await task;
-
-            PlayerNamePopUp playerNamePopUp = task.Result;
+            PlayerNamePopUp playerNamePopUp = await _factory.CreatePlayerNamePopUp(AssetsPath.PlayerPopUpPrefabPath, _popUpsParent);
             
             playerNamePopUp.PlayerNamePopUpButton.Clicked
                 .TakeUntilDestroy(playerNamePopUp)

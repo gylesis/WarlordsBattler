@@ -11,4 +11,14 @@
             Tag = menuTag;
         }
     }
+
+    public struct URLMenuContext
+    {
+        public string URL;
+        
+        
+        
+        
+    }
+    
 }

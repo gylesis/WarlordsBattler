@@ -10,7 +10,7 @@ namespace Warlords.UI.Menu
 
         private void OnValidate()
         {
-            name = $"{_tag.name} Menu";
+            name = $"{_tag.name}";
         }
     }
 }

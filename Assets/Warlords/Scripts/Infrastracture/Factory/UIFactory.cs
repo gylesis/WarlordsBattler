@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Warlords.Player.Attributes;
 using Warlords.UI.PopUp;
@@ -8,25 +9,24 @@ namespace Warlords.Infrastracture.Factory
 {
     public class UIFactory
     {
-        public async Task<PlayerNamePopUp> CreatePlayerNamePopUp(string path, Transform parent)
+        public async UniTask<PlayerNamePopUp> CreatePlayerNamePopUp(string path, Transform parent)
         {
-            var async = LoadAndSpawn<PlayerNamePopUp>(path, parent);
-            await async;
-            return async.Result;
+            var playerNamePopUp = await LoadAndSpawn<PlayerNamePopUp>(path, parent);
+            return playerNamePopUp;
         }
 
-        public async Task<PlayerAttributeView> CreatePlayerAttributeView(string path, Transform parent)
+        public async UniTask<PlayerAttributeView> CreatePlayerAttributeView(string path, Transform parent)
         {
-            var async = LoadAndSpawn<PlayerAttributeView>(path, parent);
-            await async;
-            return async.Result;
+            var playerAttributeView = await LoadAndSpawn<PlayerAttributeView>(path, parent);
+
+            return playerAttributeView;
         }
 
-        private async Task<T> LoadAndSpawn<T>(string path, Transform parent) where T : MonoBehaviour
+        private async UniTask<T> LoadAndSpawn<T>(string path, Transform parent) where T : MonoBehaviour
         {
             var loadedPopUp = Resources.Load<T>(path);
 
-            Task delay = Task.Delay(50);
+            UniTask delay = UniTask.Delay(50);
 
             await delay;
 

@@ -13,12 +13,11 @@ namespace Warlords.Utils
         protected abstract TValue Value { get; }
         protected abstract TSender Sender { get; }
 
-        private void Reset() =>
+        protected virtual void Reset() =>
             _button = GetComponent<Button>();
 
-        public Subject<ButtonContext<TSender, TValue>> Clicked =
-            new Subject<ButtonContext<TSender, TValue>>();
-
+        public Subject<ButtonContext<TSender, TValue>> Clicked { get; } = new Subject<ButtonContext<TSender, TValue>>();
+            
         private IDisposable _disposable;
 
         private void Awake()

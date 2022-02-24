@@ -18,6 +18,8 @@ namespace Warlords.Utils
 
         public void Set(int value)
         {
+            if(value == Value) return;
+            
             Value = value;
             Changed.OnNext(Value);
         }

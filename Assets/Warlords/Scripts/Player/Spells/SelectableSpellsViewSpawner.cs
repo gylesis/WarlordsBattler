@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Warlords.Infrastracture;
 using Warlords.Utils;
@@ -31,11 +32,11 @@ namespace Warlords.Player.Spells
             _spellDataContainer = spellDataContainer;
         }
         
-        public async Task AsyncLoad()
+        public async UniTask AsyncLoad()
         {
             _selectableSpellViewPrefab = Resources.Load<SelectableSpellView>(AssetsPath.SelectableSpellViewPrefab);
 
-            await Task.Delay(100);
+            await UniTask.Delay(100);
             
             foreach (SpellInfoContext spellInfoContext in _spellDataContainer.SpellInfos)
             {

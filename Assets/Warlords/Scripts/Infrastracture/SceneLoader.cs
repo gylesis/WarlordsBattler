@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -51,6 +52,6 @@ namespace Warlords.Infrastracture
             
             _curtainService.Hide();
         }
-        
+
     }
 }
