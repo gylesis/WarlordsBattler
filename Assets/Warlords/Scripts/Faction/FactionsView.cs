@@ -52,7 +52,7 @@ namespace Warlords.Faction
                     .Subscribe(OnFactionChanged);
             }
 
-            await UniTask.Delay(100);
+            await UniTask.CompletedTask;
         }
 
         private void OnFactionChanged(ButtonContext<FactionView, WarlordFaction> sender)

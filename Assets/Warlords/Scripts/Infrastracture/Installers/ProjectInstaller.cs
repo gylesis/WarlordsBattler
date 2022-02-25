@@ -2,6 +2,7 @@
 using UnityEngine;
 using Warlords.Infrastracture.States;
 using Warlords.Player;
+using Warlords.UI.Menu;
 using Warlords.Utils;
 using Zenject;
 
@@ -18,6 +19,8 @@ namespace Warlords.Infrastracture.Installers
             Container.Bind<PlayerInfoStaticData>().FromInstance(_playerInfoStaticData).AsSingle();
             Container.Bind<ISaveLoadDataService>().To<PlayerPrefsSaveLoadDataService>().AsSingle().NonLazy();
             Container.Bind<IPlayerInfoInitializer>().To<PlayerInfoInitializer>().AsSingle().NonLazy();
+
+            Container.Bind<ApplicationURLOpener>().AsSingle().NonLazy();
             
             Container.Bind<CurtainService>().FromMethod(context =>
                 {
@@ -59,7 +62,7 @@ namespace Warlords.Infrastracture.Installers
 
             var sceneLoader = Container.Resolve<SceneLoader>();
 
-            sceneLoader.LoadScene("MainMenu");
+            await sceneLoader.LoadScene("MainMenu");
         }
     }
 }

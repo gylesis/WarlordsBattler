@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Profiling;
 using Warlords.Utils;
 
 namespace Warlords.Player.Attributes
@@ -41,7 +42,7 @@ namespace Warlords.Player.Attributes
             _leftAttributesUpgradesAmountView.UpdateView(playerInfo.PlayerAttributes.LeftUpgrades);
         }
 
-        public void Register(UpgradeAttributeButton attributeButton)
+        public void RegisterButton(UpgradeAttributeButton attributeButton)
         {
             attributeButton.Clicked
                 .TakeUntilDestroy(attributeButton)
@@ -65,7 +66,6 @@ namespace Warlords.Player.Attributes
 
             if (leftUpgrades == 0)
             {
-                Debug.Log("Left 0");
                 if (Math.Sign(addValue) == 1)
                 {
                     _leftAttributesUpgradesAmountView.NotEnoughColor();

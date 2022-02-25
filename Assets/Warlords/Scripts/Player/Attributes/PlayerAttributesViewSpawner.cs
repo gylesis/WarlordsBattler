@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Warlords.Player.Attributes
 {
-    public class PlayerAttributesView : MonoBehaviour, IAsyncLoad
+    public class PlayerAttributesViewSpawner : MonoBehaviour, IAsyncLoad
     {
         [SerializeField] private Transform _parent;
 
@@ -46,8 +46,8 @@ namespace Warlords.Player.Attributes
                 
                 attributeView.Init(playerAttribute);
 
-                _upgradeButtonsHandler.Register(attributeView.MinusButton);
-                _upgradeButtonsHandler.Register(attributeView.PlusButton);
+                _upgradeButtonsHandler.RegisterButton(attributeView.MinusButton);
+                _upgradeButtonsHandler.RegisterButton(attributeView.PlusButton);
             }
         }
     }

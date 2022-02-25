@@ -16,7 +16,7 @@ namespace Warlords.Player.Attributes
         
         public void Init(PlayerAttribute attribute)
         {
-            _name.text = attribute.Name;
+            _name.text = $"{attribute.Name} :";
             
             PlusButton.Init(attribute);
             MinusButton.Init(attribute);
@@ -31,7 +31,7 @@ namespace Warlords.Player.Attributes
         private void UpdateView(int value)
         {
             _count.DOFade(0.3f,0.2f).OnComplete((() =>  _count.DOFade(1,0.2f)));
-            _count.text = $": {value}";
+            _count.text = $"{value}";
         }
         
     }

@@ -7,6 +7,7 @@
         Spell3,
         Ultimate,
         Counter,
-        Reaction
+        Reaction,
+        None
     }
 }

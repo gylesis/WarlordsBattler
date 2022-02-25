@@ -70,7 +70,7 @@ namespace Warlords.Infrastracture.Installers
             Container.BindInterfacesAndSelfTo<SpellsChangingDispatcher>().AsSingle().NonLazy();
             Container.Bind<MainSpellsViewContainer>().FromInstance(_mainSpellsViewContainer).AsSingle();
             Container.Bind<SpellDataContainer>().FromInstance(_spellDataContainer).AsSingle();
-            Container.Bind<SelectableSpellButtonsHandler>().AsSingle().NonLazy();
+            Container.Bind<SelectableSpellsButtonsHandler>().AsSingle().NonLazy();
         }
 
     }

@@ -14,6 +14,7 @@ namespace Warlords.Player.Attributes
         private readonly ISaveLoadDataService _saveLoadDataService;
         private readonly PlayerInfoChangedDispatcher _playerInfoChangedDispatcher;
         public Subject<PlayerInfo> PlayerInfoDiscarded { get; } = new Subject<PlayerInfo>();
+        public Subject<Unit> PlayerInfoSaved { get; } = new Subject<Unit>();
         
         public PlayerInfoPreSaver(ISaveLoadDataService saveLoadDataService, PlayerInfoChangedDispatcher playerInfoChangedDispatcher)
         {
@@ -32,6 +33,8 @@ namespace Warlords.Player.Attributes
 
         public void Save()
         {
+            PlayerInfoSaved.OnNext(Unit.Default);
+            
             _saveLoadDataService.Overwrite(playerInfo =>
             {
                 PlayerInfo playerInfoCopy = _playerInfo.Copy();
@@ -43,8 +46,6 @@ namespace Warlords.Player.Attributes
 
         public void Discard()
         {
-            Debug.Log("SOMETHING");
-            
             _playerInfo = _oldPlayerInfo.Copy();
             
             PlayerInfoDiscarded.OnNext(_playerInfo);

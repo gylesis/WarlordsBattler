@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -16,41 +17,63 @@ namespace Warlords.Player.Spells
         [SerializeField] private Transform _ultimateParent;
         [SerializeField] private Transform _counterParent;
         [SerializeField] private Transform _reactionParent;
-        
+
         private SpellDataContainer _spellDataContainer;
 
-        private int _tempIndex = 1;
-        private SelectableSpellButtonsHandler _spellButtonsHandler;
+        private int _tempNameIndex = 1;
+        private SelectableSpellsButtonsHandler _spellsButtonsHandler;
         private SelectableSpellView _selectableSpellViewPrefab;
+        private ISaveLoadDataService _saveLoadDataService;
 
         [Inject]
-        private void Init(SpellDataContainer spellDataContainer, SelectableSpellButtonsHandler spellButtonsHandler, AsyncLoadingsRegister asyncLoadingsRegister)
+        private void Init(SpellDataContainer spellDataContainer, SelectableSpellsButtonsHandler spellsButtonsHandler,
+            AsyncLoadingsRegister asyncLoadingsRegister, ISaveLoadDataService saveLoadDataService)
         {
+            _saveLoadDataService = saveLoadDataService;
             asyncLoadingsRegister.Register(this);
-            
-            _spellButtonsHandler = spellButtonsHandler;
+
+            _spellsButtonsHandler = spellsButtonsHandler;
             _spellDataContainer = spellDataContainer;
         }
-        
+
         public async UniTask AsyncLoad()
         {
-            _selectableSpellViewPrefab = Resources.Load<SelectableSpellView>(AssetsPath.SelectableSpellViewPrefab);
+            ResourceRequest resourceRequest =
+                Resources.LoadAsync<SelectableSpellView>(AssetsPath.SelectableSpellViewPrefab);
 
-            await UniTask.Delay(100);
-            
+            await resourceRequest;
+
+            _selectableSpellViewPrefab = resourceRequest.asset as SelectableSpellView;
+
+            var playerSpellDatas = _saveLoadDataService.Data.PlayerInfo.SpellInfo.SpellDatas;
+
             foreach (SpellInfoContext spellInfoContext in _spellDataContainer.SpellInfos)
             {
                 foreach (SpellInfo spellInfo in spellInfoContext.Infos)
                 {
-                    Spawn(spellInfo.Type);
+                    if(spellInfo.Type == SpellType.None) continue;
+                    
+                    SelectableSpellView spellView = Spawn(spellInfo.Type);
+
+                    SpellData selectableSpellView = playerSpellDatas.First(x => x.Type == spellView.SpellData.Type);
+
+                    if (spellView.SpellData.Index == selectableSpellView.Index)
+                    {
+                        spellView.ShowOutline();
+                    }
+                    else
+                    {
+                        spellView.HideOutline();
+                    }
+                    
                 }
             }
         }
 
-        private void Spawn(SpellType type)
+        private SelectableSpellView Spawn(SpellType type)
         {
             Transform spawnParent;
-            
+
             switch (type)
             {
                 case SpellType.Spell1:
@@ -80,15 +103,15 @@ namespace Warlords.Player.Spells
             var spellData = new SpellData();
 
             spellData.Type = type;
-            spellData.Index = _tempIndex;
+            spellData.Index = _tempNameIndex;
 
             selectableSpellView.Init(spellData);
 
-            _spellButtonsHandler.Register(selectableSpellView.SelectableSpellButton);
+            _spellsButtonsHandler.Register(selectableSpellView);
+
+            _tempNameIndex++;
             
-            _tempIndex++;
+            return selectableSpellView;
         }
-        
-        
     }
 }

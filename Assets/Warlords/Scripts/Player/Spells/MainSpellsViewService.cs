@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using Warlords.Player.Attributes;
@@ -8,13 +9,12 @@ namespace Warlords.Player.Spells
     public class MainSpellsViewService : IDisposable
     {
         private readonly MainSpellView[] _mainSpellViews;
-        private readonly IDisposable _disposable;
+        private readonly CompositeDisposable _disposable = new CompositeDisposable();
 
         private MainSpellsViewService(MainSpellsViewContainer mainSpellsViewContainer, SpellsChangingDispatcher spellsChangingDispatcher)
-        {
-            _disposable = spellsChangingDispatcher.PlayerSpellInfoChanged.Subscribe((PlayerSpellInfoChanged));
-
-            spellsChangingDispatcher.PlayerSpellInfoDiscarded.Subscribe((OnPlayerInfoDiscarded));
+        { 
+            spellsChangingDispatcher.PlayerSpellInfoChanged.Subscribe(PlayerSpellInfoChanged).AddTo(_disposable);
+            spellsChangingDispatcher.PlayerSpellInfoDiscarded.Subscribe(OnPlayerInfoDiscarded).AddTo(_disposable);
             
             _mainSpellViews = mainSpellsViewContainer.MainSpellViews;
         }
@@ -25,26 +25,30 @@ namespace Warlords.Player.Spells
 
             for (var i = 0; i < _mainSpellViews.Length; i++)
             {
-                SpellData spellData = spellDatas[i];
-
                 MainSpellView mainSpellView = _mainSpellViews[i];
-                
+                SpellType spellType = mainSpellView.SpellType;
+
+                if(spellType == SpellType.None) continue;
+                                    
+                SpellData spellData = spellDatas.First(data => data.Type == spellType);
+
                 mainSpellView.UpdateView(spellData);
             }
         }
 
         private void PlayerSpellInfoChanged(PlayerSpellInfo playerSpellInfo)
         {
-            Debug.Log("Update View");
-            
             var spellDatas = playerSpellInfo.SpellDatas;
 
             for (var i = 0; i < _mainSpellViews.Length; i++)
             {
-                SpellData spellData = spellDatas[i];
-
                 MainSpellView mainSpellView = _mainSpellViews[i];
-                
+                SpellType spellType = mainSpellView.SpellType;
+
+                if(spellType == SpellType.None) continue;
+                                    
+                SpellData spellData = spellDatas.First(data => data.Type == spellType);
+
                 mainSpellView.UpdateView(spellData);
             }
         }

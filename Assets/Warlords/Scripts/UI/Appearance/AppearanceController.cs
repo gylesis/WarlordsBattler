@@ -46,8 +46,6 @@ namespace Warlords.UI.PopUp
                     break;
             }
 
-            Debug.Log(itemType);
-            
            // _appearanceContainer[appearanceContainer]--;
 
             await appearanceContainer.UpdateView(isLeftSide);

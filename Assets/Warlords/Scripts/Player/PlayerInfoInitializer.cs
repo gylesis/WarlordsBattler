@@ -17,9 +17,9 @@ namespace Warlords.Player
         {
             var playerInfo = new PlayerInfo();
 
-            var playerAttributes = new List<PlayerAttribute>(_staticData.PlayerAttributes.PlayerAttributes);
+            var staticPlayerAttributes = _staticData.PlayerAttributes.PlayerAttributes;
+            playerInfo.CopyAndSetAttributes(staticPlayerAttributes);
 
-            playerInfo.PlayerAttributes.Attributes = playerAttributes;
             playerInfo.Faction = _staticData.WarlordFaction.WarlordFaction;
             playerInfo.PlayerAttributes.LeftUpgrades = _staticData.PlayerAttributes.Upgrades.GetUpgradesAmount(1);
 

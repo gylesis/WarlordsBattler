@@ -1,4 +1,6 @@
-﻿namespace Warlords.Infrastracture
+﻿using UnityEngine;
+
+namespace Warlords.Infrastracture
 {
     public class AsyncLoadingsRegister 
     {

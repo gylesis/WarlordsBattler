@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using Warlords.Infrastracture;
+using Warlords.Player.Attributes;
 using Warlords.Utils;
 using Zenject;
 
@@ -14,12 +15,17 @@ namespace Warlords.Player.Spells
         private MainSpellView[] _mainSpellViews;
         private ISaveLoadDataService _saveLoadDataService;
 
+        private SpellType _currentSpellType;
+        
         [Inject]
         private void Init(ISaveLoadDataService saveLoadDataService, AsyncLoadingsRegister asyncLoadingsRegister,
-            MainSpellsViewContainer spellsViewContainer)
+            MainSpellsViewContainer spellsViewContainer, PlayerInfoPreSaver playerInfoPreSaver)
         {
             asyncLoadingsRegister.Register(this);
 
+            playerInfoPreSaver.PlayerInfoSaved.TakeUntilDestroy(this)
+                .Subscribe(unit => UpdateSpellsView(SpellType.None));
+            
             _mainSpellViews = spellsViewContainer.MainSpellViews;
 
             _saveLoadDataService = saveLoadDataService;
@@ -31,19 +37,39 @@ namespace Warlords.Player.Spells
 
             for (var index = 0; index < _mainSpellViews.Length; index++)
             {
-                MainSpellView spellView = _mainSpellViews[index];
+                MainSpellView mainSpellView = _mainSpellViews[index];
 
-                spellView.Init(spellDatas[index]);
-                spellView.MainSpellButton.Clicked.TakeUntilDestroy(this).Subscribe(HandleClick);
+                if(mainSpellView.SpellType == SpellType.None) continue;
+                
+                mainSpellView.Init(spellDatas[index]);
+                mainSpellView.MainSpellButton.Clicked.TakeUntilDestroy(this).Subscribe(HandleClick);
             }
 
-            await UniTask.Delay(1);
+            OpenSpellViewContainer(SpellType.None);
+            
+            await UniTask.CompletedTask;
         }
 
         private void HandleClick(ButtonContext<SpellType> context)
         {
-            SpellType targetSpellType = context.Value;
+            UpdateSpellsView(context.Value);
+        }
 
+        private void UpdateSpellsView(SpellType spellType)
+        {
+            SpellType targetSpellType = spellType;
+
+            if (_currentSpellType == targetSpellType) // if double clicked
+                targetSpellType = SpellType.None;
+
+            OpenMainSpellView(targetSpellType);
+            OpenSpellViewContainer(targetSpellType);
+
+            _currentSpellType = targetSpellType;
+        }
+
+        private void OpenMainSpellView(SpellType targetSpellType)
+        {
             foreach (MainSpellView mainSpellView in _mainSpellViews)
             {
                 if (mainSpellView.SpellType == targetSpellType)
@@ -55,10 +81,13 @@ namespace Warlords.Player.Spells
                     mainSpellView.HideSelection();
                 }
             }
-            
+        }
+
+        private void OpenSpellViewContainer(SpellType spellType)
+        {
             foreach (SelectableSpellsViewContainer spellViewContainer in _spellViewContainers)
             {
-                if (spellViewContainer.SpellType != targetSpellType)
+                if (spellViewContainer.SpellType != spellType)
                 {
                     spellViewContainer.Hide();
                 }
@@ -68,5 +97,6 @@ namespace Warlords.Player.Spells
                 }
             }
         }
+        
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Warlords.Player.Spells;
 using Warlords.Utils;
 
@@ -10,6 +12,8 @@ namespace Warlords.Player
         {
             var newPlayerInfo = new PlayerInfo();
 
+            newPlayerInfo.Name = playerInfo.Name;
+            
             Color factionColor = playerInfo.Faction.Color;
             string factionName = playerInfo.Faction.Name;
 
@@ -52,7 +56,27 @@ namespace Warlords.Player
 
             return newPlayerInfo;
         }
-        
-        
+        public static void CopyAndSetAttributes(this PlayerInfo playerInfo, PlayerAttribute[] playerAttributes)
+        {
+            var newPlayerAttributes = new List<PlayerAttribute>(playerAttributes.Length);
+            
+            for (var i = 0; i < playerAttributes.Length; i++)
+            {
+                PlayerAttribute inputAttribute = playerAttributes[i];
+                
+                PlayerAttribute newPlayerAttribute = new PlayerAttribute();
+
+                int statValue = inputAttribute.Stat.Value;
+                string playerAttributeName = inputAttribute.Name;
+
+                newPlayerAttribute.Stat.Value = statValue;
+                newPlayerAttribute.Name = playerAttributeName;
+                
+                newPlayerAttributes.Add(newPlayerAttribute);
+            }
+
+            playerInfo.PlayerAttributes.Attributes = newPlayerAttributes;
+        }
+
     }
 }

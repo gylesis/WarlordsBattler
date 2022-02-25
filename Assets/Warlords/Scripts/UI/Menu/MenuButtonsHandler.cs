@@ -24,13 +24,12 @@ namespace Warlords.UI.Menu
         {
             MenuTag menuTag = context.Value;
 
-            if (menuTag is URLMenuTag)
+            if (menuTag is URLMenuTag urlMenuTag)
             {
-                var urlMenuTag = menuTag as URLMenuTag;
-                Application.OpenURL(urlMenuTag.URL);
+                ApplicationURLOpener.Instance.OpenURL(urlMenuTag.URL);
                 return;
             }
-            
+
             _menuSwitcher.OpenMenu(menuTag);
         }
 

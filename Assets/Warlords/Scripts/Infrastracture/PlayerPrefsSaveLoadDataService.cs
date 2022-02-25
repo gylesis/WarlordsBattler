@@ -48,7 +48,7 @@ namespace Warlords
         {
             onOverwrite?.Invoke(_data);
 
-            Debug.Log($"Overwriting SaveData:\n {_data}");
+            //Debug.Log($"Overwriting SaveData:\n {_data}");
             
             var json = JsonUtility.ToJson(_data);
             

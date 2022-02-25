@@ -9,7 +9,8 @@ namespace Warlords.Player.Spells
     public class SpellDataContainer : ScriptableObject
     {
        public List<SpellInfoContext> SpellInfos;
-
+       
+#if UNITY_EDITOR
        private void OnValidate()
        {
            EditorUtility.SetDirty(this);
@@ -25,6 +26,7 @@ namespace Warlords.Player.Spells
                }
            }
        }
+#endif
     }
 
     [Serializable]
