@@ -1,6 +1,8 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
+using Warlords.Player;
+using Warlords.Player.Attributes;
 using Warlords.Utils;
 
 namespace Warlords.UI.Menu
@@ -9,9 +11,13 @@ namespace Warlords.UI.Menu
     {
         private readonly MenuSwitcher _menuSwitcher;
         private readonly CompositeDisposable _disposable = new CompositeDisposable();
-        
-        public MenuButtonsHandler(MenuSwitcher menuSwitcher)
+
+        private MenuTag _currentTag;
+        private PlayerInfoPreSaver _playerInfoPreSaver;
+
+        public MenuButtonsHandler(MenuSwitcher menuSwitcher, PlayerInfoPreSaver playerInfoPreSaver)
         {
+            _playerInfoPreSaver = playerInfoPreSaver;
             _menuSwitcher = menuSwitcher;
         }
 
@@ -22,7 +28,10 @@ namespace Warlords.UI.Menu
         
         private void ProcessClick(ButtonContext<MenuButton, MenuTag> context)
         {
+            _playerInfoPreSaver.Discard();
             MenuTag menuTag = context.Value;
+
+            if(_currentTag == menuTag) return;
 
             if (menuTag is URLMenuTag urlMenuTag)
             {
@@ -31,6 +40,8 @@ namespace Warlords.UI.Menu
             }
 
             _menuSwitcher.OpenMenu(menuTag);
+            
+            _currentTag = menuTag;
         }
 
         public void Dispose()

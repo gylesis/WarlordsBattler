@@ -1,5 +1,4 @@
-﻿using Warlords.Player;
-using Warlords.Utils;
+﻿using Warlords.Utils;
 
 namespace Warlords.Faction
 {

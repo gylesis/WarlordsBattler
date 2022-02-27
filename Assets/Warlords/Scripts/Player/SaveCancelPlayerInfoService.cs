@@ -58,13 +58,15 @@ namespace Warlords.Player
             SetButtons(true);
         }
 
+        public void PlayerInfoDiscarded(PlayerInfo playerInfo)
+        {
+            SetButtons(false);
+        }
+
         private void SetButtons(bool state)
         {
             _saveButton.gameObject.SetActive(state);
             _cancelButton.gameObject.SetActive(state);
         }
-        
     }
-    
-    
 }

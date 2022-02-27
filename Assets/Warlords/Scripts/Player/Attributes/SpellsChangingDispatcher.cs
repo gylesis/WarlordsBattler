@@ -24,6 +24,11 @@ namespace Warlords.Player.Attributes
             PlayerSpellInfoChanged.OnNext(changedPlayerSpellsInfo);
         }
 
+        public void PlayerInfoDiscarded(PlayerInfo playerInfo)
+        {
+            PlayerSpellInfoDiscarded.OnNext(playerInfo.SpellInfo);
+        }
+
         public void Dispose()
         {
             _disposable.Dispose();

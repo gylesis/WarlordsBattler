@@ -1,5 +1,4 @@
-﻿using Warlords.Infrastracture.Installers;
-
+﻿
 namespace Warlords.Utils
 {
     public static class AssetsPath
@@ -9,5 +8,6 @@ namespace Warlords.Utils
         public const string PlayerAttributesPrefab = "UI/PlayerAttributeViewPrefab";
         public const string CurtainService = "CurtainService";
         public const string SelectableSpellViewPrefab = "UI/SelectableSpellViewPrefab";
+        public const string FactionView = "UI/FactionView";
     }
 }

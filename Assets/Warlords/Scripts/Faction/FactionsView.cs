@@ -1,12 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using UniRx;
 using UnityEngine;
 using Warlords.Infrastracture;
 using Warlords.Infrastracture.Factory;
-using Warlords.Infrastracture.Installers;
-using Warlords.Player;
-using Warlords.Utils;
 using Zenject;
 
 namespace Warlords.Faction
@@ -15,17 +12,15 @@ namespace Warlords.Faction
     {
         private AvailableFactions _factions;
         private FactionsViewFactory _factionsFactory;
-        private FactionView _factionViewPrefab;
-        private PlayerInfoSetter _playerInfoSetter;
+        private FactionButtonsHandler _factionButtonsHandler;
 
         [Inject]
         private void Init(AvailableFactions factions, FactionsViewFactory factionsFactory,
-            FactionView factionViewPrefab, PlayerInfoSetter playerInfoSetter, AsyncLoadingsRegister asyncLoadingsRegister)
+            AsyncLoadingsRegister asyncLoadingsRegister, FactionButtonsHandler factionButtonsHandler)
         {
             asyncLoadingsRegister.Register(this);
-            
-            _playerInfoSetter = playerInfoSetter;
-            _factionViewPrefab = factionViewPrefab;
+
+            _factionButtonsHandler = factionButtonsHandler;
             _factionsFactory = factionsFactory;
             _factions = factions;
         }
@@ -34,30 +29,26 @@ namespace Warlords.Faction
         {
             var fractions = _factions.WarlordFactions;
 
+            List<FactionView> factionViews = new List<FactionView>();
+            
             foreach (WarlordFaction warlordFraction in fractions)
             {
                 var context = new FractionViewContext();
 
-                context.warlordFaction = new WarlordFaction();
-
-                context.warlordFaction.Color = warlordFraction.Color;
-                context.warlordFaction.Name = warlordFraction.Name;
-                context.Prefab = _factionViewPrefab;
+                context.WarlordFaction = new WarlordFaction();
                 context.Parent = transform;
 
+                context.WarlordFaction.Color = warlordFraction.Color;
+                context.WarlordFaction.Name = warlordFraction.Name;
+
                 FactionView factionView = _factionsFactory.Create(context);
-
-                factionView.FactionButton.Clicked
-                    .TakeUntilDestroy(factionView)
-                    .Subscribe(OnFactionChanged);
+                
+                factionViews.Add(factionView);
             }
-
+            
+            _factionButtonsHandler.Register(factionViews);
+            
             await UniTask.CompletedTask;
-        }
-
-        private void OnFactionChanged(ButtonContext<FactionView, WarlordFaction> sender)
-        {
-            _playerInfoSetter.SetFaction(sender.Value);
         }
     }
 }

@@ -17,5 +17,10 @@ namespace Warlords.Player
                 playerInfoChangedListener.PlayerInfoChanged(playerInfo);
         }
         
+        public void DiscardPlayerInfo(PlayerInfo playerInfo)
+        {
+            foreach (IPlayerInfoChangedListener playerInfoChangedListener in _listeners)
+                playerInfoChangedListener.PlayerInfoDiscarded(playerInfo);
+        }
     }
 }

@@ -9,8 +9,8 @@ namespace Warlords.UI.PopUp
         public AppearanceItemType AppearanceType;
 
         [SerializeField] private TMP_Text _count;   
-        
-       [SerializeField] private AppearanceItemView[] _appearanceItemViews;  
+          
+        [SerializeField] private AppearanceItemView[] _appearanceItemViews;  
        
         private AppearanceItemsDictionary _itemsDictionary;
 
@@ -52,7 +52,7 @@ namespace Warlords.UI.PopUp
         {
             foreach (AppearanceItemView appearanceItemView in _appearanceItemViews)
             {
-                if (appearanceItemView !=  targetItemView)
+                if (appearanceItemView != targetItemView)
                 {
                     appearanceItemView.gameObject.SetActive(false);
                 }

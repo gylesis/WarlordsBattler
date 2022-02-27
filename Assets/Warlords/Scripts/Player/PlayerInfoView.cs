@@ -22,6 +22,6 @@ namespace Warlords.Player
         }
 
         public abstract void PlayerInfoChanged(PlayerInfo playerInfo);
-       
+        public abstract void PlayerInfoDiscarded(PlayerInfo playerInfo);
     }
 }

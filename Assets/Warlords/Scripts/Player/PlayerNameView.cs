@@ -15,5 +15,10 @@ namespace Warlords.Player
                 _infoView.text = playerInfo.Name;
             }
         }
+
+        public override void PlayerInfoDiscarded(PlayerInfo playerInfo)
+        {
+            _infoView.text = playerInfo.Name;
+        }
     }
 }
