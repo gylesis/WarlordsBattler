@@ -1,6 +1,4 @@
-﻿using Warlords.Player;
-
-namespace Warlords.UI.PopUp
+﻿namespace Warlords.Player
 {
     public class PlayerNameSetter
     {

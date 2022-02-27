@@ -2,6 +2,7 @@
 using Warlords.Faction;
 using Warlords.Player.Attributes;
 using Warlords.Player.Spells;
+using Warlords.UI.Appearance;
 using Warlords.UI.PopUp;
 
 namespace Warlords.Player

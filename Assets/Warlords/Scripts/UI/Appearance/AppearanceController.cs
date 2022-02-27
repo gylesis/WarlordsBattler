@@ -1,27 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using System.Linq;
 using Warlords.Utils;
 
-namespace Warlords.UI.PopUp
+namespace Warlords.UI.Appearance
 {
     public class AppearanceController
     {
        // private readonly Dictionary<AppearanceContainer, int> _appearanceContainer = new Dictionary<AppearanceContainer, int>();
 
-        private readonly AppearanceContainer _headContainer;
-        private readonly AppearanceContainer _bodyContainer;
-        private readonly AppearanceContainer _skinContainer;
+        private readonly AppearanceViewContainer _headViewContainer;
+        private readonly AppearanceViewContainer _bodyViewContainer;
+        private readonly AppearanceViewContainer _skinViewContainer;
         
         private readonly CurtainService _curtainService;
 
-        public AppearanceController(AppearanceContainer[] appearanceContainers, CurtainService curtainService)
+        public AppearanceController(AppearanceViewContainer[] appearanceContainers, CurtainService curtainService)
         {
             _curtainService = curtainService;
 
-            _headContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Head);
-            _bodyContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Body);
-            _skinContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Skin);
+            _headViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Head);
+            _bodyViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Body);
+            _skinViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Skin);
 
             SwitchToNext(AppearanceItemType.Body, true);
             SwitchToNext(AppearanceItemType.Head, true);
@@ -31,26 +29,31 @@ namespace Warlords.UI.PopUp
         {
             _curtainService.Show();
 
-            AppearanceContainer appearanceContainer = _bodyContainer;
+            AppearanceViewContainer appearanceViewContainer = _bodyViewContainer;
 
             switch (itemType)
             {
                 case AppearanceItemType.Head:
-                    appearanceContainer = _headContainer;
+                    appearanceViewContainer = _headViewContainer;
                     break;
                 case AppearanceItemType.Body:
-                    appearanceContainer = _bodyContainer;
+                    appearanceViewContainer = _bodyViewContainer;
                     break;
                 case AppearanceItemType.Skin:
-                    appearanceContainer = _skinContainer;
+                    appearanceViewContainer = _skinViewContainer;
                     break;
             }
 
            // _appearanceContainer[appearanceContainer]--;
 
-            await appearanceContainer.UpdateView(isLeftSide);
+            await appearanceViewContainer.UpdateView(isLeftSide);
 
             _curtainService.Hide();
         }
+
+        public void Save()
+        {
+        }
+        
     }
 }

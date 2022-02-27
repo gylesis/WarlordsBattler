@@ -1,7 +1,7 @@
 ﻿using System;
 using Warlords.Player;
 
-namespace Warlords
+namespace Warlords.Infrastracture
 {
     [Serializable]
     public class SaveData

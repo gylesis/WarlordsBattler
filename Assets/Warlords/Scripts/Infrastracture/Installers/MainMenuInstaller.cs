@@ -2,6 +2,7 @@
 using Warlords.Infrastracture.Factory;
 using Warlords.Player;
 using Warlords.Player.Attributes;
+using Warlords.UI.Appearance;
 using Warlords.UI.Menu;
 using Warlords.UI.PopUp;
 using Warlords.Utils;
@@ -20,7 +21,7 @@ namespace Warlords.Infrastracture.Installers
 
         [SerializeField] private LeftAttributesUpgradesAmountView _leftAttributesUpgradesAmountView;
         
-        [SerializeField] private AppearanceContainer[] _appearanceContainers;
+        [SerializeField] private AppearanceViewContainer[] _appearanceContainers;
 
         public override void InstallBindings()
         {
@@ -40,7 +41,7 @@ namespace Warlords.Infrastracture.Installers
 
             Container.Bind<PopUpsService>().FromInstance(_popUpsService).AsSingle();
 
-            Container.Bind<AppearanceContainer[]>().FromInstance(_appearanceContainers).AsSingle();
+            Container.Bind<AppearanceViewContainer[]>().FromInstance(_appearanceContainers).AsSingle();
             Container.Bind<AppearanceController>().AsSingle().NonLazy();
            
         }

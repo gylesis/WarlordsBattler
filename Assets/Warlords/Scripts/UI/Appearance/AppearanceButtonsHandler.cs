@@ -3,7 +3,7 @@ using UnityEngine;
 using Warlords.Utils;
 using Zenject;
 
-namespace Warlords.UI.PopUp
+namespace Warlords.UI.Appearance
 {
     public class AppearanceButtonsHandler : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace Warlords
+﻿namespace Warlords.Infrastracture
 {
     public class GameConfig
     {

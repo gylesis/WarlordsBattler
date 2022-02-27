@@ -1,8 +1,8 @@
 ﻿using System;
 using UniRx;
-using Warlords.Player.Spells;
+using Warlords.Player.Attributes;
 
-namespace Warlords.Player.Attributes
+namespace Warlords.Player.Spells
 {
     public class SpellsChangingDispatcher : IDisposable, IPlayerInfoChangedListener
     {

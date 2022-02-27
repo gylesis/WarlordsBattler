@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Warlords.Player;
+using Warlords.Player.Attributes;
 using Warlords.Player.Spells;
-using Warlords.Utils;
 
-namespace Warlords.Player
+namespace Warlords.Utils
 {
     public static class Extensions
     {

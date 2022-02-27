@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Warlords.Player;
 
-namespace Warlords
+namespace Warlords.Infrastracture
 {
     public class PlayerPrefsSaveLoadDataService : ISaveLoadDataService 
     {

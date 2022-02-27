@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Warlords.Utils;
 
-namespace Warlords.UI.PopUp
+namespace Warlords.UI.Appearance
 {
     public class AppearanceButton : ReactiveButton<AppearanceItemType, bool>
     {

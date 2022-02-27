@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Warlords.UI.Menu
+namespace Warlords.Utils
 {
     public class ApplicationURLOpener
     {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Warlords.UI.PopUp
+namespace Warlords.UI.Appearance
 {
     public class AppearanceItemsViewContainer : MonoBehaviour
     {

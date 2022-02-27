@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Warlords
+namespace Warlords.Infrastracture
 {
     public interface ISaveLoadDataService
     {

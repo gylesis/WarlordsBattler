@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Warlords.Utils;
+using Warlords.Infrastracture;
 using Zenject;
 
-namespace Warlords.Infrastracture
+namespace Warlords.Utils
 {
     public class SceneLoader : MonoBehaviour
     {

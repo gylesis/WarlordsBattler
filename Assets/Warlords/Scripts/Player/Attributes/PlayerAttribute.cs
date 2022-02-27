@@ -1,6 +1,7 @@
 ﻿using System;
+using Warlords.Utils;
 
-namespace Warlords.Utils
+namespace Warlords.Player.Attributes
 {
     [Serializable]
     public class PlayerAttribute

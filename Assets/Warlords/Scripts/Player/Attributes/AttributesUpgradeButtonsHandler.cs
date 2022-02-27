@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Profiling;
+using Warlords.Infrastracture;
 using Warlords.Utils;
 
 namespace Warlords.Player.Attributes

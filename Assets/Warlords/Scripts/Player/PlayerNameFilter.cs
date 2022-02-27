@@ -1,4 +1,4 @@
-﻿namespace Warlords.UI.PopUp
+﻿namespace Warlords.Player
 {
     public class PlayerNameFilter : IPlayerNameFilter
     {

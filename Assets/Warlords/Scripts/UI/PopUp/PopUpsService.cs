@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using Warlords.Infrastracture.Factory;
+using Warlords.Player;
 using Warlords.Utils;
 using Zenject;
 

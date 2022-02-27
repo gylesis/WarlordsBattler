@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Warlords.Player;
 
-namespace Warlords.UI.PopUp
+namespace Warlords.UI.Appearance
 {
-    public class AppearanceContainer : MonoBehaviour
+    public class AppearanceViewContainer : MonoBehaviour
     {
-        public AppearanceItemType AppearanceType;
-
-        [SerializeField] private TMP_Text _count;   
-          
-        [SerializeField] private AppearanceItemView[] _appearanceItemViews;  
+        [SerializeField] private AppearanceItemType _appearanceItemType;
+        [SerializeField] private TMP_Text _count;
+        [SerializeField] private AppearanceItemView[] _appearanceItemViews;
+        public AppearanceItemType AppearanceType => _appearanceItemType;
        
         private AppearanceItemsDictionary _itemsDictionary;
-
-        private int _index = 1;
+        
+        private int _currentItemIndex = 1;
         
         /*
         public void Init(AppearanceItemsDictionary itemsDictionary)
@@ -27,19 +27,19 @@ namespace Warlords.UI.PopUp
         {
             if (isLeftSide)
             {
-                _index--;
+                _currentItemIndex--;
             }
             else
             {
-                _index++;
+                _currentItemIndex++;
             }
 
             var maxIndex = _appearanceItemViews.Length;
-            _index = Mathf.Clamp(_index, 1, maxIndex);
+            _currentItemIndex = Mathf.Clamp(_currentItemIndex, 1, maxIndex);
 
-            _count.text = $"{_index} of {maxIndex}";
+            _count.text = $"{_currentItemIndex} of {maxIndex}";
             
-            AppearanceItemView appearanceItemView = _appearanceItemViews[_index - 1];
+            AppearanceItemView appearanceItemView = _appearanceItemViews[_currentItemIndex - 1];
 
             ChangeItem(appearanceItemView);
 
@@ -52,16 +52,18 @@ namespace Warlords.UI.PopUp
         {
             foreach (AppearanceItemView appearanceItemView in _appearanceItemViews)
             {
-                if (appearanceItemView != targetItemView)
+                if (appearanceItemView == targetItemView)
+                {
+                    targetItemView.gameObject.SetActive(true);
+                }
+                else
                 {
                     appearanceItemView.gameObject.SetActive(false);
                 }
             }
-            targetItemView.gameObject.SetActive(true);
         }
         
     }
-
 
     public class AppearanceSaver
     {

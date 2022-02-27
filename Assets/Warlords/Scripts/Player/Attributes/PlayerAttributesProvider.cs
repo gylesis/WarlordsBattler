@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Warlords.Player;
-using Warlords.Player.Attributes;
+using Warlords.Infrastracture;
 
-namespace Warlords.Utils
+namespace Warlords.Player.Attributes
 {
     public class PlayerAttributesProvider
     {

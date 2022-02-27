@@ -1,4 +1,4 @@
-﻿namespace Warlords.UI.PopUp
+﻿namespace Warlords.UI.Appearance
 {
     public enum AppearanceItemType
     {
