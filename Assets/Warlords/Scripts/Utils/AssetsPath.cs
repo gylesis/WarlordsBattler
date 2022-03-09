@@ -4,10 +4,11 @@ namespace Warlords.Utils
     public static class AssetsPath
     {
         public const string SceneLoader = "SceneLoader";
-        public const string PlayerPopUpPrefabPath = "UI/ChangeNamePopUp";
-        public const string PlayerAttributesPrefab = "UI/PlayerAttributeViewPrefab";
+        public const string ChangePlayerNamePopUp = "UI/ChangeNamePopUp";
+        public const string RedirectionPopUp = "UI/RedirectionPopUp";
+        public const string PlayerAttribute = "UI/PlayerAttributeViewPrefab";
         public const string CurtainService = "CurtainService";
-        public const string SelectableSpellViewPrefab = "UI/SelectableSpellViewPrefab";
+        public const string SelectableSpellView = "UI/SelectableSpellViewPrefab";
         public const string FactionView = "UI/FactionView";
     }
 }

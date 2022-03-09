@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
-using Warlords.Infrastracture;
+using Warlords.Infrastructure;
 using Warlords.Player.Attributes;
 using Warlords.Utils;
 using Zenject;

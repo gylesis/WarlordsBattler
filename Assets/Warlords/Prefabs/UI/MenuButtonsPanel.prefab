@@ -554,7 +554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4307646073082807292, guid: 98d0d623582f03846ab5ee468e1db1db, type: 3}
       propertyPath: m_text
-      value: Unit Selection
+      value: Faction Champion Pool
       objectReference: {fileID: 0}
     - target: {fileID: 4523361355162607719, guid: 98d0d623582f03846ab5ee468e1db1db, type: 3}
       propertyPath: _menuTagToOpen
@@ -603,6 +603,10 @@ PrefabInstance:
     - target: {fileID: 7144458176617680605, guid: 98d0d623582f03846ab5ee468e1db1db, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7144458176617680605, guid: 98d0d623582f03846ab5ee468e1db1db, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 329.93
       objectReference: {fileID: 0}
     - target: {fileID: 7144458176617680605, guid: 98d0d623582f03846ab5ee468e1db1db, type: 3}
       propertyPath: m_SizeDelta.y

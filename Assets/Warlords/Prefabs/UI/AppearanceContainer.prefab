@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d12d400b2f4f04b20a7c3afffe2439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AppearanceType: 0
+  _appearanceItemType: 0
   _count: {fileID: 9133786044451665430}
   _appearanceItemViews: []
 --- !u!1 &8387850623627170443

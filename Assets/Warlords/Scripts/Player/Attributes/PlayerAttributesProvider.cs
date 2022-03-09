@@ -1,19 +1,29 @@
 ﻿using System.Collections.Generic;
-using Warlords.Infrastracture;
+using System.Linq;
+using Warlords.Factions;
+using Warlords.Infrastructure;
 
 namespace Warlords.Player.Attributes
 {
     public class PlayerAttributesProvider
     {
-        public List<PlayerAttribute> PlayerInfoAttributes { get; }
+        private readonly PlayerInfoStaticData _staticData;
 
-        public PlayerAttributesProvider(ISaveLoadDataService saveLoadDataService, PlayerInfoStaticData staticData)
+        public PlayerAttributesProvider(PlayerInfoStaticData staticData)
         {
-            /*PlayerInfo playerInfo = saveLoadDataService.Data.PlayerInfo;
-            PlayerAttributes playerInfoPlayerAttributes = playerInfo.PlayerAttributes;*/
-
-            PlayerInfoAttributes = new List<PlayerAttribute>();
-         
+            _staticData = staticData;
         }
+
+        public PlayerAttribute[] GetAttributesByFaction(Faction targetFaction)
+        {
+            AttributesPerFaction attributesPerFaction =
+                _staticData.PlayerAttributes.AttributesPerFactions.First(faction =>
+                    faction.Faction.Value.Name == targetFaction.Name);
+
+            var playerStartAttributes = attributesPerFaction.PlayerStartAttributes;
+
+            return playerStartAttributes;
+        }
+        
     }
 }

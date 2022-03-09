@@ -18,7 +18,14 @@ namespace Warlords.Player
 
         public override void PlayerInfoDiscarded(PlayerInfo playerInfo)
         {
-            _infoView.text = playerInfo.Name;
+            if (playerInfo.Name == String.Empty)
+            {
+                _infoView.text = "Unnamed";
+            }
+            else
+            {
+                _infoView.text = playerInfo.Name;
+            }
         }
     }
 }

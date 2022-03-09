@@ -11,7 +11,7 @@ namespace Warlords.Utils
         private void Reset() =>
             _button = GetComponent<Button>();
 
-        public Subject<Unit> Clicked =
+        public Subject<Unit> Clicked { get; } =
             new Subject<Unit>();
 
         private void Awake()

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using Warlords.Player;
 
 namespace Warlords.UI.Appearance
 {
@@ -12,18 +12,27 @@ namespace Warlords.UI.Appearance
         [SerializeField] private AppearanceItemView[] _appearanceItemViews;
         public AppearanceItemType AppearanceType => _appearanceItemType;
        
-        private AppearanceItemsDictionary _itemsDictionary;
+       // private AppearanceItemsDictionary _itemsDictionary;
+
+        public int Index { get; set; }
         
         private int _currentItemIndex = 1;
-        
-        /*
-        public void Init(AppearanceItemsDictionary itemsDictionary)
-        {
-            _itemsDictionary = itemsDictionary;
-        }
-        */
 
-        public async Task UpdateView(bool isLeftSide)
+        public void Init(int itemIndex)
+        {
+            _currentItemIndex = itemIndex;
+
+            _currentItemIndex--;
+            
+            int index = 1;
+            
+            foreach (AppearanceItemView appearanceItemView in _appearanceItemViews)
+            {
+                appearanceItemView.Index = index++;
+            }
+        }
+
+        public async UniTask UpdateView(bool isLeftSide)
         {
             if (isLeftSide)
             {
@@ -37,15 +46,15 @@ namespace Warlords.UI.Appearance
             var maxIndex = _appearanceItemViews.Length;
             _currentItemIndex = Mathf.Clamp(_currentItemIndex, 1, maxIndex);
 
+            Index = _currentItemIndex;
+            
             _count.text = $"{_currentItemIndex} of {maxIndex}";
             
-            AppearanceItemView appearanceItemView = _appearanceItemViews[_currentItemIndex - 1];
+            var appearanceItemView = _appearanceItemViews[_currentItemIndex - 1];
 
             ChangeItem(appearanceItemView);
 
-            await Task.Delay(100);
-
-            //  await _itemsDictionary.Get(AppearanceType, _index);
+            await UniTask.CompletedTask;
         }
 
         private void ChangeItem(AppearanceItemView targetItemView)
@@ -65,15 +74,4 @@ namespace Warlords.UI.Appearance
         
     }
 
-    public class AppearanceSaver
-    {
-
-        
-        public void Save()
-        {
-            
-        }
-        
-    }
-    
 }

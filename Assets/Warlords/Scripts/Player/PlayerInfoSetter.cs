@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using Warlords.Faction;
-using Warlords.Infrastracture;
+using Warlords.Factions;
+using Warlords.Infrastructure;
 
 namespace Warlords.Player
 {
@@ -22,7 +22,7 @@ namespace Warlords.Player
             _saveData = saveLoadDataService.Data;
         }
 
-        public void SetFaction(WarlordFaction faction)
+        public void SetFaction(Faction faction)
         {
             _saveData.PlayerInfo.Faction = faction;
 
@@ -39,7 +39,7 @@ namespace Warlords.Player
         private void PlayerInfoChanged(PlayerInfo playerInfo)
         {
             _playerInfoChangedDispatcher.ChangePlayerInfo(_saveData.PlayerInfo);
-
+            
             _saveLoadDataService.Overwrite(data =>
             {
                 data.PlayerInfo = playerInfo;

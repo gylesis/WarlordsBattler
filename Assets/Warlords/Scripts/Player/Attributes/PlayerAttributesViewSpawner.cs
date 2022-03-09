@@ -1,54 +1,60 @@
-﻿using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
-using Warlords.Infrastracture;
-using Warlords.Infrastracture.Factory;
+﻿using Cysharp.Threading.Tasks;
+using Warlords.Infrastructure;
+using Warlords.Infrastructure.Factory;
 using Warlords.Utils;
-using Zenject;
 
 namespace Warlords.Player.Attributes
 {
-    public class PlayerAttributesViewSpawner : MonoBehaviour, IAsyncLoad
+    public class PlayerAttributesViewSpawner : IAsyncLoad
     {
-        [SerializeField] private Transform _parent;
+        private readonly PlayerAttributeViewFactory _factory;
+        private readonly AttributesUpgradeButtonsHandler _upgradeButtonsHandler;
+        private readonly ISaveLoadDataService _saveLoadDataService;
+        private readonly PlayerAttributesViewService _viewService;
 
-        private UIFactory _factory;
-        private PlayerAttributesProvider _attributesProvider;
-        private AttributesUpgradeButtonsHandler _upgradeButtonsHandler;
-        private ISaveLoadDataService _saveLoadDataService;
-
-        [Inject]
-        private void Init(AsyncLoadingsRegister asyncLoadingsRegister, UIFactory factory,
-            PlayerAttributesProvider attributesProvider,ISaveLoadDataService saveLoadDataService, AttributesUpgradeButtonsHandler upgradeButtonsHandler)
+        public PlayerAttributesViewSpawner(AsyncLoadingsRegister asyncLoadingsRegister,
+            PlayerAttributeViewFactory factory,
+            ISaveLoadDataService saveLoadDataService,
+            AttributesUpgradeButtonsHandler upgradeButtonsHandler,
+            PlayerAttributesViewService viewService)
         {
             asyncLoadingsRegister.Register(this);
             
+            _viewService = viewService;
             _saveLoadDataService = saveLoadDataService;
             _upgradeButtonsHandler = upgradeButtonsHandler;
-            _attributesProvider = attributesProvider;
             _factory = factory;
         }
 
         public async UniTask AsyncLoad()
         {
-            var attributes = _saveLoadDataService.Data.PlayerInfo.PlayerAttributes.Attributes;
+            var attributes = _saveLoadDataService.Data.PlayerInfo.AttributesData.Attributes;
 
-            foreach (PlayerAttribute attribute in attributes)
+            var playerAttributeViews = new PlayerAttributeView[8];
+
+            for (var i = 0; i < attributes.Length; i++)
             {
-                PlayerAttributeView attributeView = await _factory.CreatePlayerAttributeView(AssetsPath.PlayerAttributesPrefab, _parent);
-
+                PlayerAttribute attribute = attributes[i];
+                
+                PlayerAttributeView attributeView =
+                    await _factory.CreatePlayerAttributeView();       
+    
                 var playerAttribute = new PlayerAttribute();
 
                 playerAttribute.Stat = new IntStat();
-                
+
                 playerAttribute.Name = attribute.Name;
                 playerAttribute.Stat.Value = attribute.Stat.Value;
-                
+
                 attributeView.Init(playerAttribute);
 
                 _upgradeButtonsHandler.RegisterButton(attributeView.MinusButton);
                 _upgradeButtonsHandler.RegisterButton(attributeView.PlusButton);
+
+                playerAttributeViews[i] = attributeView;
             }
+
+            _viewService.RegisterViews(playerAttributeViews);
         }
     }
 }

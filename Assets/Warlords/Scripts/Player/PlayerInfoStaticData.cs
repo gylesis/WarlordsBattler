@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Warlords.Faction;
+using Warlords.Factions;
 using Warlords.Player.Attributes;
 
 namespace Warlords.Player

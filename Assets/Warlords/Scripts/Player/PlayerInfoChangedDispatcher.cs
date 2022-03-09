@@ -23,4 +23,5 @@ namespace Warlords.Player
                 playerInfoChangedListener.PlayerInfoDiscarded(playerInfo);
         }
     }
+
 }

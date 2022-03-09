@@ -10,6 +10,8 @@ namespace Warlords.UI.Menu
 
         private void OnValidate()
         {
+            if(_tag == null) return;
+            
             name = $"{_tag.name}";
         }
     }

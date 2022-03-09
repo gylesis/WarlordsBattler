@@ -1,28 +1,35 @@
 ﻿using System.Linq;
+using Warlords.Player.Attributes;
 using Warlords.Utils;
 
 namespace Warlords.UI.Appearance
 {
     public class AppearanceController
     {
-       // private readonly Dictionary<AppearanceContainer, int> _appearanceContainer = new Dictionary<AppearanceContainer, int>();
-
         private readonly AppearanceViewContainer _headViewContainer;
         private readonly AppearanceViewContainer _bodyViewContainer;
         private readonly AppearanceViewContainer _skinViewContainer;
         
         private readonly CurtainService _curtainService;
+        private readonly PlayerInfoPreSaver _playerInfoPreSaver;
 
-        public AppearanceController(AppearanceViewContainer[] appearanceContainers, CurtainService curtainService)
+        public AppearanceController(AppearanceViewContainer[] appearanceContainers, CurtainService curtainService, PlayerInfoPreSaver playerInfoPreSaver)
         {
+            _playerInfoPreSaver = playerInfoPreSaver;
             _curtainService = curtainService;
 
             _headViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Head);
             _bodyViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Body);
-            _skinViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Skin);
+            //_skinViewContainer = appearanceContainers.First(x => x.AppearanceType == AppearanceItemType.Skin);
 
-            SwitchToNext(AppearanceItemType.Body, true);
-            SwitchToNext(AppearanceItemType.Head, true);
+            var headIndex = _playerInfoPreSaver.PlayerInfo.Appearance.Head.Index;
+            var bodyIndex = _playerInfoPreSaver.PlayerInfo.Appearance.Body.Index;
+            
+            _headViewContainer.Init(headIndex);
+            _bodyViewContainer.Init(bodyIndex);
+
+            SwitchToNext(AppearanceItemType.Head, false);
+            SwitchToNext(AppearanceItemType.Body, false);
         }
 
         public async void SwitchToNext(AppearanceItemType itemType, bool isLeftSide)
@@ -44,15 +51,24 @@ namespace Warlords.UI.Appearance
                     break;
             }
 
-           // _appearanceContainer[appearanceContainer]--;
-
             await appearanceViewContainer.UpdateView(isLeftSide);
 
+            Save();
+            
             _curtainService.Hide();
         }
 
-        public void Save()
+        private void Save()
         {
+            var headIndex = _headViewContainer.Index;
+            var bodyIndex = _bodyViewContainer.Index;
+
+            _playerInfoPreSaver.Overwrite((data =>
+            {
+                data.Appearance.Head.Index = headIndex;
+                data.Appearance.Body.Index = bodyIndex;
+            }));
+            
         }
         
     }

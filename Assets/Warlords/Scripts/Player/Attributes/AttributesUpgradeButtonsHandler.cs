@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
-using UnityEngine;
-using UnityEngine.Profiling;
-using Warlords.Infrastracture;
+using Warlords.Infrastructure;
 using Warlords.Utils;
 
 namespace Warlords.Player.Attributes
@@ -12,7 +11,6 @@ namespace Warlords.Player.Attributes
     {
         private readonly LeftAttributesUpgradesAmountView _leftAttributesUpgradesAmountView;
         private readonly PlayerInfoPreSaver _preSaver;
-
         private readonly List<PlayerAttribute> _attributes = new List<PlayerAttribute>();
 
         public AttributesUpgradeButtonsHandler(ISaveLoadDataService saveLoadDataService,
@@ -25,22 +23,22 @@ namespace Warlords.Player.Attributes
                 .TakeUntilDestroy(_leftAttributesUpgradesAmountView)
                 .Subscribe(PlayerInfoDiscarded);
 
-            _leftAttributesUpgradesAmountView.UpdateView(saveLoadDataService.Data.PlayerInfo.PlayerAttributes
+            _leftAttributesUpgradesAmountView.UpdateView(saveLoadDataService.Data.PlayerInfo.AttributesData
                 .LeftUpgrades);
         }
 
         private void PlayerInfoDiscarded(PlayerInfo playerInfo)
         {
-            var playerAttributes = playerInfo.PlayerAttributes.Attributes;
+            var playerAttributes = playerInfo.AttributesData.Attributes;
 
             foreach (PlayerAttribute playerAttribute in _attributes)
             {
-                PlayerAttribute attribute = playerAttributes.Find(x => x.Name == playerAttribute.Name);
+                PlayerAttribute attribute = playerAttributes.First(x => x.Name == playerAttribute.Name);
 
-                playerAttribute.Stat.Set(attribute.Stat.Value);
+                playerAttribute.Stat.Value = attribute.Stat.Value;
             }
 
-            _leftAttributesUpgradesAmountView.UpdateView(playerInfo.PlayerAttributes.LeftUpgrades);
+            _leftAttributesUpgradesAmountView.UpdateView(playerInfo.AttributesData.LeftUpgrades);
         }
 
         public void RegisterButton(UpgradeAttributeButton attributeButton)
@@ -58,7 +56,7 @@ namespace Warlords.Player.Attributes
 
         private void HandleClick(ButtonContext<PlayerAttribute, bool> buttonContext)
         {
-            int leftUpgrades = _preSaver.PlayerInfo.PlayerAttributes.LeftUpgrades;
+            int leftUpgrades = _preSaver.PlayerInfo.AttributesData.LeftUpgrades;
             PlayerAttribute playerAttribute = buttonContext.Sender;
             bool buttonValue = buttonContext.Value;
 
@@ -86,19 +84,19 @@ namespace Warlords.Player.Attributes
             leftUpgrades += -addValue;
             
             _leftAttributesUpgradesAmountView.UpdateView(leftUpgrades);
-            
-            playerAttribute.Stat.Add(addValue);
+
+            playerAttribute.Stat.Value += addValue;
 
             _preSaver.Overwrite(playerInfo =>
             {
-                playerInfo.PlayerAttributes.LeftUpgrades =
+                playerInfo.AttributesData.LeftUpgrades =
                     leftUpgrades;
 
-                var playerAttributes = playerInfo.PlayerAttributes.Attributes;
+                var playerAttributes = playerInfo.AttributesData.Attributes;
 
-                PlayerAttribute attribute = playerAttributes.Find(x => x.Name == playerAttribute.Name);
-                
-                attribute.Stat.Set(playerAttribute.Stat.Value);
+                PlayerAttribute attribute = playerAttributes.First(x => x.Name == playerAttribute.Name);
+
+                attribute.Stat.Value = playerAttribute.Stat.Value;
 
             });
         }

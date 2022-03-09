@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Warlords.Infrastracture;
+using Warlords.Infrastructure;
 using Warlords.Utils;
 using Zenject;
 
@@ -39,7 +39,7 @@ namespace Warlords.Player.Spells
         public async UniTask AsyncLoad()
         {
             ResourceRequest resourceRequest =
-                Resources.LoadAsync<SelectableSpellView>(AssetsPath.SelectableSpellViewPrefab);
+                Resources.LoadAsync<SelectableSpellView>(AssetsPath.SelectableSpellView);
 
             await resourceRequest;
 

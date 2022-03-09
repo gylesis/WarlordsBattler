@@ -10,15 +10,10 @@ namespace Warlords.UI.Menu
         [SerializeField] private Menu[] _menus;
 
         private MenuContext[] _menuContexts;
-        private MenuTagsContainer _menuTagsContainers;
-        private FirstActionsChecker _firstActionsChecker;
 
         [Inject]
-        private void Init(MenuTagsContainer menuTagsContainers, FirstActionsChecker firstActionsChecker)
+        private void Init()
         {
-            _firstActionsChecker = firstActionsChecker;
-            _menuTagsContainers = menuTagsContainers;
-            
             var menuContexts = new List<MenuContext>();
 
             for (var i = 0; i < _menus.Length; i++)
@@ -43,8 +38,6 @@ namespace Warlords.UI.Menu
         private void OpenMenu(Menu targetMenu)
         {
             ActivateMenu();
-            
-            CheckSomeConditions();
 
             void ActivateMenu()
             {
@@ -61,16 +54,6 @@ namespace Warlords.UI.Menu
                 }
             }
 
-            void CheckSomeConditions()
-            {
-                MenuTag warlordMenuTag = _menuTagsContainers.WarlordTag;
-
-                if (targetMenu.Tag == warlordMenuTag)
-                {
-                    _firstActionsChecker.CheckIfNameTyped();
-                }
-                
-            }
         }
         
         private MenuContext FindMenuContextByTag(MenuTag tag)

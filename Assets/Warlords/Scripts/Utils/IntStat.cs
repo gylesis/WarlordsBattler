@@ -1,28 +1,27 @@
 ﻿using System;
 using UniRx;
+using UnityEngine;
 
 namespace Warlords.Utils
 {
     [Serializable]
     public class IntStat
     {
-        public int Value = 1;
+        [SerializeField] private int _value;
 
-        public Subject<int> Changed = new Subject<int>();
-        
-        public void Add(int value)
+        public int Value
         {
-            Value += value;
-            Changed.OnNext(Value);
-        }
-
-        public void Set(int value)
-        {
-            if(value == Value) return;
+            get => _value;
             
-            Value = value;
-            Changed.OnNext(Value);
+            set
+            {
+                if(value == _value) return;
+
+                _value = value;
+                Changed.OnNext(_value);
+            }
         }
-        
+
+        public Subject<int> Changed { get; } = new Subject<int>();
     }
 }

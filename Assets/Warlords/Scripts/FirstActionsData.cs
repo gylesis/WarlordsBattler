@@ -6,5 +6,6 @@ namespace Warlords
     public class FirstActionsData
     {
         public bool IsNameTyped;
+        public bool IsAvatarChosen;
     }
 }

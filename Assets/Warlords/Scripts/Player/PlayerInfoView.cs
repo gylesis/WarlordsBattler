@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using Warlords.Infrastracture;
 using Zenject;
 
 namespace Warlords.Player
@@ -16,7 +14,7 @@ namespace Warlords.Player
         }
 
         [Inject]
-        private void Init(PlayerInfoChangeRegister register)
+        protected virtual void Init(PlayerInfoChangeRegister register)
         {
             register.Register(this);
         }

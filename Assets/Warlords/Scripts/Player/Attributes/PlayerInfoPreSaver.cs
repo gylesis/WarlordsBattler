@@ -1,6 +1,6 @@
 ﻿using System;
 using UniRx;
-using Warlords.Infrastracture;
+using Warlords.Infrastructure;
 using Warlords.Utils;
 
 namespace Warlords.Player.Attributes
@@ -25,11 +25,14 @@ namespace Warlords.Player.Attributes
             _oldPlayerInfo = _playerInfo.Copy();
         }
 
-        public void Overwrite(Action<PlayerInfo> overwrite)
+        public void Overwrite(Action<PlayerInfo> overwrite, bool overwriteWithSave = false)
         {
             overwrite?.Invoke(_playerInfo);
 
             _playerInfoChangedDispatcher.ChangePlayerInfo(_playerInfo);
+            
+            if(overwriteWithSave)
+                Save();
         }
 
         public void Save()

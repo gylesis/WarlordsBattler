@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c8c983094e48cf9cca098220706ebf, type: 3}
+  m_Name: FractionsContainer
+  m_EditorClassIdentifier: 
+  WarlordFactions:
+  - {fileID: 11400000, guid: bcdd4bd16b42e5e4995ff7738a4fbe51, type: 2}
+  - {fileID: 11400000, guid: 72c867770c1e3684199e2a844e6b0f18, type: 2}
+  - {fileID: 11400000, guid: 94af8ff6243d5da4cac5847a96f3c211, type: 2}
+  - {fileID: 11400000, guid: 18235d67e3b906c41bff982699e08e9c, type: 2}
+  - {fileID: 11400000, guid: a1d83a8fcc4c06a4db682ab9e88cd6e1, type: 2}
+  - {fileID: 11400000, guid: 28685254d4b668548a5a09762355d929, type: 2}
+  - {fileID: 11400000, guid: 3d0c41ba28d06884a962c096583d37f9, type: 2}
+  - {fileID: 11400000, guid: 87d39bf98d5a8c747867d0041529234a, type: 2}
+  - {fileID: 11400000, guid: eba90dff351c86346b770899664fb058, type: 2}
+  - {fileID: 11400000, guid: 7d3c1c691cb922a4d87d07ae28e032a7, type: 2}

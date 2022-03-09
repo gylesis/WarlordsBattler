@@ -1,7 +1,6 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using UniRx;
-using UnityEngine;
-using Warlords.Player;
 using Warlords.Player.Attributes;
 using Warlords.Utils;
 
@@ -11,12 +10,17 @@ namespace Warlords.UI.Menu
     {
         private readonly MenuSwitcher _menuSwitcher;
         private readonly CompositeDisposable _disposable = new CompositeDisposable();
+        private readonly MenuTagsContainer _menuTagsContainers;
+        private readonly PlayerInfoPreSaver _playerInfoPreSaver;
+        private readonly FirstActionsChecker _firstActionsChecker;
 
         private MenuTag _currentTag;
-        private PlayerInfoPreSaver _playerInfoPreSaver;
 
-        public MenuButtonsHandler(MenuSwitcher menuSwitcher, PlayerInfoPreSaver playerInfoPreSaver)
+        public MenuButtonsHandler(MenuSwitcher menuSwitcher, PlayerInfoPreSaver playerInfoPreSaver,
+            MenuTagsContainer menuTagsContainers, FirstActionsChecker firstActionsChecker)
         {
+            _firstActionsChecker = firstActionsChecker;
+            _menuTagsContainers = menuTagsContainers;
             _playerInfoPreSaver = playerInfoPreSaver;
             _menuSwitcher = menuSwitcher;
         }
@@ -25,13 +29,13 @@ namespace Warlords.UI.Menu
         {
             menuButton.Clicked.Subscribe(ProcessClick).AddTo(_disposable);
         }
-        
+
         private void ProcessClick(ButtonContext<MenuButton, MenuTag> context)
         {
-            _playerInfoPreSaver.Discard();
             MenuTag menuTag = context.Value;
+            if (_currentTag == menuTag) return;
 
-            if(_currentTag == menuTag) return;
+            _playerInfoPreSaver.Discard();
 
             if (menuTag is URLMenuTag urlMenuTag)
             {
@@ -40,7 +44,19 @@ namespace Warlords.UI.Menu
             }
 
             _menuSwitcher.OpenMenu(menuTag);
-            
+
+            CheckSomeConditions();
+
+            void CheckSomeConditions()
+            {
+                MenuTag warlordMenuTag = _menuTagsContainers.WarlordTag;
+
+                if (menuTag == warlordMenuTag)
+                {
+                   _firstActionsChecker.CheckWarlordMenuFirstEnter();
+                }
+            }
+
             _currentTag = menuTag;
         }
 

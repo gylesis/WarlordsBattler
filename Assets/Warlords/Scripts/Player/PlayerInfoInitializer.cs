@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Warlords.Player.Spells;
+﻿using System.Linq;
+using UnityEngine;
+using Warlords.Player.Attributes;
 using Warlords.Utils;
 
 namespace Warlords.Player
@@ -17,11 +18,13 @@ namespace Warlords.Player
         {
             var playerInfo = new PlayerInfo();
 
-            var staticPlayerAttributes = _staticData.PlayerAttributes.PlayerAttributes;
+            PlayerAttribute[] staticPlayerAttributes =
+                _staticData.PlayerAttributes.AttributesPerFactions[0].PlayerStartAttributes;
+
             playerInfo.CopyAndSetAttributes(staticPlayerAttributes);
 
-            playerInfo.Faction = _staticData.WarlordFaction.WarlordFaction;
-            playerInfo.PlayerAttributes.LeftUpgrades = _staticData.PlayerAttributes.Upgrades.GetUpgradesAmount(1);
+            playerInfo.Faction = _staticData.WarlordFaction._faction;
+            playerInfo.AttributesData.LeftUpgrades = _staticData.PlayerAttributes.Upgrades.GetUpgradesAmount(1);
 
             return playerInfo;
         }

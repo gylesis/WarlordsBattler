@@ -30,9 +30,4 @@ namespace Warlords.UI.Appearance
         }
     }
 
-
-    /*public class AppearanceItemsContainer : ScriptableObject
-    {
-        public AppearanceItemData[] ItemsData;
-    }*/
 }

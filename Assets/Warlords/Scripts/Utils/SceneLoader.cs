@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Warlords.Infrastracture;
+using Warlords.Infrastructure;
 using Zenject;
 
 namespace Warlords.Utils
