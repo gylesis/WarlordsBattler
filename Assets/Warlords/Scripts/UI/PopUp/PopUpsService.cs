@@ -38,7 +38,7 @@ namespace Warlords.UI.PopUp
                 .TakeUntilDestroy(playerNamePopUp)
                 .Subscribe(SetName);
 
-            void SetName(ButtonContext<string> sender)
+            void SetName(EventContext<string> sender)
             {
                 _nameSetter.Set(sender.Value);
                 successNameChanging?.Invoke();

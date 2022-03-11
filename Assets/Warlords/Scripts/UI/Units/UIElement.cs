@@ -5,12 +5,39 @@ using UnityEngine.EventSystems;
 
 namespace Warlords.UI.Units
 {
-    public abstract class UIElement<TSender> : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    [RequireComponent(typeof(RectTransform))]
+    public abstract class UIElement<TSender> : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IPointerUpHandler, IPointerDownHandler
     {
-        protected abstract TSender Sender { get; }  
-        public Subject<UIElementContextData<TSender>> PointerEntered { get; } = new Subject<UIElementContextData<TSender>>();
-        public Subject<UIElementContextData<TSender>> PointerExit { get; } = new Subject<UIElementContextData<TSender>>();
+        [SerializeField] private RectTransform _rectTransform;
+        public RectTransform Rect => _rectTransform;
+        protected abstract TSender Sender { get; }
+
+        public Subject<UIElementContextData<TSender>> PointerEntered { get; } =
+            new Subject<UIElementContextData<TSender>>();
+
+        public Subject<UIElementContextData<TSender>> PointerExit { get; } =
+            new Subject<UIElementContextData<TSender>>();
+
+        public Subject<UIElementContextData<TSender>> PointerDrag { get; } =
+            new Subject<UIElementContextData<TSender>>();
         
+        public Subject<UIElementContextData<TSender>> PointerUp { get; } =
+            new Subject<UIElementContextData<TSender>>();
+
+        public Subject<UIElementContextData<TSender>> PointerDown { get; } =
+            new Subject<UIElementContextData<TSender>>();
+        private void Reset()
+        {
+            if (_rectTransform == null)
+                _rectTransform = GetComponent<RectTransform>();
+        }
+
+        private void Awake()
+        {
+            if (_rectTransform == null)
+                _rectTransform = GetComponent<RectTransform>();
+        }
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             var contextData = GetContextData(eventData);
@@ -34,6 +61,27 @@ namespace Warlords.UI.Units
 
             return contextData;
         }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            var contextData = GetContextData(eventData);
+
+            PointerDrag.OnNext(contextData);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            var contextData = GetContextData(eventData);
+
+            PointerUp.OnNext(contextData);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            var contextData = GetContextData(eventData);
+
+            PointerDown.OnNext(contextData);
+        }
     }
 
     public struct UIElementContextData<TSender>
@@ -42,5 +90,4 @@ namespace Warlords.UI.Units
         public PointerEventData PointerEventData;
         public DateTime Time;
     }
-    
 }

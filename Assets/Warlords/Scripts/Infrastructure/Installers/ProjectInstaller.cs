@@ -16,7 +16,7 @@ namespace Warlords.Infrastructure.Installers
 
             Container.Bind<PlayerInfoStaticData>().FromInstance(_playerInfoStaticData).AsSingle();
             Container.Bind<ISaveLoadDataService>().To<PlayerPrefsSaveLoadDataService>().AsSingle().NonLazy();
-            Container.Bind<IPlayerInfoInitializer>().To<PlayerInfoInitializer>().AsSingle().NonLazy();
+            Container.Bind<ISaveDataInitializer>().To<SaveDataInitializer>().AsSingle().NonLazy();
 
             Container.Bind<ApplicationURLOpener>().AsSingle().NonLazy();
             

@@ -9,7 +9,7 @@ namespace Warlords.Utils
     {
         [SerializeField] private int _value;
 
-        public int Value
+        public int Value // replace with IntReactiveProperty
         {
             get => _value;
             

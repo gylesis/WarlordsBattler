@@ -24,7 +24,7 @@ namespace Warlords.UI.Appearance
             }
         }
 
-        private void Click(ButtonContext<AppearanceItemType, bool> context)
+        private void Click(EventContext<AppearanceItemType, bool> context)
         {
             _appearanceController.SwitchToNext(context.Sender, context.Value);
         }

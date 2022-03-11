@@ -50,7 +50,7 @@ namespace Warlords.Player.Spells
             await UniTask.CompletedTask;
         }
 
-        private void HandleClick(ButtonContext<SpellType> context)
+        private void HandleClick(EventContext<SpellType> context)
         {
             UpdateSpellsView(context.Value);
         }

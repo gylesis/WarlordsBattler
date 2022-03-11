@@ -58,7 +58,7 @@ namespace Warlords.Factions
             button.FactionButton.Clicked.TakeUntilDestroy(button).Subscribe((Click));
         }
 
-        private void Click(ButtonContext<FactionView, Faction> context)
+        private void Click(EventContext<FactionView, Faction> context)
         {
             Faction faction = context.Value;   
             

@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Warlords.Infrastructure.Factory;
+using Warlords.Inventory;
 using Warlords.UI.Appearance;
 using Warlords.UI.Menu;
 using Warlords.UI.PopUp;
+using Warlords.UI.Units;
 using Zenject;
 
 namespace Warlords.Infrastructure.Installers
@@ -10,30 +13,63 @@ namespace Warlords.Infrastructure.Installers
     public class MainMenuInstaller : MonoInstaller
     {
         [SerializeField] private ListOfUpgradesForHexagons _listOfUpgradesForHexagons;
-       
+
         [SerializeField] private MenuTagsContainer _menuTagsContainer;
-        [SerializeField] private MenuSwitcher _menuSwitcher;    
-        
+        [SerializeField] private MenuSwitcher _menuSwitcher;
+
         [SerializeField] private PopUpsService _popUpsService;
 
         [SerializeField] private AppearanceViewContainer[] _appearanceContainers;
         [SerializeField] private RenderCamera _renderCamera;
-        
+
+        [SerializeField] private InventorySlotViewsContainer _inventorySlotViewsContainer;
+
         public override void InstallBindings()
         {
             BindPopUps();
 
-            Container.Bind<ListOfUpgradesForHexagons>().FromInstance(_listOfUpgradesForHexagons).AsSingle();
+            Container.Bind<InventorySlotsDragHandler>().AsSingle().NonLazy();
+            Container.Bind<InventoryViewService>().AsSingle().NonLazy();
+            Container
+                .Bind<InventorySlotViewsContainer>()
+                .FromInstance(_inventorySlotViewsContainer);
 
-            Container.Bind<FirstActionsChecker>().AsSingle().NonLazy();
 
-            Container.Bind<MenuSwitcher>().FromInstance(_menuSwitcher).AsSingle();
-            Container.Bind<MenuButtonsHandler>().AsSingle().NonLazy();
-            Container.Bind<MenuTagsContainer>().FromInstance(_menuTagsContainer).AsSingle();
+            Container
+                .Bind<ListOfUpgradesForHexagons>()
+                .FromInstance(_listOfUpgradesForHexagons)
+                .AsSingle();
 
-            Container.Bind<RenderCamera>().FromInstance(_renderCamera).AsSingle();
-            Container.Bind<AppearanceViewContainer[]>().FromInstance(_appearanceContainers).AsSingle();
-            Container.Bind<AppearanceController>().AsSingle().NonLazy();
+            Container
+                .Bind<FirstActionsChecker>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<MenuSwitcher>()
+                .FromInstance(_menuSwitcher)
+                .AsSingle();
+            Container
+                .Bind<MenuButtonsHandler>()
+                .AsSingle()
+                .NonLazy();
+            Container
+                .Bind<MenuTagsContainer>()
+                .FromInstance(_menuTagsContainer)
+                .AsSingle();
+
+            Container
+                .Bind<RenderCamera>()
+                .FromInstance(_renderCamera)
+                .AsSingle();
+            Container
+                .Bind<AppearanceViewContainer[]>()
+                .FromInstance(_appearanceContainers)
+                .AsSingle();
+            Container
+                .Bind<AppearanceController>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void BindPopUps()
@@ -41,9 +77,17 @@ namespace Warlords.Infrastructure.Installers
             var popUpFactoryContext = new PopUpFactoryContext();
             popUpFactoryContext.SpawnParent = _popUpsService.transform;
 
-            Container.Bind<PopUpsService>().FromInstance(_popUpsService).AsSingle();
-            Container.Bind<PopUpFactoryContext>().FromInstance(popUpFactoryContext).AsSingle();
-            Container.Bind<PopUpsFactory>().AsSingle();
+            Container
+                .Bind<PopUpsService>()
+                .FromInstance(_popUpsService)
+                .AsSingle();
+            Container
+                .Bind<PopUpFactoryContext>()
+                .FromInstance(popUpFactoryContext)
+                .AsSingle();
+            Container
+                .Bind<PopUpsFactory>()
+                .AsSingle();
         }
     }
 }

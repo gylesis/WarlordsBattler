@@ -7,7 +7,7 @@ namespace Warlords.Infrastructure
     public class SaveData
     {
         public PlayerInfo PlayerInfo = new PlayerInfo();
+        public InventorySaveData InventorySaveData = new InventorySaveData();
         public FirstActionsData FirstActionsData = new FirstActionsData();
     }
-    
 }

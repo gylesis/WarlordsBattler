@@ -54,11 +54,11 @@ namespace Warlords.Player.Attributes
             _attributes.Add(attribute);
         }
 
-        private void HandleClick(ButtonContext<PlayerAttribute, bool> buttonContext)
+        private void HandleClick(EventContext<PlayerAttribute, bool> eventContext)
         {
             int leftUpgrades = _preSaver.PlayerInfo.AttributesData.LeftUpgrades;
-            PlayerAttribute playerAttribute = buttonContext.Sender;
-            bool buttonValue = buttonContext.Value;
+            PlayerAttribute playerAttribute = eventContext.Sender;
+            bool buttonValue = eventContext.Value;
 
             int addValue = buttonValue ? 1 : -1;
 

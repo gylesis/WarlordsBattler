@@ -30,7 +30,7 @@ namespace Warlords.UI.Menu
             menuButton.Clicked.Subscribe(ProcessClick).AddTo(_disposable);
         }
 
-        private void ProcessClick(ButtonContext<MenuButton, MenuTag> context)
+        private void ProcessClick(EventContext<MenuButton, MenuTag> context)
         {
             MenuTag menuTag = context.Value;
             if (_currentTag == menuTag) return;

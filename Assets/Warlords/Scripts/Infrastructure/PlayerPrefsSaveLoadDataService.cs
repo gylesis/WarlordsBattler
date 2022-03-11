@@ -10,11 +10,11 @@ namespace Warlords.Infrastructure
         private const string PrefsKey = "SaveData";
 
         private SaveData _data;
-        private readonly IPlayerInfoInitializer _playerInfoInitializer;
+        private readonly ISaveDataInitializer _saveDataInitializer;
 
-        public PlayerPrefsSaveLoadDataService(IPlayerInfoInitializer playerInfoInitializer)
+        public PlayerPrefsSaveLoadDataService(ISaveDataInitializer saveDataInitializer)
         {
-            _playerInfoInitializer = playerInfoInitializer;
+            _saveDataInitializer = saveDataInitializer;
         }
         
         public SaveData Data => _data;
@@ -27,8 +27,7 @@ namespace Warlords.Infrastructure
             
             if (prefs == String.Empty)
             {
-                saveData = new SaveData();
-                InitPlayer(saveData);
+                saveData = _saveDataInitializer.Initialize();
             }
             else
             {
@@ -55,12 +54,6 @@ namespace Warlords.Infrastructure
             PlayerPrefs.SetString(PrefsKey,json);
             PlayerPrefs.Save();
         }
-
-        private void InitPlayer(SaveData saveData)
-        {
-            saveData.PlayerInfo = _playerInfoInitializer.Initialize();
-        }
-        
         
     }
 }

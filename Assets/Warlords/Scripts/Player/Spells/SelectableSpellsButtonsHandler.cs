@@ -75,7 +75,7 @@ namespace Warlords.Player.Spells
             spellButton.Clicked.TakeUntilDestroy(spellButton).Subscribe((HandleClick)).AddTo(_compositeDisposable);
         }
 
-        private void HandleClick(ButtonContext<SpellData> context)
+        private void HandleClick(EventContext<SpellData> context)
         {
             SpellData spellData = context.Value;
             SpellType spellType = spellData.Type;

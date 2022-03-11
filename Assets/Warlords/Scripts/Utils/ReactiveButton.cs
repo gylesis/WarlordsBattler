@@ -16,7 +16,7 @@ namespace Warlords.Utils
         protected virtual void Reset() =>
             _button = GetComponent<Button>();
 
-        public Subject<ButtonContext<TSender, TValue>> Clicked { get; } = new Subject<ButtonContext<TSender, TValue>>();
+        public Subject<EventContext<TSender, TValue>> Clicked { get; } = new Subject<EventContext<TSender, TValue>>();
             
         private IDisposable _disposable;
 
@@ -27,7 +27,7 @@ namespace Warlords.Utils
                 .TakeUntilDestroy(this)
                 .Subscribe((_ =>
                 {
-                    var buttonContext = new ButtonContext<TSender, TValue>();
+                    var buttonContext = new EventContext<TSender, TValue>();
 
                     buttonContext.Sender = Sender;
                     buttonContext.Value = Value;
@@ -48,8 +48,8 @@ namespace Warlords.Utils
         private void Reset() =>
             _button = GetComponent<Button>();
 
-        public Subject<ButtonContext<TValue>> Clicked =
-            new Subject<ButtonContext<TValue>>();
+        public Subject<EventContext<TValue>> Clicked =
+            new Subject<EventContext<TValue>>();
 
         private IDisposable _disposable;
 
@@ -60,7 +60,7 @@ namespace Warlords.Utils
                 .TakeUntilDestroy(this)
                 .Subscribe((_ =>
                 {
-                    var buttonContext = new ButtonContext<TValue>();
+                    var buttonContext = new EventContext<TValue>();
                     
                     buttonContext.Value = Value;
 
@@ -69,23 +69,23 @@ namespace Warlords.Utils
         }
     }
 
-    public struct ButtonContext<T1, T2>
+    public struct EventContext<T1, T2>
     {
         public T1 Sender;
         public T2 Value;
 
-        public ButtonContext(T1 sender, T2 value)
+        public EventContext(T1 sender, T2 value)
         {
             Sender = sender;
             Value = value;
         }
     }
 
-    public struct ButtonContext< T1>
+    public struct EventContext< T1>
     {
         public T1 Value;
 
-        public ButtonContext(T1 value)
+        public EventContext(T1 value)
         {
             Value = value;
         }
