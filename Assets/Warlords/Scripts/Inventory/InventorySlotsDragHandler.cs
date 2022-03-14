@@ -3,19 +3,27 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Warlords.Crafting;
 using Warlords.UI.Units;
 
 namespace Warlords.Inventory
 {
-    public class InventorySlotsDragHandler 
+    public class InventorySlotsDragHandler
     {
         private readonly Dictionary<InventorySlot, Vector3> _elementsPositions =
             new Dictionary<InventorySlot, Vector3>();
 
-        public InventorySlotsDragHandler(InventorySlotViewsContainer inventorySlotViewsContainer)
+        private Inventory _inventory;
+        private Workbench _workbench;
+
+        public InventorySlotsDragHandler(InventorySlotViewsContainer inventorySlotViewsContainer,
+            Inventory inventory, Workbench workbench)
         {
-            var uiElements = inventorySlotViewsContainer.InventorySlotViews.Select(x => x.DraggableUIElement);
+            _workbench = workbench;
+            _inventory = inventory;
             
+            var uiElements = inventorySlotViewsContainer.InventorySlotViews.Select(x => x.DraggableUIElement);
+
             foreach (InventoryDraggableUIElement uiElement in uiElements)
             {
                 uiElement.PointerDrag.TakeUntilDestroy(uiElement).Subscribe((HandleDrag));
@@ -23,12 +31,12 @@ namespace Warlords.Inventory
                 uiElement.PointerDown.TakeUntilDestroy(uiElement).Subscribe((HandleDown));
             }
         }
-       
+
         private void HandleDown(UIElementContextData<InventorySlot> context)
         {
             InventorySlot uiElement = context.Sender;
             Vector3 rectPosition = uiElement.DraggableUIElement.Rect.position;
-            
+
             _elementsPositions.Add(uiElement, rectPosition);
         }
 
@@ -36,16 +44,25 @@ namespace Warlords.Inventory
         {
             InventorySlot inventorySlot = context.Sender;
             Vector3 position = _elementsPositions[inventorySlot];
+            Item item = inventorySlot.SlotData.Item;
 
-            inventorySlot.DraggableUIElement.Rect.position = position;
-
+            SetPosition(inventorySlot, position);
+            
             var hoveredObjects = context.PointerEventData.hovered;
 
-            var needsToBeDeleted = hoveredObjects.Any(obj => obj.name == "Delete");
-            
-            if (needsToBeDeleted)
+            WorkbenchSlot workbenchSlot = null;
+
+            var isHoveredWorkbenchSlot = hoveredObjects.Any(obj => obj.TryGetComponent(out workbenchSlot));
+
+            if (isHoveredWorkbenchSlot)
             {
-                inventorySlot.SlotData.Count.Value--;
+                if (workbenchSlot != null)
+                {
+                    if (workbenchSlot.TryGetComponent<WorkbenchSlot>(out var slot))
+                    {
+                        _workbench.TryPut(slot, item);
+                    }
+                }
             }
 
             _elementsPositions.Remove(inventorySlot);
@@ -58,32 +75,11 @@ namespace Warlords.Inventory
 
             rectTransform.anchoredPosition += pointerEventData.delta * 2;
         }
-    }
 
-    public class Inventory
-    {
-        private Dictionary<InventorySlot, InventoryDraggableUIElement> _hoverableUIElements =
-            new Dictionary<InventorySlot, InventoryDraggableUIElement>();
 
-        public Inventory(InventorySlotViewsContainer inventorySlotViewsContainer)
+        private void SetPosition(InventorySlot inventorySlot, Vector3 position)
         {
-            foreach (InventorySlot inventorySlotView in inventorySlotViewsContainer.InventorySlotViews)
-            {
-                InventoryDraggableUIElement draggableUIElement = inventorySlotView.DraggableUIElement;
-                
-                _hoverableUIElements.Add(inventorySlotView,draggableUIElement);
-            }
+            inventorySlot.DraggableUIElement.Rect.position = position;
         }
-
-        public void RemoveItem()
-        {
-            
-        }
-        
-        
-        
-
-
     }
-    
 }

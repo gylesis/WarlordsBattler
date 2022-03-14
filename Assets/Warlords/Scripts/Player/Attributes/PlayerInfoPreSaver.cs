@@ -37,11 +37,11 @@ namespace Warlords.Player.Attributes
 
         public void Save()
         {
-            _saveLoadDataService.Overwrite(playerInfo =>
+            _saveLoadDataService.Overwrite(saveData =>
             {
                 PlayerInfo playerInfoCopy = _playerInfo.Copy();
 
-                playerInfo.PlayerInfo = playerInfoCopy;
+                saveData.PlayerInfo = playerInfoCopy;
                 _oldPlayerInfo = playerInfoCopy;
             });
             

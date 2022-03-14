@@ -1,21 +1,27 @@
-﻿using Zenject;
-
+﻿
 namespace Warlords.Inventory
 {
     public class InventoryViewService 
     {
+        private readonly InventorySlot[] _inventorySlotViews;
+
         private InventoryViewService(InventorySlotViewsContainer inventorySlotViewsContainer)
+        {       
+            _inventorySlotViews = inventorySlotViewsContainer.InventorySlotViews;
+        }
+
+        public void UpdateInventoryView(InventorySlotData[] slotDatas)
         {
-            int temp = 0;
-            foreach (InventorySlot inventorySlotView in inventorySlotViewsContainer.InventorySlotViews)
+            for (var i = 0; i < slotDatas.Length; i++)
             {
-                var inventorySlotData = new InventorySlotData();
-                inventorySlotData.Count.Value = 2;
-                inventorySlotData.Name = $"Random {++temp}";
+                InventorySlot inventorySlotView = _inventorySlotViews[i];
                 
-                inventorySlotView.Init(inventorySlotData);
+                InventorySlotData slotData = slotDatas[i];
+
+                inventorySlotView.Init(slotData);
             }
         }
+        
         
     }
 }

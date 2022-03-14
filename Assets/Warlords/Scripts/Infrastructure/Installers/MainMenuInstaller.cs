@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
+using Warlords.Crafting;
 using Warlords.Infrastructure.Factory;
 using Warlords.Inventory;
 using Warlords.UI.Appearance;
@@ -23,13 +24,19 @@ namespace Warlords.Infrastructure.Installers
         [SerializeField] private RenderCamera _renderCamera;
 
         [SerializeField] private InventorySlotViewsContainer _inventorySlotViewsContainer;
-
+        [SerializeField] private ItemsContainer _itemsContainer;
+        
         public override void InstallBindings()
         {
             BindPopUps();
 
-            Container.Bind<InventorySlotsDragHandler>().AsSingle().NonLazy();
+            Container.Bind<WorkbenchSlotsService>().AsSingle().NonLazy();
+            Container.Bind<Workbench>().AsSingle().NonLazy();
+            Container.Bind<ItemsContainer>().FromInstance(_itemsContainer).AsSingle();
+            Container.Bind<ItemsInfoService>().AsSingle().NonLazy();
             Container.Bind<InventoryViewService>().AsSingle().NonLazy();
+            Container.Bind<Inventory.Inventory>().AsSingle().NonLazy();
+            Container.Bind<InventorySlotsDragHandler>().AsSingle().NonLazy();
             Container
                 .Bind<InventorySlotViewsContainer>()
                 .FromInstance(_inventorySlotViewsContainer);

@@ -6,7 +6,15 @@ namespace Warlords.Inventory
     [Serializable]
     public class InventorySlotData
     {
-        public string Name;
+        public Item Item = new Item();
         public IntStat Count = new IntStat();
     }
+
+    [Serializable]
+    public class Item
+    {
+        public string Name;
+    }
+    
+    
 }
