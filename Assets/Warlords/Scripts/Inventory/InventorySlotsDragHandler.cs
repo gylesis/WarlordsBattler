@@ -1,28 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Warlords.Crafting;
+using Warlords.Infrastructure;
 using Warlords.UI.Units;
 
 namespace Warlords.Inventory
 {
-    public class InventorySlotsDragHandler
+    public class InventorySlotsDragHandler : IAsyncLoad
     {
         private readonly Dictionary<InventorySlot, Vector3> _elementsPositions =
             new Dictionary<InventorySlot, Vector3>();
 
-        private Inventory _inventory;
-        private Workbench _workbench;
+        private readonly Workbench _workbench;
+        private readonly InventorySlotViewsContainer _inventorySlotViewsContainer;
 
         public InventorySlotsDragHandler(InventorySlotViewsContainer inventorySlotViewsContainer,
-            Inventory inventory, Workbench workbench)
+            Workbench workbench, AsyncLoadingsRegister asyncLoadingsRegister)
         {
+            asyncLoadingsRegister.Register(this);
+
+            _inventorySlotViewsContainer = inventorySlotViewsContainer;
             _workbench = workbench;
-            _inventory = inventory;
-            
-            var uiElements = inventorySlotViewsContainer.InventorySlotViews.Select(x => x.DraggableUIElement);
+        }
+
+        public async UniTask AsyncLoad()
+        {
+            var uiElements = _inventorySlotViewsContainer.InventorySlotViews.Select(x => x.DraggableUIElement);
 
             foreach (InventoryDraggableUIElement uiElement in uiElements)
             {
@@ -30,6 +37,8 @@ namespace Warlords.Inventory
                 uiElement.PointerUp.TakeUntilDestroy(uiElement).Subscribe((HandleUp));
                 uiElement.PointerDown.TakeUntilDestroy(uiElement).Subscribe((HandleDown));
             }
+
+            await UniTask.CompletedTask;
         }
 
         private void HandleDown(UIElementContextData<InventorySlot> context)
@@ -47,7 +56,7 @@ namespace Warlords.Inventory
             Item item = inventorySlot.SlotData.Item;
 
             SetPosition(inventorySlot, position);
-            
+
             var hoveredObjects = context.PointerEventData.hovered;
 
             WorkbenchSlot workbenchSlot = null;

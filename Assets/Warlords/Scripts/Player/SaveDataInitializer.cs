@@ -43,7 +43,7 @@ namespace Warlords.Player
             {
                 var inventorySlotData = new InventorySlotData();
                 inventorySlotData.Item = new Item {Name = String.Empty};
-
+                
                 inventorySlotDatas.Add(inventorySlotData);
             }
             

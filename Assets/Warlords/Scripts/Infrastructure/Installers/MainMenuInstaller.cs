@@ -30,17 +30,16 @@ namespace Warlords.Infrastructure.Installers
         {
             BindPopUps();
 
+            Container.Bind<InventorySlotsDataBinder>().AsSingle();
             Container.Bind<WorkbenchSlotsService>().AsSingle().NonLazy();
             Container.Bind<Workbench>().AsSingle().NonLazy();
             Container.Bind<ItemsContainer>().FromInstance(_itemsContainer).AsSingle();
             Container.Bind<ItemsInfoService>().AsSingle().NonLazy();
-            Container.Bind<InventoryViewService>().AsSingle().NonLazy();
             Container.Bind<Inventory.Inventory>().AsSingle().NonLazy();
             Container.Bind<InventorySlotsDragHandler>().AsSingle().NonLazy();
             Container
                 .Bind<InventorySlotViewsContainer>()
                 .FromInstance(_inventorySlotViewsContainer);
-
 
             Container
                 .Bind<ListOfUpgradesForHexagons>()

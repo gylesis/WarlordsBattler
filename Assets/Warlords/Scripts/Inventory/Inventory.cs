@@ -11,21 +11,16 @@ namespace Warlords.Inventory
         private readonly Dictionary<InventorySlot, Item> _inventorySlots = new Dictionary<InventorySlot, Item>();
         
         private readonly InventorySlotViewsContainer _inventorySlotViewsContainer;
-        private readonly InventoryViewService _inventoryViewService;
-        private readonly ISaveLoadDataService _saveLoadDataService;
 
-        public Inventory(InventorySlotViewsContainer inventorySlotViewsContainer, InventoryViewService inventoryViewService, ISaveLoadDataService saveLoadDataService, AsyncLoadingsRegister asyncLoadingsRegister)
+        public Inventory(InventorySlotViewsContainer inventorySlotViewsContainer, AsyncLoadingsRegister asyncLoadingsRegister)
         {
             asyncLoadingsRegister.Register(this);
             
-            _saveLoadDataService = saveLoadDataService;
-            _inventoryViewService = inventoryViewService;
-            _inventorySlotViewsContainer = inventorySlotViewsContainer;
+            _inventorySlotViewsContainer = inventorySlotViewsContainer; 
         }
 
         public async UniTask AsyncLoad()
         {
-            _inventoryViewService.UpdateInventoryView(_saveLoadDataService.Data.InventorySaveData.SlotsDatas.ToArray());
             
             foreach (InventorySlot inventorySlot in _inventorySlotViewsContainer.InventorySlotViews)
             {
