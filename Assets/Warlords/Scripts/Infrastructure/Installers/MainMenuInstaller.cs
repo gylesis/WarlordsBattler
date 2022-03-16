@@ -24,16 +24,18 @@ namespace Warlords.Infrastructure.Installers
         [SerializeField] private RenderCamera _renderCamera;
 
         [SerializeField] private InventorySlotViewsContainer _inventorySlotViewsContainer;
-        [SerializeField] private ItemsContainer _itemsContainer;
-        
+        [SerializeField] private ItemsInfoContainer _itemsInfoContainer;
+        [SerializeField] private RecipesContainer _recipesContainer;    
         public override void InstallBindings()
         {
             BindPopUps();
 
+            Container.Bind<ItemsRecipesDictionary>().AsSingle().NonLazy();
+            Container.Bind<RecipesContainer>().FromInstance(_recipesContainer).AsSingle();
             Container.Bind<InventorySlotsDataBinder>().AsSingle();
             Container.Bind<WorkbenchSlotsService>().AsSingle().NonLazy();
             Container.Bind<Workbench>().AsSingle().NonLazy();
-            Container.Bind<ItemsContainer>().FromInstance(_itemsContainer).AsSingle();
+            Container.Bind<ItemsInfoContainer>().FromInstance(_itemsInfoContainer).AsSingle();
             Container.Bind<ItemsInfoService>().AsSingle().NonLazy();
             Container.Bind<Inventory.Inventory>().AsSingle().NonLazy();
             Container.Bind<InventorySlotsDragHandler>().AsSingle().NonLazy();

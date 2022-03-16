@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc91e882268413da8584438b6e16d27, type: 3}
   m_Name: ItemsContainer
   m_EditorClassIdentifier: 
+  DefaultSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   Items:
   - Item:
       Name: Shard1

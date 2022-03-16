@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Warlords.Inventory;
 
 namespace Warlords.Infrastructure.Installers
@@ -11,8 +12,7 @@ namespace Warlords.Infrastructure.Installers
 
         public InventorySlotsDataBinder(ISaveLoadDataService saveLoadDataService)
         {
-            _inventorySlotDatas = saveLoadDataService.Data.InventorySaveData.SlotsDatas.ToArray();
-            Debug.Log(_inventorySlotDatas.Length);
+            _inventorySlotDatas = saveLoadDataService.Data.InventorySaveData.SlotsDatas.Select(x => new InventorySlotData(x)).ToArray();
         }
 
         public InventorySlotData GetSlotData() => _inventorySlotDatas[_index++];

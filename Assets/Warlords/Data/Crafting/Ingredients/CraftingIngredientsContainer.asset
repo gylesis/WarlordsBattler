@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4b568bb88e44039bfe8782b99bafdb, type: 3}
+  m_Name: CraftingIngredientsContainer
+  m_EditorClassIdentifier: 
+  Ingredients:
+  - {fileID: 11400000, guid: dee82e4312c0307469b3ddda0fa94c0d, type: 2}
+  - {fileID: 11400000, guid: 3b0ff1165789b534ba2e1cd887372e32, type: 2}
+  - {fileID: 11400000, guid: 2193a77fba3999a4487adba687c23430, type: 2}
+  - {fileID: 11400000, guid: 46e0eea9453bd4e4487e0aef92680321, type: 2}
+  - {fileID: 11400000, guid: b717266e9fef17845aab154b6d6410de, type: 2}
+  - {fileID: 11400000, guid: 60176db069dd69d408b54e89bb649823, type: 2}
+  - {fileID: 11400000, guid: 83a5df4f069295643b65656a03a939eb, type: 2}

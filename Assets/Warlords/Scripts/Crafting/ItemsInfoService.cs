@@ -6,21 +6,26 @@ namespace Warlords.Crafting
 {
     public class ItemsInfoService
     {
-        private readonly ItemsContainer _itemsContainer;
+        private readonly ItemsInfoContainer _itemsInfoContainer;
 
-        public ItemsInfoService(ItemsContainer itemsContainer)
+        public ItemsInfoService(ItemsInfoContainer itemsInfoContainer)
         {
-            _itemsContainer = itemsContainer;
+            _itemsInfoContainer = itemsInfoContainer;
         }
 
         public Sprite GetItemImage(Item item)
         {
-            ItemInfo itemInfo = _itemsContainer.Items.First(info => info.Item.Name == item.Name);
-            Sprite itemImage = itemInfo.Image;
+            ItemInfo itemInfo = _itemsInfoContainer.Items.FirstOrDefault(info => info.Item.Name == item.Name);
 
-            if (itemImage == null)
+            Sprite itemImage;
+            
+            if (itemInfo == null)
             {
-                Debug.LogError($"Sprite is not set for an item {item.Name}");
+                itemImage = _itemsInfoContainer.DefaultSprite;
+            }
+            else
+            {
+                itemImage = itemInfo.Image;
             }
 
             return itemImage;

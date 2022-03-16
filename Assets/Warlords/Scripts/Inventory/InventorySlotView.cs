@@ -17,31 +17,36 @@ namespace Warlords.Inventory
         
         private ItemsInfoService _itemsInfoService;
         private InventoryDraggableUIElement _draggableUIElement;
+        private InventorySlotData _slotData;
 
         [Inject]
         private void Init(InventorySlotData slotData, ItemsInfoService itemsInfoService, InventoryDraggableUIElement draggableUIElement)
         {
+            _slotData = slotData;
             _draggableUIElement = draggableUIElement;
             _itemsInfoService = itemsInfoService;       
             
             _draggableUIElement = draggableUIElement;
+            
             _draggableUIElement.PointerDown.TakeUntilDestroy(this).Subscribe((PointerDown));
             _draggableUIElement.PointerUp.TakeUntilDestroy(this).Subscribe((PointerUp));
-            
+
+            slotData.ItemChanged.TakeUntilDestroy(this).Subscribe((OnItemChanged));
             slotData.Count.Changed.TakeUntilDestroy(this).Subscribe(UpdateView);
 
-            if (slotData.Item.Name != String.Empty)
-            {
-                Sprite itemImage = _itemsInfoService.GetItemImage(slotData.Item);
-                _itemIcon.sprite = itemImage;
-                _additionalIcon.sprite = itemImage;
-                _additionalIcon.enabled = false;
-            }
-
+            OnItemChanged(slotData.Item);
             UpdateView(slotData.Count.Value);
         }
-        
-        public void UpdateView(int value)
+
+        private void OnItemChanged(Item item)
+        {
+            Sprite itemImage = _itemsInfoService.GetItemImage(item);
+            _itemIcon.sprite = itemImage;
+            _additionalIcon.sprite = itemImage;
+            _additionalIcon.enabled = false;
+        }
+
+        private void UpdateView(int value)
         {
             if (value == 0)
             {
@@ -60,11 +65,15 @@ namespace Warlords.Inventory
         private void PointerUp(UIElementContextData<InventorySlot> context)
         {
             _additionalIcon.enabled = false;
+            var countValue = _slotData.Count.Value;
+            UpdateView(countValue);
         }
 
         private void PointerDown(UIElementContextData<InventorySlot> context)
         {
             _additionalIcon.enabled = true;
+            var countValue = _slotData.Count.Value;
+            UpdateView(countValue - 1);
         }
         
         

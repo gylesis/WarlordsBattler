@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Warlords.Infrastructure;
 using Warlords.Inventory;
 using Warlords.Player.Attributes;
@@ -29,13 +30,11 @@ namespace Warlords.Player
 
             var inventorySlotDatas = new List<InventorySlotData>(15);
 
-            var item1 = new InventorySlotData() {Item = new Item{Name = "Shard1", }, Count = new IntStat{Value = 3}};
-            var item2 = new InventorySlotData() {Item = new Item{Name = "Shard2", }, Count = new IntStat{Value = 7}};
-            var item3 = new InventorySlotData() {Item = new Item{Name = "Shard3", }, Count = new IntStat{Value = 5}};
+            var item1 = new InventorySlotData() {Item = new Ingredient{Name = "Shard1",Type = IngredientType.Fragment, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = 9}};
+            var item2 = new InventorySlotData() {Item = new Ingredient{Name = "Shard2",Type = IngredientType.Shard, Color = IngredientColor.DarkBlue}, Count = new IntStat{Value = 9}};
             
             inventorySlotDatas.Add(item1);
             inventorySlotDatas.Add(item2);
-            inventorySlotDatas.Add(item3);
 
             var count = 15 - inventorySlotDatas.Count;
             
@@ -47,7 +46,7 @@ namespace Warlords.Player
                 inventorySlotDatas.Add(inventorySlotData);
             }
             
-            saveData.InventorySaveData.SlotsDatas = inventorySlotDatas;
+            saveData.InventorySaveData.SlotsDatas = inventorySlotDatas.Select(x => new InventorySlotSaveData(x)).ToList();
             
             playerInfo.Faction = _staticData.WarlordFaction._faction;
             playerInfo.AttributesData.LeftUpgrades = _staticData.PlayerAttributes.Upgrades.GetUpgradesAmount(1);

@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _draggableUIElement: {fileID: 5694805822105756115}
+  _inventorySlotView: {fileID: 5552289564956771557}
 --- !u!1 &7409847497486326127
 GameObject:
   m_ObjectHideFlags: 0

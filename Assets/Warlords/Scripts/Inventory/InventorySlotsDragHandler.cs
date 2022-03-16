@@ -69,7 +69,7 @@ namespace Warlords.Inventory
                 {
                     if (workbenchSlot.TryGetComponent<WorkbenchSlot>(out var slot))
                     {
-                        _workbench.TryPut(slot, item);
+                        _workbench.TryPut(slot, item as Ingredient);
                     }
                 }
             }

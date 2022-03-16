@@ -5,13 +5,14 @@ using Warlords.Inventory;
 namespace Warlords.Crafting
 {
     [CreateAssetMenu(menuName = "StaticData/ItemsContainer", fileName = "ItemsContainer", order = 0)]
-    public class ItemsContainer : ScriptableObject
+    public class ItemsInfoContainer : ScriptableObject
     {
+        public Sprite DefaultSprite;
         public ItemInfo[] Items;
     }
 
     [Serializable]
-    public struct ItemInfo
+    public class ItemInfo
     {
         public Item Item;
         public Sprite Image;
