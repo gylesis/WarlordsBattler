@@ -19,6 +19,8 @@ namespace Warlords.UI.Appearance
             _renderCamera.targetTexture = _shotRenderTexture;
             _renderCamera.Render();
 
+            _renderCamera.targetTexture = _popupRenderTexture;
+            
             return _shotRenderTexture;
         }
 

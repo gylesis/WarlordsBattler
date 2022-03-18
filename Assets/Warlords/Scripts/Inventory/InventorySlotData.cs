@@ -15,7 +15,7 @@ namespace Warlords.Inventory
             set
             {
                 _item = value;
-                ItemChanged.OnNext(value);
+               // ItemChanged.OnNext(value);
             }
         }
 
@@ -23,7 +23,7 @@ namespace Warlords.Inventory
         
         private Item _item;
 
-        public Subject<Item> ItemChanged { get; } = new Subject<Item>();
+      //  public Subject<Item> ItemChanged { get; } = new Subject<Item>();
         
         public InventorySlotData() { }
 

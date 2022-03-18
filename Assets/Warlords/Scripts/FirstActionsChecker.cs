@@ -23,6 +23,7 @@ namespace Warlords
             PlayerInfoPreSaver preSaver, MenuTagsContainer menuTagsContainers)
         {
             _menuTagsContainers = menuTagsContainers;
+            
             preSaver.PlayerInfoSaved.Subscribe((info =>
             {
                 if (info.Faction.Name != String.Empty) _factionTyped = true;
@@ -32,11 +33,22 @@ namespace Warlords
             _popUpsService = popUpsService;
         }
 
-        public async void CheckWarlordMenuFirstEnter()
+        public async void CheckWarlordMenuFirstEnter() // fucking crutch. need to do it good. need to do it like commands.
         {
-            await IsFactionSelected();
-            await IsNameTyped();
-            // IsAvatarChosen();
+            if (_factionTyped == false) 
+            {
+                await IsFactionSelected();
+            }
+            else if (_saveLoadDataService.Data.FirstActionsData.IsNameTyped == false)
+            {
+                await IsNameTyped();
+                
+                IsAvatarChosen();
+            }
+            else if (_saveLoadDataService.Data.FirstActionsData.IsAvatarChosen == false)
+            {
+                IsAvatarChosen();
+            }
         }
 
         private async UniTask IsNameTyped()
@@ -87,7 +99,7 @@ namespace Warlords
 
                 await _popUpsService.ShowRedirectionPopUp(redirectionPopUpContext);
             }
-
+            
             await UniTask.CompletedTask;
         }
     }

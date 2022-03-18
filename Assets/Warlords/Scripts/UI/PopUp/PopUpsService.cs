@@ -51,14 +51,23 @@ namespace Warlords.UI.PopUp
         public void ShowAppearancePopUp()
         {
             _appearancePopUp.gameObject.SetActive(true);
+            _appearancePopUp.Show();
         }
 
         public async UniTask ShowRedirectionPopUp(RedirectionPopUpContext context)
         {
             var redirectionPopUp = await _factory.CreateRedirectionPopUp();
+
+            bool temp = false;
             
             redirectionPopUp.SetDirectionToOpenMenu(context);
-            redirectionPopUp.OnSucceedRedirect.Take(1).Subscribe((popUp => Destroy(popUp.gameObject))); // need to add to pool
+            redirectionPopUp.OnSucceedRedirect.Take(1).Subscribe((popUp =>
+            {
+                temp = true;
+                Destroy(popUp.gameObject);
+            })); // need to add to pool
+
+            await UniTask.WaitUntil((() => temp));
         }
     }
     

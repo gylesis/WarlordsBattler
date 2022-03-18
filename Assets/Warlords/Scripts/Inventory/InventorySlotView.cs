@@ -31,16 +31,16 @@ namespace Warlords.Inventory
             _draggableUIElement.PointerDown.TakeUntilDestroy(this).Subscribe((PointerDown));
             _draggableUIElement.PointerUp.TakeUntilDestroy(this).Subscribe((PointerUp));
 
-            slotData.ItemChanged.TakeUntilDestroy(this).Subscribe((OnItemChanged));
             slotData.Count.Changed.TakeUntilDestroy(this).Subscribe(UpdateView);
 
-            OnItemChanged(slotData.Item);
+            UpdateItem(slotData.Item);
             UpdateView(slotData.Count.Value);
         }
 
-        private void OnItemChanged(Item item)
+        public void UpdateItem(Item item)
         {
             Sprite itemImage = _itemsInfoService.GetItemImage(item);
+            
             _itemIcon.sprite = itemImage;
             _additionalIcon.sprite = itemImage;
             _additionalIcon.enabled = false;
@@ -75,7 +75,5 @@ namespace Warlords.Inventory
             var countValue = _slotData.Count.Value;
             UpdateView(countValue - 1);
         }
-        
-        
     }
 }

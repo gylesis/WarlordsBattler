@@ -15,11 +15,8 @@ MonoBehaviour:
   DefaultSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   Items:
   - Item:
-      Name: Shard1
-    Image: {fileID: 21300000, guid: 499b61855a49fe849999ce41708374bd, type: 3}
+      Name: DarkGreenFragment
+    Image: {fileID: -592007455567854023, guid: 5a971ae805ba56446973eee5b6fa82ea, type: 3}
   - Item:
-      Name: Shard2
-    Image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  - Item:
-      Name: Shard3
-    Image: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+      Name: DarkGreenShard
+    Image: {fileID: 7589786494316338418, guid: 5a971ae805ba56446973eee5b6fa82ea, type: 3}

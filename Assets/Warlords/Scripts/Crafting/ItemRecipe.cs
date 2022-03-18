@@ -5,11 +5,9 @@ using Warlords.Inventory;
 
 namespace Warlords.Crafting
 {
-    [CreateAssetMenu(menuName = "Recipes/Recipe", fileName = "Recipe", order = 0)]
-    public class Recipe : ScriptableObject
+    [CreateAssetMenu(menuName = "Recipes/ItemRecipe", fileName = "ItemRecipe", order = 0)]
+    public class ItemRecipe : ScriptableObject
     {
-        public string Output;
-        
         public List<CraftingIngredient> Ingredients = new List<CraftingIngredient>(5) {null, null, null, null, null};
 
         public bool AreIngredientsFit(Ingredient[] ingredients)

@@ -5,7 +5,7 @@ using Warlords.Utils;
 
 namespace Warlords.Player.Attributes
 {
-    public class PlayerInfoPreSaver
+    public class PlayerInfoPreSaver : IPlayerInfoChangedListener
     {
         public PlayerInfo PlayerInfo => _playerInfo;
         
@@ -17,8 +17,10 @@ namespace Warlords.Player.Attributes
         public Subject<PlayerInfo> PlayerInfoDiscarded { get; } = new Subject<PlayerInfo>();
         public Subject<PlayerInfo> PlayerInfoSaved { get; } = new Subject<PlayerInfo>();
         
-        public PlayerInfoPreSaver(ISaveLoadDataService saveLoadDataService, PlayerInfoChangedDispatcher playerInfoChangedDispatcher)
+        public PlayerInfoPreSaver(ISaveLoadDataService saveLoadDataService, PlayerInfoChangedDispatcher playerInfoChangedDispatcher, PlayerInfoChangeRegister register)
         {
+            register.Register(this);
+
             _playerInfoChangedDispatcher = playerInfoChangedDispatcher;
             _saveLoadDataService = saveLoadDataService;
             _playerInfo = _saveLoadDataService.Data.PlayerInfo;
@@ -55,6 +57,14 @@ namespace Warlords.Player.Attributes
             PlayerInfoDiscarded.OnNext(_playerInfo);
             _playerInfoChangedDispatcher.DiscardPlayerInfo(_playerInfo);
         }
-        
+
+        public void PlayerInfoChanged(PlayerInfo playerInfo)
+        {
+            _playerInfo = playerInfo.Copy();
+        }
+
+        void IPlayerInfoChangedListener.PlayerInfoDiscarded(PlayerInfo playerInfo)
+        {
+        }
     }
 }

@@ -56,6 +56,7 @@ namespace Warlords.Inventory
             Item item = inventorySlot.SlotData.Item;
 
             SetPosition(inventorySlot, position);
+            _elementsPositions.Remove(inventorySlot);
 
             var hoveredObjects = context.PointerEventData.hovered;
 
@@ -63,18 +64,15 @@ namespace Warlords.Inventory
 
             var isHoveredWorkbenchSlot = hoveredObjects.Any(obj => obj.TryGetComponent(out workbenchSlot));
 
-            if (isHoveredWorkbenchSlot)
+            if (isHoveredWorkbenchSlot == false) return;
+
+            if (workbenchSlot.TryGetComponent<WorkbenchSlot>(out var slot))
             {
-                if (workbenchSlot != null)
+                if (item is Ingredient ingredient)
                 {
-                    if (workbenchSlot.TryGetComponent<WorkbenchSlot>(out var slot))
-                    {
-                        _workbench.TryPut(slot, item as Ingredient);
-                    }
+                    _workbench.TryPut(slot, ingredient);
                 }
             }
-
-            _elementsPositions.Remove(inventorySlot);
         }
 
         private void HandleDrag(UIElementContextData<InventorySlot> context)

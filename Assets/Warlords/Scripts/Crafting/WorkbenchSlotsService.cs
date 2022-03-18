@@ -14,18 +14,16 @@ namespace Warlords.Crafting
         {
             get
             {
-                int temp = 0;
+                int slotsBusyCount = 0;
                 
                 foreach (Ingredient ingredient in _workbenchSlots.Values)
                 {
                     var isNotEmpty = ingredient != null;
 
-                    if (isNotEmpty) temp++;
+                    if (isNotEmpty) slotsBusyCount++;
                 }
 
-                Debug.Log(temp);
-                
-                if (temp == 5) return true;
+                if (slotsBusyCount == 5) return true;
                 return false;
             }
         }
@@ -40,17 +38,23 @@ namespace Warlords.Crafting
             _workbenchSlots[workbenchSlot] = ingredient;
         }
 
-        public void TryCraft()
+        public bool TryCraft(out Item item)
         {
+            item = null;
             var ingredients = _workbenchSlots.Values.ToArray();
 
             var tryGetRecipeByIngredients = _itemsRecipes.TryGetRecipeByIngredients(ingredients, out var recipe);
 
             if (tryGetRecipeByIngredients)
             {
-                
+                if (recipe is IngredientItemRecipe ingredientItemRecipe)
+                {
+                    item = ingredientItemRecipe.Output;
+                    return true;
+                }                
             }
-            
+
+            return false;
         }
         
         public void ResetWorkbenchSlots()

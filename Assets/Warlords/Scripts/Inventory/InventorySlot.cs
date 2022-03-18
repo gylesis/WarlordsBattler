@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UnityEngine;
 using Warlords.UI.Units;
+using Warlords.Utils;
 using Zenject;
 
 namespace Warlords.Inventory
@@ -13,6 +15,9 @@ namespace Warlords.Inventory
         public InventorySlotData SlotData => _inventorySlotData;
         public InventoryDraggableUIElement DraggableUIElement => _draggableUIElement;
 
+        public Subject<EventContext<InventorySlot, InventorySlotData>> SlotChanged { get; } =
+            new Subject<EventContext<InventorySlot, InventorySlotData>>();
+        
         [Inject]
         private void Init(InventorySlotData slotData, InventoryDraggableUIElement draggableUIElement, InventorySlotView inventorySlotView)
         {
@@ -25,6 +30,14 @@ namespace Warlords.Inventory
         {
             _inventorySlotData.Item = item;
             _inventorySlotData.Count.Value++;
+            
+            var eventContext = new EventContext<InventorySlot, InventorySlotData>();
+            eventContext.Sender = this;
+            eventContext.Value = _inventorySlotData;
+
+            SlotChanged.OnNext(eventContext);
+
+            _inventorySlotView.UpdateItem(item);
         }
         
     }

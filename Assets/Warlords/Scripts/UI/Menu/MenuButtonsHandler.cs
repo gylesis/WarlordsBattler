@@ -53,7 +53,7 @@ namespace Warlords.UI.Menu
 
                 if (menuTag == warlordMenuTag)
                 {
-                   _firstActionsChecker.CheckWarlordMenuFirstEnter();
+                    _firstActionsChecker.CheckWarlordMenuFirstEnter();
                 }
             }
 

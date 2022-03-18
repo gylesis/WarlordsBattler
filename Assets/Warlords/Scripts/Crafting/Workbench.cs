@@ -11,7 +11,7 @@ namespace Warlords.Crafting
         private readonly Inventory.Inventory _inventory;
 
         public Subject<Unit> OnWorkbenchFull = new Subject<Unit>();
-        
+
         public Workbench(WorkbenchSlotsService workbenchSlotsService, Inventory.Inventory inventory)
         {
             _inventory = inventory;
@@ -20,12 +20,22 @@ namespace Warlords.Crafting
 
         public void Craft()
         {
-            _workbenchSlotsService.TryCraft();
+            var tryCraft = _workbenchSlotsService.TryCraft(out var craftedItem);
+
+            if (tryCraft)
+            {
+                _inventory.AddItem(craftedItem);
+            }
         }
 
         public void Reset()
         {
             _workbenchSlotsService.ResetWorkbenchSlots();
+        }
+
+        public void ReturnItemsToInventory()
+        {
+            // TODO
         }
         
         public void TryPut(WorkbenchSlot workbenchSlot, Ingredient ingredient)

@@ -68,7 +68,7 @@ namespace Warlords.Factions
             {
                 playerInfo.Faction = faction;
                 playerInfo.AttributesData.Attributes = _playerAttributesProvider.GetAttributesByFaction(faction);
-                
+                playerInfo.AttributesData.LeftUpgrades = 5;
             });
         }
 
