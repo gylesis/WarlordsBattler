@@ -7,11 +7,14 @@ namespace Warlords.Factions
     public class WarlordFactionSO : ScriptableObject
     {
         public Faction Value;
-
+        
+#if UNITY_EDITOR
         private void OnValidate()
         {
             EditorUtility.SetDirty(this);
             name = Value.Name;
         }
+#endif
+        
     }
 }

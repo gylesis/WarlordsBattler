@@ -3,10 +3,13 @@ using UnityEngine;
 
 namespace Warlords.Crafting
 {
-    [CreateAssetMenu(menuName = "Recipes/CraftingIngredientsContainer", fileName = "CraftingIngredientsContainer", order = 0)]
+    [CreateAssetMenu(menuName = "Recipes/CraftingIngredientsContainer", fileName = "CraftingIngredientsContainer",
+        order = 0)]
     public class CraftingIngredientsContainer : ScriptableObject
     {
         public CraftingIngredient[] Ingredients;
+
+#if UNITY_EDITOR
 
         [ContextMenu(nameof(GenerateIds))]
         private void GenerateIds()
@@ -16,7 +19,7 @@ namespace Warlords.Crafting
                 craftingIngredient.ID = GUID.Generate().ToString();
             }
         }
-        
+#endif
         
     }
 }
