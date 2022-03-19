@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using UniRx;
 using Warlords.Inventory;
 
 namespace Warlords.Crafting
@@ -8,26 +8,10 @@ namespace Warlords.Crafting
     public class WorkbenchSlotsService
     {
         private readonly Dictionary<WorkbenchSlot, Ingredient> _workbenchSlots = new Dictionary<WorkbenchSlot, Ingredient>();
-        private ItemsRecipesDictionary _itemsRecipes;
+        private readonly ItemsRecipesDictionary _itemsRecipes;
 
-        public bool IsWorkbenchFull
-        {
-            get
-            {
-                int slotsBusyCount = 0;
-                
-                foreach (Ingredient ingredient in _workbenchSlots.Values)
-                {
-                    var isNotEmpty = ingredient != null;
-
-                    if (isNotEmpty) slotsBusyCount++;
-                }
-
-                if (slotsBusyCount == 5) return true;
-                return false;
-            }
-        }
-
+        public Subject<Item> WorkbenchRecipeAvailable { get; } = new Subject<Item>();
+        
         public WorkbenchSlotsService(ItemsRecipesDictionary itemsRecipes)
         {
             _itemsRecipes = itemsRecipes;
@@ -40,7 +24,6 @@ namespace Warlords.Crafting
 
         public bool TryCraft(out Item item)
         {
-            item = null;
             var ingredients = _workbenchSlots.Values.ToArray();
 
             var tryGetRecipeByIngredients = _itemsRecipes.TryGetRecipeByIngredients(ingredients, out var recipe);
@@ -50,20 +33,31 @@ namespace Warlords.Crafting
                 if (recipe is IngredientItemRecipe ingredientItemRecipe)
                 {
                     item = ingredientItemRecipe.Output;
+                    
+                    WorkbenchRecipeAvailable.OnNext(item);
                     return true;
-                }                
+                } 
+                
             }
 
+            item = null;
             return false;
         }
+
+        public void RemoveItemFromSlot(WorkbenchSlot workbenchSlot)
+        {
+            _workbenchSlots[workbenchSlot] = null;
+            workbenchSlot.SetItem(null);
+        }
         
-        public void ResetWorkbenchSlots()
+        /*public void ResetWorkbenchSlots()
         {
             foreach (var keyValuePair in _workbenchSlots)
             {
                 _workbenchSlots[keyValuePair.Key] = null;
+                keyValuePair.Key.SetItem(null);
             }
-        }
+        }*/
         
     }
 }

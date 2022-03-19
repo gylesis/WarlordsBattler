@@ -12,6 +12,11 @@ namespace Warlords.Infrastructure
         public InventorySlotSaveData() { }
         public InventorySlotSaveData(InventorySlotData slotData)
         {
+            if (slotData.Item is Ingredient ingredient)
+            {
+                Item = ingredient;
+            }
+
             Item = slotData.Item;
             Count = slotData.Count.Value;
         }

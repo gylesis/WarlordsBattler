@@ -1,5 +1,4 @@
-﻿using System;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 using Warlords.Inventory;
 
@@ -10,7 +9,7 @@ namespace Warlords.Crafting
         private readonly WorkbenchSlotsService _workbenchSlotsService;
         private readonly Inventory.Inventory _inventory;
 
-        public Subject<Unit> OnWorkbenchFull = new Subject<Unit>();
+        public Subject<Item> WorkbenchRecipeAvailable => _workbenchSlotsService.WorkbenchRecipeAvailable;
 
         public Workbench(WorkbenchSlotsService workbenchSlotsService, Inventory.Inventory inventory)
         {
@@ -20,22 +19,18 @@ namespace Warlords.Crafting
 
         public void Craft()
         {
-            var tryCraft = _workbenchSlotsService.TryCraft(out var craftedItem);
+            var craftSucceed = _workbenchSlotsService.TryCraft(out var craftedItem);
 
-            if (tryCraft)
+            if (craftSucceed)
             {
                 _inventory.AddItem(craftedItem);
             }
         }
 
-        public void Reset()
+        public void ReturnItemBackToInventory(WorkbenchSlot workbenchSlot)
         {
-            _workbenchSlotsService.ResetWorkbenchSlots();
-        }
-
-        public void ReturnItemsToInventory()
-        {
-            // TODO
+            _inventory.AddItem(workbenchSlot.Item);
+            _workbenchSlotsService.RemoveItemFromSlot(workbenchSlot);
         }
         
         public void TryPut(WorkbenchSlot workbenchSlot, Ingredient ingredient)
@@ -52,8 +47,7 @@ namespace Warlords.Crafting
                 Debug.Log("Busy already");
             }
 
-            if (_workbenchSlotsService.IsWorkbenchFull)
-                OnWorkbenchFull.OnNext(Unit.Default);
         }
+        
     }
 }

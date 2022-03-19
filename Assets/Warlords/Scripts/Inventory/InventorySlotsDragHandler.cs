@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using Warlords.Crafting;
 using Warlords.Infrastructure;
 using Warlords.UI.Units;
+using Warlords.Utils;
 
 namespace Warlords.Inventory
 {
@@ -62,16 +63,22 @@ namespace Warlords.Inventory
 
             WorkbenchSlot workbenchSlot = null;
 
-            var isHoveredWorkbenchSlot = hoveredObjects.Any(obj => obj.TryGetComponent(out workbenchSlot));
-
-            if (isHoveredWorkbenchSlot == false) return;
-
-            if (workbenchSlot.TryGetComponent<WorkbenchSlot>(out var slot))
+            foreach (GameObject hoveredObject in hoveredObjects)
             {
-                if (item is Ingredient ingredient)
+                if (hoveredObject.TryGetComponent(out CustomTag tag))
                 {
-                    _workbench.TryPut(slot, ingredient);
+                    if (tag.Tag == Tag.WorkbenchUI)
+                    {
+                        hoveredObject.TryGetComponent(out workbenchSlot);
+                    }
                 }
+            }
+
+            if (workbenchSlot == null) return;
+
+            if (item is Ingredient ingredient) // problem in that Item after saving dont have info about Ingredient
+            {
+                _workbench.TryPut(workbenchSlot, ingredient);
             }
         }
 
@@ -80,7 +87,7 @@ namespace Warlords.Inventory
             RectTransform rectTransform = context.Sender.DraggableUIElement.Rect;
             PointerEventData pointerEventData = context.PointerEventData;
 
-            rectTransform.anchoredPosition += pointerEventData.delta * 2;
+            rectTransform.anchoredPosition += pointerEventData.delta;
         }
 
 

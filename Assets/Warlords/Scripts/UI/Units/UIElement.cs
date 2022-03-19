@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 namespace Warlords.UI.Units
 {
     [RequireComponent(typeof(RectTransform))]
-    public abstract class UIElement<TSender> : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IPointerUpHandler, IPointerDownHandler
+    public abstract class UIElement<TSender> : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler,
+        IPointerUpHandler, IPointerDownHandler, IPointerClickHandler
     {
         [SerializeField] private RectTransform _rectTransform;
         public RectTransform Rect => _rectTransform;
@@ -20,12 +21,16 @@ namespace Warlords.UI.Units
 
         public Subject<UIElementContextData<TSender>> PointerDrag { get; } =
             new Subject<UIElementContextData<TSender>>();
-        
+
         public Subject<UIElementContextData<TSender>> PointerUp { get; } =
             new Subject<UIElementContextData<TSender>>();
 
         public Subject<UIElementContextData<TSender>> PointerDown { get; } =
             new Subject<UIElementContextData<TSender>>();
+
+        public Subject<UIElementContextData<TSender>> PointerClick { get; } =
+            new Subject<UIElementContextData<TSender>>();
+
         private void Reset()
         {
             if (_rectTransform == null)
@@ -81,6 +86,13 @@ namespace Warlords.UI.Units
             var contextData = GetContextData(eventData);
 
             PointerDown.OnNext(contextData);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            var contextData = GetContextData(eventData);
+
+            PointerClick.OnNext(contextData);
         }
     }
 

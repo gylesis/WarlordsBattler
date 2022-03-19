@@ -48,7 +48,7 @@ namespace Warlords.Inventory
 
         private void UpdateView(int value)
         {
-            if (value == 0)
+            if (value <= 0)
             {
                 _count.enabled = false;
                 _draggableUIElement.Disable();
@@ -61,19 +61,33 @@ namespace Warlords.Inventory
             _itemIcon.enabled = true;
             _count.text = value.ToString();
         }
+
+        private void UpdateViewWhenDrag(int value)
+        {
+            if (value <= 0)
+            {
+                _count.enabled = false;
+                return;
+            }
+
+            _count.enabled = true;
+            _count.text = value.ToString();
+        }
         
         private void PointerUp(UIElementContextData<InventorySlot> context)
         {
-            _additionalIcon.enabled = false;
+             _additionalIcon.enabled = false;
             var countValue = _slotData.Count.Value;
-            UpdateView(countValue);
+            UpdateViewWhenDrag(countValue);
         }
 
         private void PointerDown(UIElementContextData<InventorySlot> context)
         {
-            _additionalIcon.enabled = true;
             var countValue = _slotData.Count.Value;
-            UpdateView(countValue - 1);
+            if (countValue - 1 > 0) 
+                _additionalIcon.enabled = true;
+
+            UpdateViewWhenDrag(countValue - 1);
         }
     }
 }

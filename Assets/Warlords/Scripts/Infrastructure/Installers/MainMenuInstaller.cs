@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using Warlords.Crafting;
 using Warlords.Infrastructure.Factory;
 using Warlords.Inventory;
 using Warlords.UI.Appearance;
 using Warlords.UI.Menu;
 using Warlords.UI.PopUp;
-using Warlords.UI.Units;
 using Zenject;
 
 namespace Warlords.Infrastructure.Installers
@@ -25,11 +23,15 @@ namespace Warlords.Infrastructure.Installers
 
         [SerializeField] private InventorySlotViewsContainer _inventorySlotViewsContainer;
         [SerializeField] private ItemsInfoContainer _itemsInfoContainer;
-        [SerializeField] private RecipesContainer _recipesContainer;    
+        [SerializeField] private RecipesContainer _recipesContainer;
+        [SerializeField] private WorkbenchSlotsContainer _workbenchSlotsContainer;
+
         public override void InstallBindings()
         {
             BindPopUps();
 
+            Container.Bind<WorkbenchSlotsContainer>().FromInstance(_workbenchSlotsContainer).AsSingle();
+            Container.Bind<WorkbenchSlotsUIHandler>().AsSingle().NonLazy();
             Container.Bind<ItemsRecipesDictionary>().AsSingle().NonLazy();
             Container.Bind<RecipesContainer>().FromInstance(_recipesContainer).AsSingle();
             Container.Bind<InventorySlotsDataBinder>().AsSingle();

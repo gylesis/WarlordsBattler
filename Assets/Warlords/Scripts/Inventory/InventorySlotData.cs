@@ -1,5 +1,4 @@
 ﻿using System;
-using UniRx;
 using Warlords.Infrastructure;
 using Warlords.Utils;
 
@@ -12,19 +11,13 @@ namespace Warlords.Inventory
         {
             get => _item;
 
-            set
-            {
-                _item = value;
-               // ItemChanged.OnNext(value);
-            }
+            set => _item = value;
         }
 
         public IntStat Count = new IntStat();
         
         private Item _item;
 
-      //  public Subject<Item> ItemChanged { get; } = new Subject<Item>();
-        
         public InventorySlotData() { }
 
         public InventorySlotData(InventorySlotSaveData slotSaveData)
@@ -38,7 +31,7 @@ namespace Warlords.Inventory
     [Serializable]
     public class Item
     {
-        public string Name;
+        public string Name = "";
     }
 
     [Serializable]

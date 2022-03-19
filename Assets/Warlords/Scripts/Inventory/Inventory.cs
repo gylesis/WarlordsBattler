@@ -11,9 +11,7 @@ namespace Warlords.Inventory
 {
     public class Inventory : IAsyncLoad
     {
-        private List<InventorySlotData> _inventorySlotDatas = new List<InventorySlotData>();
         private readonly Dictionary<InventorySlot, InventorySlotData> _inventorySlots = new Dictionary<InventorySlot, InventorySlotData>();
-        
         private readonly InventorySlotViewsContainer _inventorySlotViewsContainer;
 
         public Inventory(InventorySlotViewsContainer inventorySlotViewsContainer, AsyncLoadingsRegister asyncLoadingsRegister)
@@ -27,8 +25,6 @@ namespace Warlords.Inventory
         {
             foreach (InventorySlot inventorySlot in _inventorySlotViewsContainer.InventorySlotViews)
             {
-                Item item = inventorySlot.SlotData.Item;
-
                 inventorySlot.SlotChanged.TakeUntilDestroy(inventorySlot).Subscribe(OnInventorySlotItemChanged); 
                 
                 _inventorySlots.Add(inventorySlot, inventorySlot.SlotData);   
@@ -53,7 +49,7 @@ namespace Warlords.Inventory
             
             if (itemCount - 1 <= 0)
             {
-                _inventorySlots[inventorySlot] = null;
+                _inventorySlots[inventorySlot].Item = new Item();
             }
  
             inventorySlot.SlotData.Count.Value--;
@@ -61,9 +57,9 @@ namespace Warlords.Inventory
 
         public void AddItem(Item itemToAdd, int count = 1)
         {
-            Item item = _inventorySlots.Values.FirstOrDefault(x => x.Item.Name == itemToAdd.Name)?.Item;
+            var inventoryHasItem = _inventorySlots.Values.Any(x => x.Item.Name == itemToAdd.Name);
 
-            if (item == null)
+            if (inventoryHasItem == false)
             {
                 InventorySlot freeSlot = _inventorySlots.Keys.FirstOrDefault(x => x.SlotData.Item.Name == String.Empty);
 
@@ -78,7 +74,7 @@ namespace Warlords.Inventory
             }
             else
             {
-                InventorySlot inventorySlot = _inventorySlots.FirstOrDefault(x => x.Value.Item.Name == item.Name).Key;
+                InventorySlot inventorySlot = _inventorySlots.FirstOrDefault(x => x.Value.Item.Name == itemToAdd.Name).Key;
                 inventorySlot.AddItem(itemToAdd);
             }
         }

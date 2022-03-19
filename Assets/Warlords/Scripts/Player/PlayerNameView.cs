@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Warlords.Player
 {
@@ -8,8 +7,6 @@ namespace Warlords.Player
         public override void PlayerInfoChanged(PlayerInfo playerInfo)
         {
             var playerName = playerInfo.Name;
-            
-            Debug.Log(playerName);
             
             if (playerName == String.Empty)
             {

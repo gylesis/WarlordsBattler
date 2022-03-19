@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c96fcd279e4b60ba2fe1f20b09ec6b, type: 3}
-  m_Name: IngredientRecipe
+  m_Name: DarkGreenShard
   m_EditorClassIdentifier: 
   Ingredients:
   - {fileID: 11400000, guid: 3b0ff1165789b534ba2e1cd887372e32, type: 2}

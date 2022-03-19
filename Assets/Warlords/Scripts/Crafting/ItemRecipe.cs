@@ -12,20 +12,23 @@ namespace Warlords.Crafting
 
         public bool AreIngredientsFit(Ingredient[] ingredients)
         {
-            var craftingIngredients = new List<CraftingIngredient>(Ingredients);  
+            var craftingIngredients = new List<CraftingIngredient>(Ingredients);
 
             foreach (Ingredient ingredient in ingredients)
             {
-                CraftingIngredient craftingIngredient = craftingIngredients.FirstOrDefault(x => x.Color == ingredient.Color && x.Type == ingredient.Type);
+                CraftingIngredient craftingIngredient =
+                    craftingIngredients.FirstOrDefault(x => x.Color == ingredient.Color && x.Type == ingredient.Type);
 
                 if (craftingIngredient == null) return false;
-                
+
                 craftingIngredients.Remove(craftingIngredient);
             }
 
             return craftingIngredients.Count == 0;
         }
-        
+
+#if UNITY_EDITOR
+
         private void OnValidate()
         {
             if (Ingredients.Count > 5)
@@ -36,5 +39,7 @@ namespace Warlords.Crafting
                 }
             }
         }
+
+#endif
     }
 }

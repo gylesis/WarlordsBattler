@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using UnityEngine;
 using Warlords.Inventory;
 
 namespace Warlords.Infrastructure.Installers
