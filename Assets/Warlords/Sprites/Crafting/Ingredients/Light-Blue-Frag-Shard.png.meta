@@ -1,7 +1,22 @@
 fileFormatVersion: 2
 guid: 98cce83fe3e303c4194edbbbf1a2551a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5038438975936758999
+    second: Light-Blue-Frag-Shard_0
+  - first:
+      213: 2061934040047284413
+    second: Light-Blue-Frag-Shard_1
+  - first:
+      213: -2828564222371248825
+    second: Light-Blue-Frag-Shard_2
+  - first:
+      213: -6020627909829750804
+    second: Light-Blue-Frag-Shard_3
+  - first:
+      213: 7638346889060423854
+    second: Light-Blue-Frag-Shard_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -137,11 +152,53 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Light-Blue-Frag-Shard_0
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 129
+        width: 124
+        height: 363
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92b7ec8327ed31ab0800000000000000
+      internalID: -5038438975936758999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Light-Blue-Frag-Shard_2
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 89
+        width: 431
+        height: 435
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 745ce2d73dbeeb8d0800000000000000
+      internalID: -2828564222371248825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bb5defb409e70fa47be7f06b778c02ef
     internalID: 0
     vertices: []
     indices: 

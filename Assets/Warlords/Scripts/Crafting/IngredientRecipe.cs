@@ -4,8 +4,10 @@ using Warlords.Inventory;
 namespace Warlords.Crafting
 {
     [CreateAssetMenu(menuName = "Recipes/IngredientRecipe", fileName = "IngredientRecipe", order = 0)]
-    public class IngredientItemRecipe : ItemRecipe
+    public class IngredientRecipe : Recipe
     {
-        public Ingredient Output;
+        [SerializeField] private Ingredient _ingredient;
+
+        public override Item Output => _ingredient;
     }
 }

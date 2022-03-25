@@ -32,10 +32,12 @@ namespace Warlords.Player
 
             var item1 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenFragment",Type = IngredientType.Fragment, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = 9}};
             var item2 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenShard",Type = IngredientType.Shard, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = 3}};
+            var item3 = new InventorySlotData() {Item = new Ingredient{Name = "LightBlueFragment",Type = IngredientType.Fragment, Color = IngredientColor.LightBlue}, Count = new IntStat{Value = 6}};
             //var item2 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenShard",Type = IngredientType.Shard, Color = IngredientColor.DarkBlue}, Count = new IntStat{Value = 9}};
             
             inventorySlotDatas.Add(item1);
             inventorySlotDatas.Add(item2);
+            inventorySlotDatas.Add(item3);
 
             var count = 15 - inventorySlotDatas.Count;
             

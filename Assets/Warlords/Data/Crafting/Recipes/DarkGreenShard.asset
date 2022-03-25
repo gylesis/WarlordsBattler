@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b0ff1165789b534ba2e1cd887372e32, type: 2}
   - {fileID: 11400000, guid: 3b0ff1165789b534ba2e1cd887372e32, type: 2}
   - {fileID: 11400000, guid: 3b0ff1165789b534ba2e1cd887372e32, type: 2}
-  Output:
+  _ingredient:
     Name: DarkGreenShard
     Type: 0
     Color: 8

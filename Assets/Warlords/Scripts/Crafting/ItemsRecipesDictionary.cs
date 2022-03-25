@@ -12,20 +12,20 @@ namespace Warlords.Crafting
             _recipesContainer = recipesContainer;
         }
         
-        public bool TryGetRecipeByIngredients(Ingredient[] ingredients, out ItemRecipe itemRecipe)
+        public bool TryGetRecipeByIngredients(Ingredient[] ingredients, out Recipe recipe)
         {
-            foreach (ItemRecipe recip in _recipesContainer.Recipes)
+            foreach (Recipe recip in _recipesContainer.Recipes)
             {
                 var check = recip.AreIngredientsFit(ingredients);
 
                 if (check)
                 {
-                    itemRecipe = recip;
+                    recipe = recip;
                     return true;
                 }
             }
 
-            itemRecipe = null;
+            recipe = null;
             return false;
 
         }

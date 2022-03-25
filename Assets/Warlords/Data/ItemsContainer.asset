@@ -20,3 +20,15 @@ MonoBehaviour:
   - Item:
       Name: DarkGreenShard
     Image: {fileID: 7589786494316338418, guid: 5a971ae805ba56446973eee5b6fa82ea, type: 3}
+  - Item:
+      Name: LightBlueFragment
+    Image: {fileID: -5038438975936758999, guid: 98cce83fe3e303c4194edbbbf1a2551a, type: 3}
+  - Item:
+      Name: LightBlueShard
+    Image: {fileID: -2828564222371248825, guid: 98cce83fe3e303c4194edbbbf1a2551a, type: 3}
+  - Item:
+      Name: DeathsCharm
+    Image: {fileID: -6101544274560005948, guid: 35e0239964925bf4586d9dc5958b98b1, type: 3}
+  - Item:
+      Name: DetoxPotion1
+    Image: {fileID: -2279331807528246797, guid: c25a54d25c2a13440ab9791da114fe34, type: 3}

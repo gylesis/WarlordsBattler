@@ -10,7 +10,7 @@ namespace Warlords.Crafting
     {
         [SerializeField] private DefaultReactiveButton _reactiveButton;
         [SerializeField] private WorkbenchSlot _craftedItemView;
-        
+
         private Workbench _workbench;
 
         [Inject]
@@ -24,8 +24,14 @@ namespace Warlords.Crafting
 
         private void OnWorkbenchRecipeAvailable(Item item)
         {
+            if (item == null)
+            {
+                _craftedItemView.SetItem(null);
+                _reactiveButton.gameObject.SetActive(false);
+                return;
+            }
+
             _reactiveButton.gameObject.SetActive(true);
-            
             _craftedItemView.SetItem(item);
         }
 

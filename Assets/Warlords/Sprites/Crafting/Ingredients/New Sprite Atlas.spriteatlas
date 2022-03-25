@@ -66,11 +66,15 @@ SpriteAtlas:
   - {fileID: 7589786494316338418, guid: 5a971ae805ba56446973eee5b6fa82ea, type: 3}
   - {fileID: 8698170986331496556, guid: b1ac0de8104fcab49ae37c1d6c3d9a4b, type: 3}
   - {fileID: 666558188189266715, guid: b1ac0de8104fcab49ae37c1d6c3d9a4b, type: 3}
+  - {fileID: -5038438975936758999, guid: 98cce83fe3e303c4194edbbbf1a2551a, type: 3}
+  - {fileID: -2828564222371248825, guid: 98cce83fe3e303c4194edbbbf1a2551a, type: 3}
   m_PackedSpriteNamesToIndex:
   - Dark-Green-Frag-Shard_0
   - Dark-Green-Frag-Shard_1
   - Dark-Blue-Frag-Shard_1
   - Dark-Blue-Frag-Shard_0
+  - Light-Blue-Frag-Shard_0
+  - Light-Blue-Frag-Shard_2
   m_RenderDataMap: {}
   m_Tag: New Sprite Atlas
   m_IsVariant: 0

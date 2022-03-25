@@ -30,7 +30,7 @@ namespace Warlords.Crafting
         public void ReturnItemBackToInventory(WorkbenchSlot workbenchSlot)
         {
             _inventory.AddItem(workbenchSlot.Item);
-            _workbenchSlotsService.RemoveItemFromSlot(workbenchSlot);
+            _workbenchSlotsService.RemoveItemFromSlot(workbenchSlot, true);
         }
         
         public void TryPut(WorkbenchSlot workbenchSlot, Ingredient ingredient)
