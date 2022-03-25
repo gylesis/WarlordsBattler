@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Warlords.Battle;
 using Warlords.Infrastructure.States;
 using Warlords.Player;
 using Warlords.Utils;
@@ -14,9 +15,8 @@ namespace Warlords.Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<ProjectInstaller>().FromInstance(this).AsSingle();
 
-            Container.Bind<PlayerInfoStaticData>().FromInstance(_playerInfoStaticData).AsSingle();
-            Container.Bind<ISaveLoadDataService>().To<PlayerPrefsSaveLoadDataService>().AsSingle().NonLazy();
-            Container.Bind<ISaveDataInitializer>().To<SaveDataInitializer>().AsSingle().NonLazy();
+            BindNetworking();
+            BindPlayerInfo();
 
             Container.Bind<ApplicationURLOpener>().AsSingle().NonLazy();
             
@@ -45,6 +45,26 @@ namespace Warlords.Infrastructure.Installers
            // BindStateMachine();
         }
 
+        private void BindPlayerInfo()
+        {
+            Container.Bind<PlayerInfoStaticData>().FromInstance(_playerInfoStaticData).AsSingle();
+            Container.Bind<ISaveLoadDataService>().To<PlayerPrefsSaveLoadDataService>().AsSingle().NonLazy();
+            Container.Bind<ISaveDataInitializer>().To<SaveDataInitializer>().AsSingle().NonLazy();
+        }
+
+        private void BindNetworking()
+        {
+            Container.Bind<BattleAreaStarter>().AsSingle().NonLazy();
+            Container.Bind<BattleGamePoller>().AsSingle().NonLazy();
+            Container.Bind<BattleAreaCurtain>().FromMethod((() =>
+            {
+                var battleAreaCurtain =
+                    Container.InstantiatePrefabResourceForComponent<BattleAreaCurtain>(AssetsPath.BattleAreaCurtain);
+
+                return battleAreaCurtain;
+                
+            })).AsSingle();
+        }
 
         private void BindStateMachine()
         {

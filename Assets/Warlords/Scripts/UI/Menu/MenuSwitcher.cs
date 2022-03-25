@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Warlords.UI.Menu
@@ -10,6 +11,7 @@ namespace Warlords.UI.Menu
         [SerializeField] private Menu[] _menus;
 
         private MenuContext[] _menuContexts;
+        private MenuTag _menuTag;
 
         [Inject]
         private void Init()
@@ -25,17 +27,30 @@ namespace Warlords.UI.Menu
                 menuContexts.Add(menuContext);
             }
 
+            var sceneCount = SceneManager.sceneCount;
+
             _menuContexts = menuContexts.ToArray();
+            
+            if (sceneCount > 1)
+            {
+                OpenMenu(_menuContexts[0].Tag);
+            }
+        }
+
+        public void OpenPrevMenu()
+        {
+            
         }
         
         public void OpenMenu(MenuTag menuTag)
         {
+            _menuTag = menuTag;
             MenuContext context = FindMenuContextByTag(menuTag);
 
-            OpenMenu(context.Menu);
+            OpenMenu(context.Menu, menuTag.Additive);
         }
 
-        private void OpenMenu(Menu targetMenu)
+        private void OpenMenu(Menu targetMenu, bool isAdditive = false)
         {
             ActivateMenu();
 

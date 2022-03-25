@@ -2,6 +2,7 @@
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
+using Warlords.Battle;
 using Image = UnityEngine.UI.Image;
 
 namespace Warlords.Utils
@@ -27,7 +28,7 @@ namespace Warlords.Utils
             _curtainObj.SetActive(true);
         }
 
-        public void ShowWithProgress(FloatReactiveProperty sceneLoadReactiveProperty)
+        public void ShowWithProgress(FloatReactiveProperty progressProperty)
         {
             _sceneLoadProgressDisposable?.Dispose();
             
@@ -35,7 +36,7 @@ namespace Warlords.Utils
             _progressImage.enabled = true;
             _curtainObj.SetActive(true);
 
-            _sceneLoadProgressDisposable = sceneLoadReactiveProperty.Subscribe(UpdateView);
+            _sceneLoadProgressDisposable = progressProperty.Subscribe(UpdateView);
         }
 
         private void UpdateView(float progressValue)

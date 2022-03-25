@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Warlords.Battle;
 using Warlords.Crafting;
 using Warlords.Infrastructure.Factory;
 using Warlords.Inventory;
@@ -29,7 +30,53 @@ namespace Warlords.Infrastructure.Installers
         public override void InstallBindings()
         {
             BindPopUps();
+            
+            BindWorkbenchAndInventory();
 
+            Container
+                .Bind<ListOfUpgradesForHexagons>()
+                .FromInstance(_listOfUpgradesForHexagons)
+                .AsSingle();
+
+            Container
+                .Bind<FirstActionsChecker>()
+                .AsSingle()
+                .NonLazy();
+
+            BindMenus();
+
+            Container
+                .Bind<RenderCamera>()
+                .FromInstance(_renderCamera)
+                .AsSingle();
+            Container
+                .Bind<AppearanceViewContainer[]>()
+                .FromInstance(_appearanceContainers)
+                .AsSingle();
+            Container
+                .Bind<AppearanceController>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindMenus()
+        {
+            Container
+                .Bind<MenuSwitcher>()
+                .FromInstance(_menuSwitcher)
+                .AsSingle();
+            Container
+                .Bind<MenuButtonsHandler>()
+                .AsSingle()
+                .NonLazy();
+            Container
+                .Bind<MenuTagsContainer>()
+                .FromInstance(_menuTagsContainer)
+                .AsSingle();
+        }
+
+        private void BindWorkbenchAndInventory()
+        {
             Container.Bind<WorkbenchSlotsContainer>().FromInstance(_workbenchSlotsContainer).AsSingle();
             Container.Bind<WorkbenchSlotsUIHandler>().AsSingle().NonLazy();
             Container.Bind<ItemsRecipesDictionary>().AsSingle().NonLazy();
@@ -44,42 +91,6 @@ namespace Warlords.Infrastructure.Installers
             Container
                 .Bind<InventorySlotViewsContainer>()
                 .FromInstance(_inventorySlotViewsContainer);
-
-            Container
-                .Bind<ListOfUpgradesForHexagons>()
-                .FromInstance(_listOfUpgradesForHexagons)
-                .AsSingle();
-
-            Container
-                .Bind<FirstActionsChecker>()
-                .AsSingle()
-                .NonLazy();
-
-            Container
-                .Bind<MenuSwitcher>()
-                .FromInstance(_menuSwitcher)
-                .AsSingle();
-            Container
-                .Bind<MenuButtonsHandler>()
-                .AsSingle()
-                .NonLazy();
-            Container
-                .Bind<MenuTagsContainer>()
-                .FromInstance(_menuTagsContainer)
-                .AsSingle();
-
-            Container
-                .Bind<RenderCamera>()
-                .FromInstance(_renderCamera)
-                .AsSingle();
-            Container
-                .Bind<AppearanceViewContainer[]>()
-                .FromInstance(_appearanceContainers)
-                .AsSingle();
-            Container
-                .Bind<AppearanceController>()
-                .AsSingle()
-                .NonLazy();
         }
 
         private void BindPopUps()
