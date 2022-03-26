@@ -6,12 +6,12 @@ using Zenject;
 
 namespace Warlords.Infrastructure.Factory
 {
-    public class PopUpsFactory
+    public class MainMenuPopUpsFactory
     {
         private readonly Transform _spawnParent;
         private readonly DiContainer _container;
 
-        public PopUpsFactory(PopUpFactoryContext factoryContext, DiContainer container)
+        public MainMenuPopUpsFactory(PopUpFactoryContext factoryContext, DiContainer container)
         {
             _container = container;
             _spawnParent = factoryContext.SpawnParent;

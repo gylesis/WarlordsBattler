@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using Warlords.Utils;
 using Zenject;
@@ -8,15 +9,16 @@ namespace Warlords.Battle
     public class GameModeButtonsHandler : MonoBehaviour
     {
         [SerializeField] private GameModeButton[] _gameModeButtons;
+        [SerializeField] private Transform _gameModeButtonsParent;
 
-        private BattleAreaStarter _battleAreaStarter;
+        private BattleGameFinder _battleGameFinder;
 
         [Inject]
-        private void Init(BattleAreaStarter battleAreaStarter)
+        private void Init(BattleGameFinder battleGameFinder)
         {
-            _battleAreaStarter = battleAreaStarter;
+            _battleGameFinder = battleGameFinder;
         }
-        
+
         private void Awake()
         {
             foreach (GameModeButton gameModeButton in _gameModeButtons)
@@ -27,10 +29,9 @@ namespace Warlords.Battle
         {
             GameModeType gameModeType = context.Value;
 
-            _battleAreaStarter.StartGame(gameModeType);
-            
-            foreach (GameModeButton gameModeButton in _gameModeButtons) 
-                gameModeButton.gameObject.SetActive(false);
+            _battleGameFinder.StartGame(gameModeType);
+
+            _gameModeButtonsParent.gameObject.SetActive(false);
         }
     }
 }

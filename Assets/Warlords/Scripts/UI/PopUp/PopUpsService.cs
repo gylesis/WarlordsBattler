@@ -16,12 +16,12 @@ namespace Warlords.UI.PopUp
     {
         [SerializeField] private AppearancePopUp _appearancePopUp;  // To replace by spawning
         
-        private PopUpsFactory _factory;
+        private MainMenuPopUpsFactory _factory;
         private CurtainService _curtainService;
         private PlayerNameSetter _nameSetter;
 
         [Inject]
-        private void Init(PopUpsFactory factory, CurtainService curtainService, PlayerNameSetter nameSetter, PlayerInfoPreSaver playerInfoPreSaver)
+        private void Init(MainMenuPopUpsFactory factory, CurtainService curtainService, PlayerNameSetter nameSetter, PlayerInfoPreSaver playerInfoPreSaver)
         {
             _nameSetter = nameSetter;
             _curtainService = curtainService;

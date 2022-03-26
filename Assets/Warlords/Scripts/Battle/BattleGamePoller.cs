@@ -9,13 +9,15 @@ namespace Warlords.Battle
 
         public async UniTask FindCasualGame(Action foundGame)
         {
-            await UniTask.Delay(5);
+            await UniTask.Delay(TimeSpan.FromSeconds(5));
+            
             foundGame.Invoke();
         }
         
         public async UniTask FindRankedGame(Action foundGame)
         {
-            await UniTask.Delay(5);
+            await UniTask.Delay(TimeSpan.FromSeconds(7));
+            
             foundGame.Invoke();
         }
         

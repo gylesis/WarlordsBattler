@@ -26,13 +26,20 @@ namespace Warlords.Infrastructure.Installers
         [SerializeField] private ItemsInfoContainer _itemsInfoContainer;
         [SerializeField] private RecipesContainer _recipesContainer;
         [SerializeField] private WorkbenchSlotsContainer _workbenchSlotsContainer;
-
+        [SerializeField] private AcceptButtonsPopUp _acceptButtonsPopUp;
+        
+            
         public override void InstallBindings()
         {
             BindPopUps();
             
             BindWorkbenchAndInventory();
-
+            
+            Container.Bind<BattleGameStarter>().AsSingle().NonLazy();
+            Container.Bind<BattleGamePoller>().AsSingle().NonLazy();
+            Container.Bind<BattleGameFinder>().AsSingle().NonLazy();
+            Container.Bind<AcceptButtonsPopUp>().FromInstance(_acceptButtonsPopUp).AsSingle();
+            
             Container
                 .Bind<ListOfUpgradesForHexagons>()
                 .FromInstance(_listOfUpgradesForHexagons)
@@ -107,7 +114,7 @@ namespace Warlords.Infrastructure.Installers
                 .FromInstance(popUpFactoryContext)
                 .AsSingle();
             Container
-                .Bind<PopUpsFactory>()
+                .Bind<MainMenuPopUpsFactory>()
                 .AsSingle();
         }
     }

@@ -47,7 +47,7 @@ namespace Warlords.UI.Menu
             _menuTag = menuTag;
             MenuContext context = FindMenuContextByTag(menuTag);
 
-            OpenMenu(context.Menu, menuTag.Additive);
+            OpenMenu(context.Menu, menuTag.IsAdditive);
         }
 
         private void OpenMenu(Menu targetMenu, bool isAdditive = false)

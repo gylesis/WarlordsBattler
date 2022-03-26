@@ -54,8 +54,7 @@ namespace Warlords.Infrastructure.Installers
 
         private void BindNetworking()
         {
-            Container.Bind<BattleAreaStarter>().AsSingle().NonLazy();
-            Container.Bind<BattleGamePoller>().AsSingle().NonLazy();
+           
             Container.Bind<BattleAreaCurtain>().FromMethod((() =>
             {
                 var battleAreaCurtain =
