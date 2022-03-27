@@ -1,10 +1,12 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Globalization;
+using System.Timers;
 using DG.Tweening;
 using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Warlords.Battle
 {
@@ -15,33 +17,31 @@ namespace Warlords.Battle
         [SerializeField] private TMP_Text _title;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        private IDisposable _timer;
+        private IntStopwatch _stopwatch;
 
-        private void Awake()
+        [Inject]
+        private void Init(IntStopwatch intStopwatch)
         {
             _canvasGroup.alpha = 0;
             _title.enabled = false;
+            _stopwatch = intStopwatch;
         }
-
+        
         public void Show()
         {
-            _timer?.Dispose();
+            _stopwatch.Stop();
             _image.enabled = true;
 
             _canvasGroup.DOFade(1, 1);
 
             _counter.enabled = true;
-
-            int time = 1;
-
-            _timer = Observable
-                .Interval(TimeSpan.FromSeconds(1))
-                .TakeUntilDestroy(this)
-                .Subscribe((l =>
-                {
-                    time++;
-                    _counter.text = time.ToString("00:00");
-                }));
+            
+            _stopwatch.Start();
+            
+            _stopwatch.Tick.TakeUntilDestroy(this).Subscribe((span =>
+            {
+                _counter.text = span.Seconds.ToString("00:00");
+            }));
         }
 
         public void UpdateTitle(string title)
@@ -50,9 +50,15 @@ namespace Warlords.Battle
             _title.text = title;
         }
 
+        public void StopStopwatch()
+        {
+            _stopwatch.Stop();
+        }
+
         public void Hide()
         {
-            _timer?.Dispose();
+            StopStopwatch();
+            
             _canvasGroup.DOFade(0, 1).OnComplete((() =>
             {
                 _image.enabled = false;

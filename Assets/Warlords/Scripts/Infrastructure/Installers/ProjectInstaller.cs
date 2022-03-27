@@ -15,6 +15,8 @@ namespace Warlords.Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<ProjectInstaller>().FromInstance(this).AsSingle();
 
+            Container.BindInterfacesAndSelfTo<IntStopwatch>().AsTransient();
+            
             BindNetworking();
             BindPlayerInfo();
 
@@ -54,7 +56,6 @@ namespace Warlords.Infrastructure.Installers
 
         private void BindNetworking()
         {
-           
             Container.Bind<BattleAreaCurtain>().FromMethod((() =>
             {
                 var battleAreaCurtain =

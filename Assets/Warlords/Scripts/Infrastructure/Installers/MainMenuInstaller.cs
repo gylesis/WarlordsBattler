@@ -34,6 +34,8 @@ namespace Warlords.Infrastructure.Installers
             BindPopUps();
             
             BindWorkbenchAndInventory();
+
+            Container.Bind<RedirectionService>().AsSingle();
             
             Container.Bind<BattleGameStarter>().AsSingle().NonLazy();
             Container.Bind<BattleGamePoller>().AsSingle().NonLazy();

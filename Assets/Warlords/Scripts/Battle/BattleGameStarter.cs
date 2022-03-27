@@ -27,4 +27,5 @@ namespace Warlords.Battle
             await _sceneLoader.LoadScene("BattleScene");
         }
     }
+    
 }

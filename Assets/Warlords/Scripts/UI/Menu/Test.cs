@@ -1,9 +1,5 @@
-﻿using TMPro;
-using UniRx;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using Warlords.Inventory;
-using Warlords.Utils;
 
 namespace Warlords.UI.Menu
 {
@@ -26,5 +22,6 @@ namespace Warlords.UI.Menu
             Debug.Log(
                 $"Name {ingredientFromJson.Name}, Color {ingredientFromJson.Color}, Type {ingredientFromJson.Type}");
         }
+
     }
 }
