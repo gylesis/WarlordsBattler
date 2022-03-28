@@ -104,7 +104,10 @@ namespace Warlords.Battle
 
     public interface IGameSearchListener
     {
-        
+        // TODO
     }
+    
+    
+    
     
 }
