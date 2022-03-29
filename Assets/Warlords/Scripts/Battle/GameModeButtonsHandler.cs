@@ -1,23 +1,20 @@
 ﻿using UniRx;
-using UnityEngine;
 using Warlords.Utils;
-using Zenject;
 
 namespace Warlords.Battle
 {
-    public class GameModeButtonsHandler : MonoBehaviour
+    public class GameModeButtonsHandler
     {
-        private BattleGameFinder _battleGameFinder;
-        private GameModeButtonsContainer _gameModeButtonsContainer;
-
-        [Inject]
-        private void Init(BattleGameFinder battleGameFinder, GameModeButtonsContainer gameModeButtonsContainer)
+        private readonly BattleGameFinder _battleGameFinder;
+        private readonly GameModeButtonsContainer _gameModeButtonsContainer;
+     
+        private GameModeButtonsHandler(BattleGameFinder battleGameFinder, GameModeButtonsContainer gameModeButtonsContainer)
         {
             _gameModeButtonsContainer = gameModeButtonsContainer;
             _battleGameFinder = battleGameFinder;
             
             foreach (GameModeButton gameModeButton in _gameModeButtonsContainer.GameModeButtons)
-                gameModeButton.Clicked.TakeUntilDestroy(this).Subscribe((OnClicked));
+                gameModeButton.Clicked.TakeUntilDestroy(gameModeButton).Subscribe((OnClicked));
         }
 
         private void OnClicked(EventContext<GameModeButton, GameModeType> context)

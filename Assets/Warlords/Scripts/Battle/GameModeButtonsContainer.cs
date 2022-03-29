@@ -4,8 +4,8 @@ namespace Warlords.Battle
 {
     public class GameModeButtonsContainer : MonoBehaviour
     {
-        [SerializeField] private GameModeButton[] _gameModeButtons;
         [SerializeField] private Transform _root;
+        [SerializeField] private GameModeButton[] _gameModeButtons;
 
         public GameModeButton[] GameModeButtons => _gameModeButtons;
 

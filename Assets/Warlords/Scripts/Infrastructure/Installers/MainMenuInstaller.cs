@@ -27,7 +27,7 @@ namespace Warlords.Infrastructure.Installers
         [SerializeField] private RecipesContainer _recipesContainer;
         [SerializeField] private WorkbenchSlotsContainer _workbenchSlotsContainer;
         [SerializeField] private AcceptButtonsPopUp _acceptButtonsPopUp;
-        
+        [SerializeField] private GameModeButtonsContainer _gameModeButtonsContainer;    
             
         public override void InstallBindings()
         {
@@ -35,6 +35,9 @@ namespace Warlords.Infrastructure.Installers
             
             BindWorkbenchAndInventory();
 
+            Container.Bind<GameModeButtonsHandler>().AsSingle().NonLazy();
+            Container.Bind<GameModeButtonsContainer>().FromInstance(_gameModeButtonsContainer);
+            
             Container.Bind<RedirectionService>().AsSingle();
             
             Container.Bind<BattleGameStarter>().AsSingle().NonLazy();
