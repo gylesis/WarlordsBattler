@@ -1,8 +1,4 @@
-﻿#if UNITY_EDITOR
-using System;
-using UniRx;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
+﻿using UniRx;
 using UnityEngine;
 using Warlords.Inventory;
 using Warlords.Utils;
@@ -10,22 +6,16 @@ using Zenject;
 
 namespace Warlords.UI.Menu
 {
-    public class Test : MonoBehaviour, IPreprocessBuildWithReport, IPostprocessBuildWithReport
+    public class Test : MonoBehaviour
     {
-        [SerializeField] private Sprite _sprite;
-
         [SerializeField] private DefaultReactiveButton _defaultReactiveButton;
+        
         private SceneLoader _sceneLoader;
-
 
         [Inject]
         private void Init(SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
-        }
-        
-        private void Awake()
-        {
             _defaultReactiveButton.Clicked.Take(1).Subscribe((unit => _sceneLoader.LoadScene("MainMenu")));
         }
 
@@ -45,16 +35,5 @@ namespace Warlords.UI.Menu
                 $"Name {ingredientFromJson.Name}, Color {ingredientFromJson.Color}, Type {ingredientFromJson.Type}");
         }
 
-        public int callbackOrder { get; }
-        public void OnPostprocessBuild(BuildReport report)
-        {
-            Debug.Log("Ended build process" + report.summary.result);
-        }
-
-        public void OnPreprocessBuild(BuildReport report)
-        {
-            Debug.Log("Started to build process" + report.summary.result);
-        }
     }
 }
-#endif

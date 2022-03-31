@@ -8,11 +8,11 @@ namespace Warlords.Board
     public class BattlefieldUnitMover : IDisposable
     {
         private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
+        private GameObject _cube;
 
-        //private Battlefield _clickedBattlefield;
-        
-        public BattlefieldUnitMover(IBoardInputService boardInputService)
+        public BattlefieldUnitMover(IBoardInputService boardInputService, GameObject cube)
         {
+            _cube = cube;
             boardInputService.BoardClicked.Subscribe((OnBoardClicked)).AddTo(_compositeDisposable);
         }
 
@@ -34,7 +34,7 @@ namespace Warlords.Board
             
             Vector3 position = transform.position;
 
-            var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var gameObject = Object.Instantiate(_cube);
 
             Vector3 localScale = gameObject.transform.localScale;
             localScale.y *= 2;
