@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Warlords.Infrastructure;
 using Warlords.Inventory;
 using Warlords.Player.Attributes;
@@ -17,7 +18,7 @@ namespace Warlords.Player
             _staticData = staticData;
         }
         
-        public SaveData Initialize()
+        public async UniTask<SaveData> Initialize()
         {
             var saveData = new SaveData();
 
@@ -54,6 +55,8 @@ namespace Warlords.Player
             playerInfo.Faction = _staticData.WarlordFaction._faction;
             playerInfo.AttributesData.LeftUpgrades = _staticData.PlayerAttributes.Upgrades.GetUpgradesAmount(1);
 
+           // saveData.BattlefieldsSaveData.BattlefieldDatas
+            
             return saveData;
         }
     }

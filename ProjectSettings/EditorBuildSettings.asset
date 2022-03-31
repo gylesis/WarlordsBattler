@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Warlords/Scenes/MainMenu.unity
     guid: 746dd9b05fdbde6488e007774cef747f
   - enabled: 1
-    path: Assets/Warlords/Scenes/BattleScene.unity
+    path: Assets/Warlords/Scenes/BattleLevel.unity
     guid: bea236426470d18438fbaddee77df2e0
   m_configObjects: {}

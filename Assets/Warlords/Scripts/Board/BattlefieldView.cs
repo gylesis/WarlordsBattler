@@ -1,79 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Warlords.Infrastructure;
-using Zenject;
 
 namespace Warlords.Board
 {
     public class BattlefieldView : MonoBehaviour
     {
-        [SerializeField] private Transform _pivot;
-
-        public Transform Pivot => _pivot;
-
-
-        public void Init(BattlefieldData data)
-        {   
-            
-        }
+        [SerializeField] private Renderer _renderer;
         
-    }
+        private Color _initColor;
 
-
-    public class BattlefieldsRegistry
-    {
-        private Dictionary<BattlefieldView, BattlefieldData> _battlefieldDatas =
-            new Dictionary<BattlefieldView, BattlefieldData>();
-
-
-        public BattlefieldsRegistry()
+        private void Awake()
         {
-            
+            _initColor = _renderer.material.color;
         }
-        
-    }
-    
 
-    public class UnitsMover
-    {
-
-        public void Move(Movable movable, BattlefieldView battlefieldView)  
+        public void ColorMaterial(Color color)
         {
-            
+            _renderer.material.color = color;
         }
-        
-        
-    }
 
-    public abstract class Movable : MonoBehaviour
-    {
-        public abstract void Move();
-        
-    }
-
-    public class SmoothMovable : Movable
-    {
-        public override void Move()
+        public void ColorDefault()
         {
-            
+            ColorMaterial(_initColor);
         }
+        
     }
-    
-    
-    public class BattlefieldData
-    {
-        public int Index;
-        public CellContext CellData;
-
-    }
-
-    public struct CellContext
-    {
-        public GameObject GameObject;
-        public Vector3 Pos;
-    }
-    
-    
-    
 }

@@ -27,7 +27,7 @@ namespace Warlords.Infrastructure
             
             if (prefs == String.Empty)
             {
-                saveData = _saveDataInitializer.Initialize();
+                saveData = await _saveDataInitializer.Initialize();
             }
             else
             {

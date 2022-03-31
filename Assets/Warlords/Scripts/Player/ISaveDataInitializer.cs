@@ -1,9 +1,10 @@
-﻿using Warlords.Infrastructure;
+﻿using Cysharp.Threading.Tasks;
+using Warlords.Infrastructure;
 
 namespace Warlords.Player
 {
     public interface ISaveDataInitializer
     {
-        SaveData Initialize();
+        UniTask<SaveData> Initialize();
     }
-}
+}   
