@@ -20,7 +20,7 @@ namespace Warlords.Battle
         private void OnDecisionMake(EventContext<bool> context)
         {
             DecisionMake.OnNext(context.Value);
-            Destroy(gameObject);
+            gameObject.SetActive(false); // need to move to pool TODO
         }
     }
 

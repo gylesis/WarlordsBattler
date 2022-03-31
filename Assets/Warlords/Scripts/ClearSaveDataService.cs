@@ -9,5 +9,10 @@ namespace Warlords
             PlayerPrefs.DeleteAll();
             Application.Quit();
         }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

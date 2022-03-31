@@ -24,7 +24,7 @@ namespace Warlords.Battle
 
         private async UniTask LoadScene()
         {
-            await _sceneLoader.LoadScene("BattleScene");
+            await _sceneLoader.LoadScene("BattleLevel");
         }
     }
     

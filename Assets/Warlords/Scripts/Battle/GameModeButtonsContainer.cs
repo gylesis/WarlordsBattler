@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Warlords.Battle
 {
@@ -8,6 +9,11 @@ namespace Warlords.Battle
         [SerializeField] private GameModeButton[] _gameModeButtons;
 
         public GameModeButton[] GameModeButtons => _gameModeButtons;
+
+        private void OnEnable()  // TODO make better way to show container
+        {
+            Show();
+        }
 
         public void Show()
         {

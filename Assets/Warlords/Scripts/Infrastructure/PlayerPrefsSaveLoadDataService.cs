@@ -34,7 +34,7 @@ namespace Warlords.Infrastructure
                 saveData = JsonUtility.FromJson<SaveData>(prefs);
             }
 
-            Debug.Log($"SavedData:\n {JsonUtility.ToJson(saveData,true)}");
+           // Debug.Log($"SavedData:\n {JsonUtility.ToJson(saveData,true)}");
 
             _data = saveData;
 

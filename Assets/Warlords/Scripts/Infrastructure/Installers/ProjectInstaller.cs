@@ -80,7 +80,7 @@ namespace Warlords.Infrastructure.Installers
 
             var sceneLoader = Container.Resolve<SceneLoader>();
 
-            await sceneLoader.LoadScene("BattleLevel");
+            await sceneLoader.LoadScene("MainMenu");
         }
     }
 }
