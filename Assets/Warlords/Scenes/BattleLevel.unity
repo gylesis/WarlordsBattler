@@ -572,7 +572,7 @@ MonoBehaviour:
   _battlefieldLayer:
     serializedVersion: 2
     m_Bits: 64
-  _cube: {fileID: 1754938860845445807, guid: 4efcca9cad37a2c4fa48346082f055cc, type: 3}
+  _boardGridData: {fileID: 1577477909}
 --- !u!114 &686593519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,6 +1331,195 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f359e78b5df4570b40fa5c06349a120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1577477908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1577477910}
+  - component: {fileID: 1577477909}
+  m_Layer: 0
+  m_Name: BoardGridData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1577477909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577477908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc2de4e9d904dd4ab05958f8567835f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Datas:
+  - Battlefield: {fileID: 9317536}
+    Index: 1
+    Neighbours: []
+  - Battlefield: {fileID: 2038748503}
+    Index: 2
+    Neighbours: []
+  - Battlefield: {fileID: 1736093297}
+    Index: 3
+    Neighbours: []
+  - Battlefield: {fileID: 1027815800}
+    Index: 4
+    Neighbours: []
+  - Battlefield: {fileID: 1036157470}
+    Index: 5
+    Neighbours: []
+  - Battlefield: {fileID: 303588648}
+    Index: 6
+    Neighbours: []
+  - Battlefield: {fileID: 1592441439}
+    Index: 7
+    Neighbours: []
+  - Battlefield: {fileID: 1189135297}
+    Index: 8
+    Neighbours: []
+  - Battlefield: {fileID: 1234886967}
+    Index: 9
+    Neighbours: []
+  - Battlefield: {fileID: 153792117}
+    Index: 10
+    Neighbours: []
+  - Battlefield: {fileID: 1130458408}
+    Index: 11
+    Neighbours: []
+  - Battlefield: {fileID: 141077880}
+    Index: 12
+    Neighbours: []
+  - Battlefield: {fileID: 605254091}
+    Index: 13
+    Neighbours: []
+  - Battlefield: {fileID: 1420891970}
+    Index: 14
+    Neighbours: []
+  - Battlefield: {fileID: 1872549346}
+    Index: 15
+    Neighbours: []
+  - Battlefield: {fileID: 1517909863}
+    Index: 16
+    Neighbours: []
+  - Battlefield: {fileID: 1418749197}
+    Index: 17
+    Neighbours: []
+  - Battlefield: {fileID: 284960398}
+    Index: 18
+    Neighbours: []
+  - Battlefield: {fileID: 1074587362}
+    Index: 19
+    Neighbours: []
+  - Battlefield: {fileID: 130277667}
+    Index: 20
+    Neighbours: []
+  - Battlefield: {fileID: 623873391}
+    Index: 21
+    Neighbours: []
+  - Battlefield: {fileID: 1372114038}
+    Index: 22
+    Neighbours: []
+  - Battlefield: {fileID: 628303317}
+    Index: 23
+    Neighbours: []
+  - Battlefield: {fileID: 361241771}
+    Index: 24
+    Neighbours: []
+  - Battlefield: {fileID: 2043293894}
+    Index: 25
+    Neighbours: []
+  - Battlefield: {fileID: 953340829}
+    Index: 26
+    Neighbours: []
+  - Battlefield: {fileID: 462860240}
+    Index: 27
+    Neighbours: []
+  - Battlefield: {fileID: 1420207449}
+    Index: 28
+    Neighbours: []
+  - Battlefield: {fileID: 1219675500}
+    Index: 29
+    Neighbours: []
+  - Battlefield: {fileID: 1543124700}
+    Index: 30
+    Neighbours: []
+  - Battlefield: {fileID: 1343092863}
+    Index: 31
+    Neighbours: []
+  - Battlefield: {fileID: 819328668}
+    Index: 32
+    Neighbours: []
+  - Battlefield: {fileID: 1990918066}
+    Index: 33
+    Neighbours: []
+  - Battlefield: {fileID: 1438411805}
+    Index: 34
+    Neighbours: []
+  - Battlefield: {fileID: 2004936569}
+    Index: 35
+    Neighbours: []
+  - Battlefield: {fileID: 644061446}
+    Index: 36
+    Neighbours: []
+  Battlefields:
+  - {fileID: 9317536}
+  - {fileID: 2038748503}
+  - {fileID: 1736093297}
+  - {fileID: 1027815800}
+  - {fileID: 1036157470}
+  - {fileID: 303588648}
+  - {fileID: 1592441439}
+  - {fileID: 1189135297}
+  - {fileID: 1234886967}
+  - {fileID: 153792117}
+  - {fileID: 1130458408}
+  - {fileID: 141077880}
+  - {fileID: 605254091}
+  - {fileID: 1420891970}
+  - {fileID: 1872549346}
+  - {fileID: 1517909863}
+  - {fileID: 1418749197}
+  - {fileID: 284960398}
+  - {fileID: 1074587362}
+  - {fileID: 130277667}
+  - {fileID: 623873391}
+  - {fileID: 1372114038}
+  - {fileID: 628303317}
+  - {fileID: 361241771}
+  - {fileID: 2043293894}
+  - {fileID: 953340829}
+  - {fileID: 462860240}
+  - {fileID: 1420207449}
+  - {fileID: 1219675500}
+  - {fileID: 1543124700}
+  - {fileID: 1343092863}
+  - {fileID: 819328668}
+  - {fileID: 1990918066}
+  - {fileID: 1438411805}
+  - {fileID: 2004936569}
+  - {fileID: 644061446}
+--- !u!4 &1577477910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577477908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6344564, y: -3.8226318, z: 0.66866195}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1582848425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 318205022397543655, guid: 1e2823e75822cba4eb346438b25dcf11, type: 3}

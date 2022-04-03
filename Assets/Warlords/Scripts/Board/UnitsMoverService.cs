@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Warlords.Board
 {
     public class UnitsMoverService
     {
         private readonly BoardGridService _boardGridService;
+
+        private readonly Stack<IMovingCommand> _commands = new Stack<IMovingCommand>();
 
         public UnitsMoverService(BoardGridService boardGridService)
         {
@@ -25,17 +28,32 @@ namespace Warlords.Board
             Vector3 targetPos = targetBattlefield.BattlefieldUnitInfo.Pivot.position;
 
             IMovingCommand movingCommand;
-            
+
             if (command == null)
-            {
                 movingCommand = unit.MovingCommand;
-            }
             else
-            {
                 movingCommand = command;
-            }
+
+            var moveCommandContext = new MoveCommandContext();
+
+            moveCommandContext.Transform = unit.transform;
+            moveCommandContext.StartPos = startPos;
+            moveCommandContext.TargetPos = targetPos;
             
-            movingCommand.Move(unit.transform,startPos,targetPos);
+            movingCommand.Move(moveCommandContext);
+            
+           // ExecuteCommand(movingCommand);
         }
+
+        private void ExecuteCommand(IMovingCommand command)
+        {
+            _commands.Push(command);    
+
+            foreach (IMovingCommand movingCommand in _commands)
+            {
+               // await movingCommand.Move();
+            }
+        }
+
     }
 }

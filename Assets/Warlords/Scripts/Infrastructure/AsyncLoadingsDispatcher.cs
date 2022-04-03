@@ -19,7 +19,7 @@ namespace Warlords.Infrastructure
         public async UniTask LoadAsync(IProgress<float> progress)
         {
             float progressValue = 1;
-            
+
             foreach (IAsyncLoad asyncLoad in _asyncLoads)
             {
                 await asyncLoad.AsyncLoad();

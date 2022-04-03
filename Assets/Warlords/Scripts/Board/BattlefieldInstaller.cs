@@ -9,10 +9,12 @@ namespace Warlords.Board
         [SerializeField] private BattlefieldUnitInfo _battlefieldUnitInfo;
         
         private BattlefieldsSaveLoadService _battlefieldsSaveLoadService;
+        private BoardGridData _boardGridData;
 
         [Inject]
-        private void Init(BattlefieldsSaveLoadService battlefieldsSaveLoadService)
+        private void Init(BattlefieldsSaveLoadService battlefieldsSaveLoadService, BoardGridData boardGridData)
         {
+            _boardGridData = boardGridData;
             _battlefieldsSaveLoadService = battlefieldsSaveLoadService;
         }
         
@@ -21,8 +23,12 @@ namespace Warlords.Board
             Container.Bind<BattlefieldView>().FromInstance(_battlefieldView).AsSingle();
             Container.Bind<BattlefieldUnitInfo>().FromInstance(_battlefieldUnitInfo).AsSingle();
 
-            BattlefieldData battlefieldData = _battlefieldsSaveLoadService.GetData();
+            var index = _boardGridData.GetIndex(GetComponent<Battlefield>());
             
+            BattlefieldData battlefieldData = new BattlefieldData();
+
+            battlefieldData.Index = index;
+
             Container.Bind<BattlefieldData>().FromInstance(battlefieldData);
         }
     }

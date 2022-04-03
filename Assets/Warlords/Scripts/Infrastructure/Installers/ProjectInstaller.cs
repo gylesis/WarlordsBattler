@@ -10,18 +10,18 @@ namespace Warlords.Infrastructure.Installers
     public class ProjectInstaller : MonoInstaller, IInitializable
     {
         [SerializeField] private PlayerInfoStaticData _playerInfoStaticData;
-        
+
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ProjectInstaller>().FromInstance(this).AsSingle();
 
             Container.BindInterfacesAndSelfTo<IntStopwatch>().AsTransient();
-            
+
             BindNetworking();
             BindPlayerInfo();
 
             Container.Bind<ApplicationURLOpener>().AsSingle().NonLazy();
-            
+
             Container.Bind<CurtainService>().FromMethod(context =>
                 {
                     var curtainService =
@@ -44,7 +44,7 @@ namespace Warlords.Infrastructure.Installers
                 )
                 .AsSingle();
 
-           // BindStateMachine();
+            // BindStateMachine();
         }
 
         private void BindPlayerInfo()
@@ -62,14 +62,13 @@ namespace Warlords.Infrastructure.Installers
                     Container.InstantiatePrefabResourceForComponent<BattleAreaCurtain>(AssetsPath.BattleAreaCurtain);
 
                 return battleAreaCurtain;
-                
             })).AsSingle();
         }
 
         private void BindStateMachine()
         {
             Container.BindInterfacesAndSelfTo<BootstrapState>().AsTransient().NonLazy();
-            
+
             Container.Bind<StateMachine>().AsSingle().NonLazy();
         }
 

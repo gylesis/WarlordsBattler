@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Warlords.Infrastructure;
 using Zenject;
 
 namespace Warlords.Board
 {
-    public class BoardGridService : ITickable
+    public class BoardGridService : ITickable, IAsyncLoad
     {
         private int _battlefieldIndex = 0;
 
@@ -15,22 +18,91 @@ namespace Warlords.Board
 
         private Battlefield _currentBattlefield;
 
+        private readonly Dictionary<int, List<int>> _battlefieldsNeighbours = new Dictionary<int, List<int>>();
+        private List<int> _battlefieldsNeighbour = new List<int>(5);
+
         public BoardGridService(BattlefieldsContainer battlefieldsContainer)
         {
             _battlefields = new List<Battlefield>(36);
 
             _battlefields.AddRange(battlefieldsContainer.MyBattlefields);
             _battlefields.AddRange(battlefieldsContainer.EnemyBattlefields);
-
-            /*int temp = 0;
-
-            foreach (Battlefield battlefield in battlefields)
-            {
-                temp++;
-                battlefield.BattlefieldView.SetId(temp);
-            }*/
         }
 
+        public async UniTask AsyncLoad()
+        {
+            foreach (Battlefield battlefield in _battlefields)
+            {
+                var dataIndex = battlefield.BattlefieldData.Index;
+
+                int rowModifier = dataIndex;
+                /*
+                if (dataIndex > 0 && dataIndex < 5 || dataIndex > 8 && dataIndex < 15)
+                {
+                    rowModifier = 5;
+                }
+                else if (dataIndex > 4 && dataIndex < 10 || dataIndex > 12 && dataIndex < 20)
+                {
+                    rowModifier = 4;
+                }*/
+
+                List<int> neighbours = new List<int>();
+
+                Add(dataIndex - 1);
+                Add(dataIndex + 1);
+                Add(dataIndex + 3);
+                Add(dataIndex - 3);
+                Add(dataIndex + 4);
+                Add(dataIndex - 4);
+                
+                void Add(int index)
+                {
+                    if(index < 1 || index > 36)
+                        return;
+                    
+                    if(neighbours.Contains(index)) return;
+                    
+                    neighbours.Add(index);
+                }
+
+                _battlefieldsNeighbours.Add(dataIndex, neighbours);
+            }
+        }
+
+        public void HighlightNeighbours(int battlefieldIndex)
+        {
+            ColorNeighbours(_battlefieldsNeighbour, Color.black);
+            
+            var battlefieldsNeighbour = _battlefieldsNeighbours[battlefieldIndex];
+            
+            ColorNeighbours(battlefieldsNeighbour, Color.green);
+            _battlefieldsNeighbour = battlefieldsNeighbour;
+        }
+
+        private void ColorNeighbours(List<int> neighboursIndexes, Color color)  
+        {
+            if (color == Color.black)
+            {
+                foreach (var index in neighboursIndexes)
+                {
+                    Battlefield battlefield = _battlefields.First(battle => battle.BattlefieldData.Index == index);
+                
+                    battlefield.BattlefieldView.ColorDefault();
+                } 
+                
+                return;
+            }
+            
+            
+            foreach (var index in neighboursIndexes)
+            {
+                Battlefield battlefield = _battlefields.First(battle => battle.BattlefieldData.Index == index);
+                
+                battlefield.BattlefieldView.ColorMaterial(color);
+            } 
+        }
+        
+        
         public bool TryGetUnitBattlefield(Unit unit, out Battlefield battlefield)
         {
             battlefield = null;
@@ -47,7 +119,7 @@ namespace Warlords.Board
             }
             return false;
         }
-        
+
         public void Tick()
         {
             NewMethod();

@@ -11,17 +11,18 @@ namespace Warlords.Board
         
         private BattlefieldView _hoveredBattlefield;
         private Battlefield _chosenBattlefield;
-        
-        public BattlefieldsOutlineService(IBoardInputService boardInputService)
+        private BoardGridService _boardGridService;
+
+        public BattlefieldsOutlineService(IBoardInputService boardInputService, BoardGridService boardGridService)
         {
-           // boardInputService.BoardHover.Subscribe(OnBoardHover).AddTo(_compositeDisposable);
+            _boardGridService = boardGridService;
+            // boardInputService.BoardHover.Subscribe(OnBoardHover).AddTo(_compositeDisposable);
             boardInputService.BoardClicked.Subscribe((OnBoardClicked)).AddTo(_compositeDisposable);
         }
 
         public void Tick()
         {
             if(_chosenBattlefield == null) return;
-            
         }
 
         private void OnBoardClicked(BoardInputContext context)
@@ -48,6 +49,8 @@ namespace Warlords.Board
             }
             
             _chosenBattlefield?.BattlefieldView.ColorDefault();
+            
+            _boardGridService.HighlightNeighbours(battlefield.BattlefieldData.Index);
             
             battlefield.BattlefieldView.ColorMaterial(Color.yellow);
 

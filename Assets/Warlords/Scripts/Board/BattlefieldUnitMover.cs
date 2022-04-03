@@ -1,29 +1,35 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
+using Warlords.Infrastructure;
+using Warlords.Utils;
 using Object = UnityEngine.Object;
 
 namespace Warlords.Board
 {
-    public class BattlefieldUnitMover : IDisposable
+    public class BattlefieldUnitMover : IDisposable, IAsyncLoad
     {
         private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
-        private GameObject _cube;
         private readonly UnitsMoverService _unitsMoverService;
 
-        private Battlefield _chosenBattlefield;
-        
-        private readonly IMovingCommand _smoothMoveCommand = new SmoothMoveCommand();
-        private IMovingCommand _teleportMoveCommand = new TeleportMoveCommand();
+        private readonly IMovingCommand _smoothMoveCommand = new CheatMoveCommand();
+        private readonly IMovingCommand _teleportMoveCommand = new TeleportMoveCommand();
 
-        public BattlefieldUnitMover(IBoardInputService boardInputService, GameObject cube,
-            UnitsMoverService unitsMoverService)
+        private Battlefield _chosenBattlefield;
+        private Unit _unit;
+
+        public BattlefieldUnitMover(IBoardInputService boardInputService, UnitsMoverService unitsMoverService)
         {
             _unitsMoverService = unitsMoverService;
-            _cube = cube;
 
             boardInputService.BoardClicked.Subscribe((PlaceUnit)).AddTo(_compositeDisposable);
             boardInputService.BoardClicked.Subscribe((OnBoardClicked)).AddTo(_compositeDisposable);
+        }
+
+        public async UniTask AsyncLoad()
+        {
+            _unit = await Resources.LoadAsync<Unit>(AssetsPath.UnitPrefab).ToUniTask() as Unit;
         }
 
         private void OnBoardClicked(BoardInputContext context)
@@ -67,20 +73,19 @@ namespace Warlords.Board
 
             Vector3 position = transform.position;
 
-            var gameObject = Object.Instantiate(_cube);
+            var unit = Object.Instantiate(_unit); // pool
 
-            Vector3 localScale = gameObject.transform.localScale;
+            Vector3 localScale = unit.transform.localScale;
             localScale.y *= 2;
 
-            gameObject.transform.localScale = localScale;
+            unit.transform.localScale = localScale;
+            unit.transform.position = position;
 
-            gameObject.transform.position = position;
-
-            unitInfo.Unit = gameObject.GetComponent<Unit>();
+            unitInfo.Unit = unit.GetComponent<Unit>();
 
             IMovingCommand movingCommand;
             Color color;
-            
+
             if (context.Battlefield.BattlefieldData.Index % 2 == 0)
             {
                 movingCommand = _smoothMoveCommand;
@@ -91,10 +96,9 @@ namespace Warlords.Board
                 movingCommand = _teleportMoveCommand;
                 color = Color.blue;
             }
-            
+
             unitInfo.Unit.MovingCommand = movingCommand;
             unitInfo.Unit.UnitView.SetColor(color);
-            
         }
 
         public void Dispose()
@@ -102,4 +106,5 @@ namespace Warlords.Board
             _compositeDisposable?.Dispose();
         }
     }
+
 }

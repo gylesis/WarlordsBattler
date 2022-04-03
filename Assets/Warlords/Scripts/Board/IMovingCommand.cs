@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿
+using Cysharp.Threading.Tasks;
 
 namespace Warlords.Board
 {
     public interface IMovingCommand
     {
-        void Move(Transform transform, Vector3 startPos, Vector3 targetPos);
+        UniTask Move(MoveCommandContext context);
     }
 }
