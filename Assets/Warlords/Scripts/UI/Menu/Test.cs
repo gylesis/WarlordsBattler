@@ -16,7 +16,7 @@ namespace Warlords.UI.Menu
         private void Init(SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
-            _defaultReactiveButton.Clicked.Take(1).Subscribe((unit => _sceneLoader.LoadScene("MainMenu")));
+            _defaultReactiveButton.Clicked.Take(1).Subscribe((unit => _sceneLoader.LoadScene(Constants.SceneNames.MainMenu)));
         }
 
         [ContextMenu(nameof(TestSomething))]

@@ -1,9 +1,7 @@
-﻿using UniRx;
-using UnityEngine;
-using Warlords.Player;
+﻿using UnityEngine;
 using Zenject;
 
-namespace Warlords.Board
+namespace Warlords.Board.UI
 {
     public class BoardCustomizationPanel : MonoBehaviour
     {

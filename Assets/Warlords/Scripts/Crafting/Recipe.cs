@@ -17,12 +17,12 @@ namespace Warlords.Crafting
 
             foreach (Ingredient ingredient in ingredients)
             {
-                Debug.Log($"target ingredient {ingredient.Color}, {ingredient.Type}");
+               // Debug.Log($"target ingredient {ingredient.Color}, {ingredient.Type}");
                 
                 CraftingIngredient craftingIngredient =
                     craftingIngredients.FirstOrDefault(x =>
                     {
-                        Debug.Log($"search ingredient {x.Color}, {x.Type}");
+                        //Debug.Log($"search ingredient {x.Color}, {x.Type}");
                         return x.Color == ingredient.Color && x.Type == ingredient.Type;
                     });
 

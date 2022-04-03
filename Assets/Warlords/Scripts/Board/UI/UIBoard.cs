@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Warlords.Board
+namespace Warlords.Board.UI
 {
     public class UIBoard : MonoBehaviour
     {

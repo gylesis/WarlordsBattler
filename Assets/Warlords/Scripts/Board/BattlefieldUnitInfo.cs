@@ -7,7 +7,7 @@ namespace Warlords.Board
         [SerializeField] private Transform _pivot;
         public Transform Pivot => _pivot;
 
-        public GameObject Unit { get; set; }
+        public Unit Unit { get; set; }
     }
     
 }

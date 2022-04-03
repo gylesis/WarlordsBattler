@@ -1,6 +1,6 @@
 ﻿using Warlords.Utils;
 
-namespace Warlords.Board
+namespace Warlords.Board.UI
 {
     public class UIBoardTileButton : ReactiveButton<UIBoardTile,UIBoardData>
     {

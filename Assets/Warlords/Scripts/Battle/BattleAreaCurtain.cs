@@ -6,6 +6,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Warlords.Utils;
 using Zenject;
 
 namespace Warlords.Battle

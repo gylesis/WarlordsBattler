@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Warlords.Board
+namespace Warlords.Board.UI
 {
     [RequireComponent(typeof(UIBoardTileButton))]
     public class UIBoardTile : MonoBehaviour

@@ -1,7 +1,7 @@
 ﻿using System;
 using UniRx;
 
-namespace Warlords.Battle
+namespace Warlords.Utils
 {
     public class IntStopwatch : IDisposable
     {

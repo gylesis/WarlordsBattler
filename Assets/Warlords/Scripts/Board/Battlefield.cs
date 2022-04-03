@@ -1,33 +1,24 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace Warlords.Board
 {
     public class Battlefield : MonoBehaviour
     {
-        [SerializeField] private BattlefieldView _battlefieldView;
-        [SerializeField] private BattlefieldUnitInfo _battlefieldUnitInfo;
-
+        private BattlefieldView _battlefieldView;
+        private BattlefieldUnitInfo _battlefieldUnitInfo;
+        private BattlefieldData _battlefieldData;
+     
         public BattlefieldUnitInfo BattlefieldUnitInfo => _battlefieldUnitInfo;
         public BattlefieldView BattlefieldView => _battlefieldView;
+        public BattlefieldData BattlefieldData => _battlefieldData;
 
-        public void Init(BattlefieldData data)
+        [Inject]
+        private void Init(BattlefieldView battlefieldView, BattlefieldUnitInfo battlefieldUnitInfo, BattlefieldData battlefieldData)
         {
-            
+            _battlefieldData = battlefieldData;
+            _battlefieldUnitInfo = battlefieldUnitInfo;
+            _battlefieldView = battlefieldView;
         }
-    }
-
-    public class UnitsMover
-    {
-        public void Move(Movable movable, Battlefield battlefield) { }
-    }
-
-    public abstract class Movable : MonoBehaviour
-    {
-        public abstract void Move();
-    }
-
-    public class SmoothMovable : Movable
-    {
-        public override void Move() { }
     }
 }

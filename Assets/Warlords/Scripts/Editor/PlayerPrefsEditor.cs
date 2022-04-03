@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Warlords.Utils;
 
 namespace Warlords.Scripts.Editor
 {
@@ -12,7 +13,7 @@ namespace Warlords.Scripts.Editor
             window.titleContent = new GUIContent("TITLE");
             window.Show();*/
             
-            PlayerPrefs.DeleteAll();
+            PlayerPrefs.DeleteKey(Constants.Saves.PrefsKey);
         }
 
         private void OnGUI()

@@ -3,7 +3,7 @@ using Warlords.Infrastructure;
 
 namespace Warlords.Board
 {
-    public class BattlefieldsRegistry
+    public class BattlefieldsRegistry // don't remember why i created this class 
     {
         private readonly Dictionary<Battlefield, BattlefieldData> _battlefieldDatas =
             new Dictionary<Battlefield, BattlefieldData>();
@@ -18,19 +18,7 @@ namespace Warlords.Board
                 Battlefield battlefield = battlefieldsContainer.MyBattlefields[i];
      //           BattlefieldSaveData saveData = battlefieldSaveDatas?[i];
 
-                var battlefieldData = new BattlefieldData();
-
-                /*var cellData = new CellContext();
-
-                cellData.Transform = battlefield.transform;
-
-                battlefieldData.CellData = cellData;*/
-                
-                battlefieldData.Index = i;
-
-                battlefield.Init(battlefieldData);
-                
-                _battlefieldDatas.Add(battlefield, battlefieldData);
+                _battlefieldDatas.Add(battlefield, battlefield.BattlefieldData);
 
                 //foreach (BattlefieldPropertySaveData propertySaveData in saveData.BattlefieldUpgrades) { } //property init
             }

@@ -14,7 +14,7 @@ namespace Warlords.Infrastructure.States
         
         public async void Enter()
         {
-            _sceneLoader.LoadScene("MainMenu");
+            _sceneLoader.LoadScene(Constants.SceneNames.MainMenu);
         }
 
         public void Exit()

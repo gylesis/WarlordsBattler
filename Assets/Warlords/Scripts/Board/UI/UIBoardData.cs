@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warlords.Board
+namespace Warlords.Board.UI
 {
     [Serializable]
     public class UIBoardData

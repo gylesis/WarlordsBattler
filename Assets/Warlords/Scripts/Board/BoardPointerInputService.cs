@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace Warlords.Board
 {
-    public class BoardInputService : ITickable, IBoardInputService
+    public class BoardPointerInputService : ITickable, IBoardInputService
     {
         private readonly Camera _camera;
         private readonly LayerMask _battlefieldsLayerMask;
@@ -15,9 +14,10 @@ namespace Warlords.Board
         public Subject<BoardInputContext> BoardHover { get; } = new Subject<BoardInputContext>();
 
         private float _timer;
-        private BattlefieldsContainer _battlefieldsContainer;
+        
+        private readonly BattlefieldsContainer _battlefieldsContainer;
 
-        private BoardInputService(CameraService cameraService, LayerMask battlefieldsLayerMask, BattlefieldsContainer battlefieldsContainer)
+        private BoardPointerInputService(CameraService cameraService, LayerMask battlefieldsLayerMask, BattlefieldsContainer battlefieldsContainer)
         {
             _battlefieldsContainer = battlefieldsContainer;
             _battlefieldsLayerMask = battlefieldsLayerMask;
@@ -66,16 +66,28 @@ namespace Warlords.Board
 
         private void ClickCheck()
         {
-            var mouseButtonUp = Input.GetMouseButtonUp(0);
+            InputButton inputButton = InputButton.Left;
+            
+            var leftMouseButtonUp = Input.GetMouseButtonUp(0);
+            var rightMouseButtonUp = Input.GetMouseButtonUp(1);
+            var middleMouseButtonUp = Input.GetMouseButtonUp(2);
+
+            if (leftMouseButtonUp) inputButton = InputButton.Left;
+            else if (rightMouseButtonUp) inputButton = InputButton.Right;
+            else if (middleMouseButtonUp) inputButton = InputButton.Middle;
             
             var boardInputContext = new BoardInputContext();
 
-            if (mouseButtonUp == false) return;
-            
+            if (leftMouseButtonUp == false && rightMouseButtonUp == false && middleMouseButtonUp == false) return;
+
             var raycast = Raycast(out var hit);
 
-            if (raycast == false) return;
-            
+            if (raycast == false)
+            {
+                BoardClicked.OnNext(boardInputContext);
+                return;
+            }
+
             var tryGetComponent = hit.collider.transform.parent.TryGetComponent(out Battlefield battlefield);
 
             /*if (tryGetComponent)
@@ -89,6 +101,7 @@ namespace Warlords.Board
 
             bool isEnemyCell = _battlefieldsContainer.MyBattlefields.Contains(battlefield) == false;
 
+            boardInputContext.InputButton = inputButton;
             boardInputContext.UnitInfo = battlefield.BattlefieldUnitInfo;
             boardInputContext.Battlefield = battlefield;
             boardInputContext.IsEnemyCell = isEnemyCell;
@@ -113,8 +126,17 @@ namespace Warlords.Board
 
     public class BoardInputContext
     {
+        public InputButton InputButton;
         public Battlefield Battlefield;
         public BattlefieldUnitInfo UnitInfo;
         public bool IsEnemyCell;
     }
+
+    public enum InputButton
+    {
+        Left,
+        Right,
+        Middle
+    }
+    
 }
