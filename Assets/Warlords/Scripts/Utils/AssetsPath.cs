@@ -12,5 +12,6 @@ namespace Warlords.Utils
         public const string CurtainService = "Curtains/CurtainService";
         public const string FactionView = "UI/FactionView";
         public const string BattleAreaCurtain = "Curtains/BattleAreaCurtain";
+        public const string BoardCellsData = "BoardCellsData";
     }
 }

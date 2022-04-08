@@ -20,9 +20,11 @@ namespace Warlords.Board
 
         private readonly Dictionary<int, List<int>> _battlefieldsNeighbours = new Dictionary<int, List<int>>();
         private List<int> _battlefieldsNeighbour = new List<int>(5);
+        private BoardGridData _boardGridData;
 
-        public BoardGridService(BattlefieldsContainer battlefieldsContainer)
+        public BoardGridService(BattlefieldsContainer battlefieldsContainer, BoardGridData boardGridData)   
         {
+            _boardGridData = boardGridData;
             _battlefields = new List<Battlefield>(36);
 
             _battlefields.AddRange(battlefieldsContainer.MyBattlefields);
@@ -31,7 +33,13 @@ namespace Warlords.Board
 
         public async UniTask AsyncLoad()
         {
-            foreach (Battlefield battlefield in _battlefields)
+            foreach (BoardGridData.BattlefieldEditorData battlefieldData in _boardGridData.Datas)
+            {
+                _battlefieldsNeighbours.Add(battlefieldData.Index, battlefieldData.Neighbours.Select(x => x.Index).ToList());
+            }
+
+
+            /*foreach (Battlefield battlefield in _battlefields)
             {
                 var dataIndex = battlefield.BattlefieldData.Index;
 
@@ -44,7 +52,7 @@ namespace Warlords.Board
                 else if (dataIndex > 4 && dataIndex < 10 || dataIndex > 12 && dataIndex < 20)
                 {
                     rowModifier = 4;
-                }*/
+                }#1#
 
                 List<int> neighbours = new List<int>();
 
@@ -66,7 +74,7 @@ namespace Warlords.Board
                 }
 
                 _battlefieldsNeighbours.Add(dataIndex, neighbours);
-            }
+            }*/
         }
 
         public void HighlightNeighbours(int battlefieldIndex)
@@ -92,7 +100,6 @@ namespace Warlords.Board
                 
                 return;
             }
-            
             
             foreach (var index in neighboursIndexes)
             {

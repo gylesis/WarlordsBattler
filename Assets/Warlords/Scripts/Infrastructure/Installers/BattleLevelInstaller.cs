@@ -14,6 +14,7 @@ namespace Warlords.Infrastructure.Installers
         {
             BindMovingCommands();
 
+            Container.Bind<IBoardCellsDataLoader>().To<TextFileBoardCellsDataLoader>().AsSingle().NonLazy();
             Container.Bind<BoardGridData>().FromInstance(_boardGridData).AsSingle().NonLazy();
             Container.Bind<MoveCommandsContainer>().AsSingle().NonLazy();
             Container.Bind<UnitsMoverService>().AsSingle().NonLazy();
