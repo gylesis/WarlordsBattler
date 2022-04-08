@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using Warlords.Utils;
 
 namespace Warlords.Board
@@ -23,7 +22,7 @@ namespace Warlords.Board
 
             var data = JsonUtility.FromJson<BattlefieldCellDatas>(textAsset.ToString());
 
-            Debug.Log(JsonUtility.ToJson(data,true));
+           // Debug.Log(JsonUtility.ToJson(data,true));
 
             return data;
         }

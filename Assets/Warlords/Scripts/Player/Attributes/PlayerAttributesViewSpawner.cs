@@ -44,7 +44,7 @@ namespace Warlords.Player.Attributes
                 playerAttribute.Stat = new IntStat();
 
                 playerAttribute.Name = attribute.Name;
-                playerAttribute.Stat.Value = attribute.Stat.Value;
+                playerAttribute.Stat.Value.Value = attribute.Stat.Value.Value;
 
                 attributeView.Init(playerAttribute);
 

@@ -31,10 +31,10 @@ namespace Warlords.Inventory
             _draggableUIElement.PointerDown.TakeUntilDestroy(this).Subscribe((PointerDown));
             _draggableUIElement.PointerUp.TakeUntilDestroy(this).Subscribe((PointerUp));
 
-            slotData.Count.Changed.TakeUntilDestroy(this).Subscribe(UpdateView);
+            slotData.Count.Value.TakeUntilDestroy(this).Subscribe(UpdateView);
 
             UpdateItem(slotData.Item);
-            UpdateView(slotData.Count.Value);
+            UpdateView(slotData.Count.Value.Value);
         }
 
         public void UpdateItem(Item item)
@@ -77,13 +77,13 @@ namespace Warlords.Inventory
         private void PointerUp(UIElementContextData<InventorySlot> context)
         {
              _additionalIcon.enabled = false;
-            var countValue = _slotData.Count.Value;
+            var countValue = _slotData.Count.Value.Value;
             UpdateViewWhenDrag(countValue);
         }
 
         private void PointerDown(UIElementContextData<InventorySlot> context)
         {
-            var countValue = _slotData.Count.Value;
+            var countValue = _slotData.Count.Value.Value;
             if (countValue - 1 > 0) 
                 _additionalIcon.enabled = true;
 

@@ -23,7 +23,7 @@ namespace Warlords.Inventory
         public InventorySlotData(InventorySlotSaveData slotSaveData)
         {
             Item = slotSaveData.Item;
-            Count.Value = slotSaveData.Count;
+            Count.Value.Value = slotSaveData.Count;
         }
         
     }

@@ -18,7 +18,7 @@ namespace Warlords.Infrastructure
             }
 
             Item = slotData.Item;
-            Count = slotData.Count.Value;
+            Count = slotData.Count.Value.Value;
         }
         
     }

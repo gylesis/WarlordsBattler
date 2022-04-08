@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using UniRx;
 using Warlords.Infrastructure;
 using Warlords.Inventory;
 using Warlords.Player.Attributes;
@@ -31,9 +32,9 @@ namespace Warlords.Player
 
             var inventorySlotDatas = new List<InventorySlotData>(15);
 
-            var item1 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenFragment",Type = IngredientType.Fragment, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = 9}};
-            var item2 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenShard",Type = IngredientType.Shard, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = 3}};
-            var item3 = new InventorySlotData() {Item = new Ingredient{Name = "LightBlueFragment",Type = IngredientType.Fragment, Color = IngredientColor.LightBlue}, Count = new IntStat{Value = 6}};
+            var item1 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenFragment",Type = IngredientType.Fragment, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = new IntReactiveProperty(9)}};
+            var item2 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenShard",Type = IngredientType.Shard, Color = IngredientColor.DarkGreen}, Count = new IntStat{Value = new IntReactiveProperty(3)}};
+            var item3 = new InventorySlotData() {Item = new Ingredient{Name = "LightBlueFragment",Type = IngredientType.Fragment, Color = IngredientColor.LightBlue}, Count = new IntStat{Value = new IntReactiveProperty(6)}};
             //var item2 = new InventorySlotData() {Item = new Ingredient{Name = "DarkGreenShard",Type = IngredientType.Shard, Color = IngredientColor.DarkBlue}, Count = new IntStat{Value = 9}};
             
             inventorySlotDatas.Add(item1);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Warlords.Board;
+using Warlords.Utils;
 using Zenject;
 
 namespace Warlords.Infrastructure.Installers
@@ -10,6 +11,7 @@ namespace Warlords.Infrastructure.Installers
         [SerializeField] private BattlefieldsContainer _battlefieldsContainer;
         [SerializeField] private LayerMask _battlefieldLayer;
         [SerializeField] private BoardGridData _boardGridData;
+        
         public override void InstallBindings()
         {
             BindMovingCommands();
@@ -30,6 +32,9 @@ namespace Warlords.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<BoardGridService>().AsSingle().NonLazy();
             
             Container.Bind<AsyncLoadingsLinker>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<BoardUnitsInitializer>().AsSingle().NonLazy();
+
+            Container.Bind<UnitsFactory>().AsSingle().WithArguments(Resources.Load<Unit>(AssetsPath.UnitPrefab));
         }
 
         private void BindMovingCommands()

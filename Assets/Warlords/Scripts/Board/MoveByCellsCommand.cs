@@ -6,10 +6,11 @@ namespace Warlords.Board
     {
         private BoardGridService _boardGridService;
 
-        public MoveByCellsCommand(BoardGridService boardGridService)
+        /*public MoveByCellsCommand(BoardGridService boardGridService)
         {
             _boardGridService = boardGridService;
         }
+        */
         
         public async UniTask Move(MoveCommandContext context)
         {

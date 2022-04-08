@@ -41,10 +41,10 @@ namespace Warlords.Utils
                 
                 PlayerAttribute newPlayerAttribute = new PlayerAttribute();
 
-                int statValue = playerAttribute.Stat.Value;
+                int statValue = playerAttribute.Stat.Value.Value;
                 string playerAttributeName = playerAttribute.Name;
 
-                newPlayerAttribute.Stat.Value = statValue;
+                newPlayerAttribute.Stat.Value.Value = statValue;
                 newPlayerAttribute.Name = playerAttributeName;
 
                 newPlayerInfo.AttributesData.Attributes[i] = newPlayerAttribute;
@@ -69,10 +69,10 @@ namespace Warlords.Utils
                 
                 PlayerAttribute newPlayerAttribute = new PlayerAttribute();
 
-                int statValue = inputAttribute.Stat.Value;
+                int statValue = inputAttribute.Stat.Value.Value;
                 string playerAttributeName = inputAttribute.Name;
 
-                newPlayerAttribute.Stat.Value = statValue;
+                newPlayerAttribute.Stat.Value.Value = statValue;
                 newPlayerAttribute.Name = playerAttributeName;
 
 

@@ -45,14 +45,14 @@ namespace Warlords.Inventory
         {
             InventorySlot inventorySlot = _inventorySlots.First(x => x.Value.Item.Name == item.Name).Key;
 
-            var itemCount = inventorySlot.SlotData.Count.Value;
+            var itemCount = inventorySlot.SlotData.Count.Value.Value;
             
             if (itemCount - 1 <= 0)
             {
                 _inventorySlots[inventorySlot].Item = new Item();
             }
  
-            inventorySlot.SlotData.Count.Value--;
+            inventorySlot.SlotData.Count.Value.Value--;
         }
 
         public void AddItem(Item itemToAdd, int count = 1)

@@ -43,7 +43,7 @@ namespace Warlords.Player.Attributes
                     playerAttribute.Name = playerAttributesData.Value.Name;
                     playerAttribute.Stat = new IntStat();
                     //playerAttribute.Stat.Value = playerAttributesData.Value.Stat.Value; // need to uncomment this string later
-                    playerAttribute.Stat.Value = index;
+                    playerAttribute.Stat.Value.Value = index;
 
                     newPlayerAttributes[i] = playerAttribute;
                 }

@@ -12,7 +12,9 @@ namespace Warlords.Utils
         [SerializeField] private GameObject _curtainObj;
         [SerializeField] private Image _progressImage;
      //   [SerializeField] private Image _blockImage; 
-        
+     
+     
+     
         private IDisposable _sceneLoadProgressDisposable;
         private Tweener _progressTweener;
 

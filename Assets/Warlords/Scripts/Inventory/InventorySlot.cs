@@ -29,7 +29,7 @@ namespace Warlords.Inventory
         public void AddItem(Item item)
         {
             _inventorySlotData.Item = item;
-            _inventorySlotData.Count.Value++;
+            _inventorySlotData.Count.Value.Value++;
             
             var eventContext = new EventContext<InventorySlot, InventorySlotData>();
             eventContext.Sender = this;

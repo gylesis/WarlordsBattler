@@ -35,7 +35,7 @@ namespace Warlords.Player.Attributes
             {
                 PlayerAttribute attribute = playerAttributes.First(x => x.Name == playerAttribute.Name);
 
-                playerAttribute.Stat.Value = attribute.Stat.Value;
+                playerAttribute.Stat.Value.Value = attribute.Stat.Value.Value;
             }
 
             _leftAttributesUpgradesAmountView.UpdateView(playerInfo.AttributesData.LeftUpgrades);
@@ -75,7 +75,7 @@ namespace Warlords.Player.Attributes
 
             if (Math.Sign(addValue) == -1)
             {
-                if (playerAttribute.Stat.Value == 0)
+                if (playerAttribute.Stat.Value.Value == 0)
                 {
                     return;
                 }
@@ -85,7 +85,7 @@ namespace Warlords.Player.Attributes
             
             _leftAttributesUpgradesAmountView.UpdateView(leftUpgrades);
 
-            playerAttribute.Stat.Value += addValue;
+            playerAttribute.Stat.Value.Value += addValue;
 
             _preSaver.Overwrite(playerInfo =>
             {
@@ -96,7 +96,7 @@ namespace Warlords.Player.Attributes
 
                 PlayerAttribute attribute = playerAttributes.First(x => x.Name == playerAttribute.Name);
 
-                attribute.Stat.Value = playerAttribute.Stat.Value;
+                attribute.Stat.Value.Value = playerAttribute.Stat.Value.Value;
 
             });
         }

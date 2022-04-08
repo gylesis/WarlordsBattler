@@ -29,16 +29,16 @@ namespace Warlords.Player.Attributes
             PlusButton.Init(attribute);
             MinusButton.Init(attribute);
 
-            _disposable = attribute.Stat.Changed
+            _disposable = attribute.Stat.Value
                 .TakeUntilDestroy(this)
                 .Subscribe(UpdateView);
 
-            UpdateView(attribute.Stat.Value);
+            UpdateView(attribute.Stat.Value.Value);
         }
 
         public void UpdateAttributeStats(PlayerAttribute playerAttribute)
         {
-            _attribute.Stat.Value = playerAttribute.Stat.Value;
+            _attribute.Stat.Value.Value = playerAttribute.Stat.Value.Value;
         }
         
         private void UpdateView(int value)

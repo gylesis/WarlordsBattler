@@ -1,27 +1,15 @@
 ﻿using System;
 using UniRx;
-using UnityEngine;
 
 namespace Warlords.Utils
 {
     [Serializable]
     public class IntStat
     {
-        [SerializeField] private int _value;
+        public IntReactiveProperty Value = new IntReactiveProperty();
 
-        public int Value // replace with IntReactiveProperty
-        {
-            get => _value;
-            
-            set
-            {
-                if(value == _value) return;
+        public IntStat() { }
 
-                _value = value;
-                Changed.OnNext(_value);
-            }
-        }
-
-        public Subject<int> Changed { get; } = new Subject<int>();
+        public IntStat(int value) => Value.Value = value;
     }
 }
