@@ -69,7 +69,7 @@ namespace Warlords.Utils
         }
     }
 
-    public struct EventContext<T1, T2>
+    public struct EventContext<T1, T2> 
     {
         public T1 Sender;
         public T2 Value;
