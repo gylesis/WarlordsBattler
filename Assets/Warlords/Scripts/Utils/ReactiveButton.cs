@@ -16,6 +16,8 @@ namespace Warlords.Utils
         protected virtual void Reset() =>
             _button = GetComponent<Button>();
 
+        private static readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
+        
         public Subject<EventContext<TSender, TValue>> Clicked { get; } = new Subject<EventContext<TSender, TValue>>();
             
         private IDisposable _disposable;
@@ -24,7 +26,6 @@ namespace Warlords.Utils
         {
             _disposable = _button.onClick
                 .AsObservable()
-                .TakeUntilDestroy(this)
                 .Subscribe((_ =>
                 {
                     var buttonContext = new EventContext<TSender, TValue>();
@@ -33,8 +34,11 @@ namespace Warlords.Utils
                     buttonContext.Value = Value;
 
                     Clicked.OnNext(buttonContext);
-                }));
+                })).AddTo(CompositeDisposable);
         }
+
+        private void OnDestroy() => 
+            CompositeDisposable.Dispose();
     }
 
 

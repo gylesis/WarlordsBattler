@@ -1,17 +1,20 @@
-﻿namespace Warlords.Infrastructure.States
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
+
+namespace Warlords.Infrastructure.States
 {
-  public class GameLoopState : IState
-  {
-    public GameLoopState(StateMachine stateMachine)
+    public class GameLoopState : IState
     {
-    }
+        public GameLoopState() { }
 
-    public void Exit()
-    {
-    }
+        public async UniTask Exit()
+        {
+            
+        }
 
-    public void Enter()
-    {
+        public async UniTask Enter()
+        {
+            Debug.Log("loop state");
+        }
     }
-  }
 }

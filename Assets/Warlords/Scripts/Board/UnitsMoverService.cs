@@ -1,31 +1,29 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace Warlords.Board
 {
     public class UnitsMoverService
     {
-        private readonly BoardGridService _boardGridService;
+        private readonly BoardDataService _boardDataService;
 
         private readonly Stack<IMovingCommand> _commands = new Stack<IMovingCommand>();
+        private BattlefieldInputAllowService _inputAllowService;
 
-        public UnitsMoverService(BoardGridService boardGridService)
+        public UnitsMoverService(BoardDataService boardDataService, BattlefieldInputAllowService inputAllowService)
         {
-            _boardGridService = boardGridService;
+            _inputAllowService = inputAllowService;
+            _boardDataService = boardDataService;
         }
         
         public void Move(Unit unit, Battlefield targetBattlefield, IMovingCommand command = null)
         {
-            var tryGetUnitBattlefield = _boardGridService.TryGetUnitBattlefield(unit, out Battlefield battlefield);
+            var tryGetUnitBattlefield = _boardDataService.TryGetUnitBattlefield(unit, out Battlefield startBattlefield);
 
             if (tryGetUnitBattlefield)
             {
-                battlefield.BattlefieldUnitInfo.Unit = null;
+                startBattlefield.BattlefieldUnitInfo.Unit = null;
                 targetBattlefield.BattlefieldUnitInfo.Unit = unit;
             }
-
-            Vector3 startPos = battlefield.BattlefieldUnitInfo.Pivot.position;
-            Vector3 targetPos = targetBattlefield.BattlefieldUnitInfo.Pivot.position;
 
             IMovingCommand movingCommand;
 
@@ -36,13 +34,15 @@ namespace Warlords.Board
 
             var moveCommandContext = new MoveCommandContext();
 
-            moveCommandContext.Transform = unit.transform;
-            moveCommandContext.StartPos = startPos;
-            moveCommandContext.TargetPos = targetPos;
+            moveCommandContext.UnitTransform = unit.transform;
+            moveCommandContext.StartBattlefield = startBattlefield;
+            moveCommandContext.TargetBattlefield = targetBattlefield;
             
             movingCommand.Move(moveCommandContext);
             
-           // ExecuteCommand(movingCommand);
+            _inputAllowService.Disallow();
+            
+            // ExecuteCommand(movingCommand);
         }
 
         private void ExecuteCommand(IMovingCommand command)

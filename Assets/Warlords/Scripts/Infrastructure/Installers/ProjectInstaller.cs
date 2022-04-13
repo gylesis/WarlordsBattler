@@ -7,14 +7,12 @@ using Zenject;
 
 namespace Warlords.Infrastructure.Installers
 {
-    public class ProjectInstaller : MonoInstaller, IInitializable
+    public class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private PlayerInfoStaticData _playerInfoStaticData;
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ProjectInstaller>().FromInstance(this).AsSingle();
-
             Container.BindInterfacesAndSelfTo<IntStopwatch>().AsTransient();
 
             BindNetworking();
@@ -44,7 +42,7 @@ namespace Warlords.Infrastructure.Installers
                 )
                 .AsSingle();
 
-            // BindStateMachine();
+             BindStateMachine();
         }
 
         private void BindPlayerInfo()
@@ -68,19 +66,9 @@ namespace Warlords.Infrastructure.Installers
         private void BindStateMachine()
         {
             Container.BindInterfacesAndSelfTo<BootstrapState>().AsTransient().NonLazy();
-
-            Container.Bind<StateMachine>().AsSingle().NonLazy();
-        }
-
-        public async void Initialize()
-        {
-            var saveLoadDataService = Container.Resolve<ISaveLoadDataService>();
-            await saveLoadDataService.Load();
-
-            var sceneLoader = Container.Resolve<SceneLoader>();
-
-            await sceneLoader.LoadScene(Constants.SceneNames.BattleLevel);
-            //await sceneLoader.LoadScene(Constants.SceneNames.MainMenu);
+            Container.BindInterfacesAndSelfTo<GameLoopState>().AsTransient().NonLazy();
+            
+            Container.BindInterfacesAndSelfTo<StateMachine>().AsSingle().NonLazy();
         }
     }
 }

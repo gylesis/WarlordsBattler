@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Warlords.Board
 {
-    public class BattlefieldInstaller : MonoInstaller
+    public class CellInstaller : MonoInstaller
     {
         [SerializeField] private BattlefieldView _battlefieldView;
         [SerializeField] private BattlefieldUnitInfo _battlefieldUnitInfo;

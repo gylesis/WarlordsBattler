@@ -4,13 +4,12 @@ namespace Warlords.Board
 {
     public class MoveByCellsCommand : IMovingCommand
     {
-        private BoardGridService _boardGridService;
+        private BoardDataService _boardGridService;
 
-        /*public MoveByCellsCommand(BoardGridService boardGridService)
+        public MoveByCellsCommand(BoardDataService boardGridService)
         {
             _boardGridService = boardGridService;
         }
-        */
         
         public async UniTask Move(MoveCommandContext context)
         {

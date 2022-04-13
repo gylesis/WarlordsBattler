@@ -1,5 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -13,10 +12,10 @@ namespace Warlords.Board
 
         public async UniTask Move(MoveCommandContext context)
         {
-            Transform transform = context.Transform;
+            Transform transform = context.UnitTransform;
 
             _doLocalMove?.Complete();
-            _doLocalMove = transform.DOLocalMove(context.TargetPos, 1).SetEase(Ease.Linear);
+            _doLocalMove = transform.DOLocalMove(context.TargetBattlefield.transform.position, 1).SetEase(Ease.Linear);
         }
     }
 }

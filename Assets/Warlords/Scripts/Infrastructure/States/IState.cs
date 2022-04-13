@@ -1,8 +1,10 @@
-﻿namespace Warlords.Infrastructure.States
+﻿using Cysharp.Threading.Tasks;
+
+namespace Warlords.Infrastructure.States
 {
     public interface IState
     {
-        void Enter();
-        void Exit();
+        UniTask Enter();
+        UniTask Exit();
     }
 }

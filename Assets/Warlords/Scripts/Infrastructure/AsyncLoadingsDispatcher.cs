@@ -9,8 +9,6 @@ namespace Warlords.Infrastructure
     {
         private readonly List<IAsyncLoad> _asyncLoads = new List<IAsyncLoad>();
 
-        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
-   
         public void AddListener(IAsyncLoad asyncLoad)
         {
             _asyncLoads.Add(asyncLoad);

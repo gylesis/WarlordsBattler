@@ -1,23 +1,28 @@
-﻿using Warlords.Utils;
+﻿using Cysharp.Threading.Tasks;
+using Warlords.Utils;
 
 namespace Warlords.Infrastructure.States
 {
     public class BootstrapState : IState
     {
-        private StateMachine _stateMachine;
-        private SceneLoader _sceneLoader;
+        private readonly SceneLoader _sceneLoader;
+        private readonly ISaveLoadDataService _saveLoadDataService;
 
-        public BootstrapState(SceneLoader sceneLoader)
+        public BootstrapState(SceneLoader sceneLoader, ISaveLoadDataService saveLoadDataService)
         {
+            _saveLoadDataService = saveLoadDataService;
             _sceneLoader = sceneLoader;
         }
-        
-        public async void Enter()
+
+        public async UniTask Enter()
         {
-            _sceneLoader.LoadScene(Constants.SceneNames.MainMenu);
+            await _saveLoadDataService.Load();
+
+            await _sceneLoader.LoadScene(Constants.SceneNames.BattleLevel);
+            //await _sceneLoader.LoadScene(Constants.SceneNames.MainMenu);
         }
 
-        public void Exit()
+        public async UniTask Exit()
         {
             
         }

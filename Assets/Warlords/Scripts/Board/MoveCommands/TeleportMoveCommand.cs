@@ -8,11 +8,11 @@ namespace Warlords.Board
     {
         public async UniTask Move(MoveCommandContext context)
         {
-            Transform transform = context.Transform;
+            Transform transform = context.UnitTransform;
             
             await transform.DOShakePosition(1, (Vector3.right + Vector3.forward) * 0.3f,10,10).AsyncWaitForCompletion().AsUniTask();
 
-            transform.position = context.TargetPos;
+            transform.position = context.TargetBattlefield.transform.position;
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 namespace Warlords.Infrastructure.Installers
 {
-    public class AsyncLoadingsLinker 
+    public class SceneAsyncLoadingsLinker 
     {
-        public AsyncLoadingsLinker(AsyncLoadingsRegister asyncLoadingsRegister, IAsyncLoad[] asyncLoads)
+        public SceneAsyncLoadingsLinker(AsyncLoadingsRegister asyncLoadingsRegister, IAsyncLoad[] asyncLoads)
         {
             foreach (IAsyncLoad asyncLoad in asyncLoads) 
                 asyncLoadingsRegister.Register(asyncLoad);

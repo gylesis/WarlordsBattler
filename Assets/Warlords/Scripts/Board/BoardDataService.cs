@@ -5,20 +5,17 @@ using Warlords.Infrastructure;
 
 namespace Warlords.Board
 {
-    public class BoardGridService : IAsyncLoad
+    public class BoardDataService : IAsyncLoad
     {
         public List<Battlefield> Battlefields { get; } = new List<Battlefield>(36);
         public Dictionary<int, List<int>> BattlefieldsNeighbours { get; } = new Dictionary<int, List<int>>();
 
-        private readonly BoardGridData _boardGridData;
         private readonly BattlefieldCellDatas _battlefieldCellDatas;
 
-        public BoardGridService(BattlefieldsContainer battlefieldsContainer, BoardGridData boardGridData,
+        public BoardDataService(BattlefieldsContainer battlefieldsContainer,
             IBoardCellsDataLoader cellsDataLoader)
         {
             _battlefieldCellDatas = cellsDataLoader.Load();
-
-            _boardGridData = boardGridData;
 
             Battlefields.AddRange(battlefieldsContainer.MyBattlefields);
             Battlefields.AddRange(battlefieldsContainer.EnemyBattlefields);
