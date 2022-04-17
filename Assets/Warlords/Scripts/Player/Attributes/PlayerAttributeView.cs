@@ -38,7 +38,6 @@ namespace Warlords.Player.Attributes
 
         public void UpdateAttributeStats(PlayerAttribute playerAttribute)
         {
-            Debug.Log(playerAttribute.Stat.Value.Value);
             _attribute.Stat.Value.Value = playerAttribute.Stat.Value.Value;
         }
         

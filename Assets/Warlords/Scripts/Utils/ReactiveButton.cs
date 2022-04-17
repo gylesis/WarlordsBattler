@@ -9,6 +9,7 @@ namespace Warlords.Utils
     public abstract class ReactiveButton<TSender, TValue> : MonoBehaviour
     {
         [SerializeField] private Button _button;
+        private IDisposable _disposable;
 
         protected abstract TValue Value { get; }
         protected abstract TSender Sender { get; }
@@ -16,11 +17,7 @@ namespace Warlords.Utils
         protected virtual void Reset() =>
             _button = GetComponent<Button>();
 
-        private static readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
-        
         public Subject<EventContext<TSender, TValue>> Clicked { get; } = new Subject<EventContext<TSender, TValue>>();
-            
-        private IDisposable _disposable;
 
         private void Awake()
         {
@@ -34,13 +31,12 @@ namespace Warlords.Utils
                     buttonContext.Value = Value;
 
                     Clicked.OnNext(buttonContext);
-                })).AddTo(CompositeDisposable);
+                }));
         }
 
         private void OnDestroy() => 
-            CompositeDisposable.Dispose();
+            _disposable.Dispose();
     }
-
 
     [RequireComponent(typeof(Button))]
     public abstract class ReactiveButton<TValue> : MonoBehaviour
@@ -65,7 +61,7 @@ namespace Warlords.Utils
                 .Subscribe((_ =>
                 {
                     var buttonContext = new EventContext<TValue>();
-                    
+
                     buttonContext.Value = Value;
 
                     Clicked.OnNext(buttonContext);
@@ -73,7 +69,7 @@ namespace Warlords.Utils
         }
     }
 
-    public struct EventContext<T1, T2> 
+    public struct EventContext<T1, T2>
     {
         public T1 Sender;
         public T2 Value;
@@ -85,7 +81,7 @@ namespace Warlords.Utils
         }
     }
 
-    public struct EventContext< T1>
+    public struct EventContext<T1>
     {
         public T1 Value;
 
@@ -94,5 +90,4 @@ namespace Warlords.Utils
             Value = value;
         }
     }
-    
 }
