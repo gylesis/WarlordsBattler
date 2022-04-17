@@ -1,25 +1,28 @@
 ﻿using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using Warlords.Infrastructure;
 using Warlords.Utils;
 
 namespace Warlords.Board
 {
-    public class BattlefieldUnitPlacer : IBoardClickedListener, IAsyncLoad
+    public class BattlefieldUnitPlacer : IBoardClickedListener, IAsyncLoad, IBoardUpdateNotifier
     { 
         private Unit _unit;
-        private MoveCommandsContainer _moveCommandsContainer;
+        private readonly MoveCommandsContainer _moveCommandsContainer;
+
+        public Subject<BoardUpdateContext> BoardUpdate { get; } = new Subject<BoardUpdateContext>();
 
         public BattlefieldUnitPlacer(MoveCommandsContainer moveCommandsContainer)
         {
             _moveCommandsContainer = moveCommandsContainer;
         }
-        
+
         public async UniTask AsyncLoad()
         {
             _unit = await Resources.LoadAsync<Unit>(AssetsPath.UnitPrefab).ToUniTask() as Unit;
         }
-        
+
         public void BoardClicked(BoardInputContext context)
         {
             if (context.InputButton != InputButton.Right) return;
@@ -55,7 +58,7 @@ namespace Warlords.Board
 
             if (context.Battlefield.BattlefieldData.Index % 2 == 0)
             {
-                movingCommand = _moveCommandsContainer.Get<CheatMoveCommand>();
+                movingCommand = _moveCommandsContainer.Get<MoveByCellsCommand>();
                 color = Color.white;
             }
             else
@@ -66,6 +69,9 @@ namespace Warlords.Board
 
             unitInfo.Unit.MovingCommand = movingCommand;
             unitInfo.Unit.UnitView.SetColor(color);
+
+            var boardUpdateContext = new BoardUpdateContext();
+            BoardUpdate.OnNext(boardUpdateContext);
         }
     }
 }

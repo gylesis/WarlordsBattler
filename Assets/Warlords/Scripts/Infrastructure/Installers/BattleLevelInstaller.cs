@@ -18,29 +18,37 @@ namespace Warlords.Infrastructure.Installers
         {
             BindMovingCommands();
 
+            Container.Bind<BoardUpdateService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<BoardDataService>().AsSingle().NonLazy();
+
+            Container.BindInterfacesAndSelfTo<BattlefieldUnitMover>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BoardCellsTree>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<BoardUnitsInitializer>().AsSingle().NonLazy();
+            Container.Bind<ActionButtonsView>().AsSingle().NonLazy();
+            Container.Bind<ActionDispatchService>().AsSingle().NonLazy();
+            Container.Bind<ActionDispatcherLinker>().AsSingle().NonLazy();
+
             Container.Bind<BattlefieldInputAllowService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<BattlefieldUnitPlacer>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<BattlefieldUnitPlacer>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardInputDispatcher>().AsSingle().NonLazy();
-            
+
             Container.Bind<ActionButtonsContainer>().FromInstance(_actionButtonsContainer).AsSingle();
-            Container.Bind<ActionButtonsHandler>().AsSingle().NonLazy();
-            
+            Container.BindInterfacesAndSelfTo<ActionButtonsHandler>().AsSingle().NonLazy();
+
             Container.Bind<IBoardCellsDataLoader>().To<TextFileBoardCellsDataLoader>().AsSingle().NonLazy();
             Container.Bind<BoardGridData>().FromInstance(_boardGridData).AsSingle().NonLazy();
             Container.Bind<MoveCommandsContainer>().AsSingle().NonLazy();
-            Container.Bind<UnitsMoverService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<UnitsMoverService>().AsSingle();
             Container.Bind<BattlefieldsSaveLoadService>().AsSingle().NonLazy();
             Container.Bind<CameraService>().FromInstance(_cameraService).AsSingle();
             Container.BindInterfacesAndSelfTo<BoardPointerInputService>().AsSingle().WithArguments(_battlefieldLayer).NonLazy();
             Container.Bind<BattlefieldsContainer>().FromInstance(_battlefieldsContainer).AsSingle();
-            
+
             Container.BindInterfacesAndSelfTo<BattlefieldsOutlineService>().AsSingle().NonLazy();
-            
-            Container.BindInterfacesAndSelfTo<BattlefieldUnitMover>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<BoardDataService>().AsSingle().NonLazy();
+
             
             Container.Bind<SceneAsyncLoadingsLinker>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<BoardUnitsInitializer>().AsSingle().NonLazy();
 
             Container.Bind<UnitsFactory>().AsSingle().WithArguments(Resources.Load<Unit>(AssetsPath.UnitPrefab));
         }

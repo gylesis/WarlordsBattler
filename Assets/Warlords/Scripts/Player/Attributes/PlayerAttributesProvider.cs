@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Warlords.Factions;
-using Warlords.Infrastructure;
 
 namespace Warlords.Player.Attributes
 {

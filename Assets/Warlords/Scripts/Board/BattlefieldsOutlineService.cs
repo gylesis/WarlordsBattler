@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
+using Warlords.Battle.Field;
 using Zenject;
 
 namespace Warlords.Board
 {
-    public class BattlefieldsOutlineService : IDisposable, ITickable, IBoardClickedListener, IBoardHoveredListener
+    public class BattlefieldsOutlineService : IDisposable, ITickable, IBoardControlledClickedListener, IBoardHoveredListener, IActionListener
     {
         private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
         
@@ -45,11 +46,13 @@ namespace Warlords.Board
                 return;
             }
 
-            _hoveredBattlefield?.ColorDefault();
+           // _hoveredBattlefield?.ColorDefault();
             
             _hoveredBattlefield = battlefield.BattlefieldView;
             
-            _hoveredBattlefield.ColorMaterial(Color.red);
+            /*if(_hoveredBattlefield.IsColored == false) return;
+            
+            _hoveredBattlefield.ColorMaterial(Color.red);*/
         }
 
         private void ColorCell(Battlefield battlefield)
@@ -70,7 +73,7 @@ namespace Warlords.Board
             
             _chosenBattlefield?.BattlefieldView.ColorDefault();
             
-            HighlightNeighbours(battlefield.BattlefieldData.Index);
+           // HighlightNeighbours(battlefield.BattlefieldData.Index);
             
             battlefield.BattlefieldView.ColorMaterial(Color.yellow);
 
@@ -112,6 +115,11 @@ namespace Warlords.Board
         public void Dispose()
         {
             _compositeDisposable?.Dispose();
+        }
+
+        public void ActHappened(ActContext context)
+        {
+            ColorCell(null);
         }
     }
  

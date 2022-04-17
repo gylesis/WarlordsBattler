@@ -35,6 +35,7 @@ namespace Warlords.UI.PopUp
         
     }
 
+    
     public struct RedirectionPopUpContext
     {
         public string Description;

@@ -26,6 +26,8 @@ namespace Warlords.Player.Attributes
         {
             _disposable?.Dispose();
 
+            Debug.Log("Update");
+            
             GameObject attributeGameObj = _attributeViews[1].gameObject;
             
             _disposable = _attributeViews[0].OnEnableAsObservable().Take(1).TakeUntilDestroy(attributeGameObj).Subscribe((unit =>

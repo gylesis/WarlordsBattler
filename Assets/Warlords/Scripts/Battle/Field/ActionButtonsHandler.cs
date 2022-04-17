@@ -1,20 +1,22 @@
 ﻿using System;
 using UniRx;
-using UnityEngine;
 using Warlords.Board;
 using Warlords.Utils;
 
 namespace Warlords.Battle.Field
 {
-    public class ActionButtonsHandler : IDisposable
+    public class ActionButtonsHandler : IDisposable, IActionListener
     {
         private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
         private readonly BattlefieldInputAllowService _inputAllowService;
+        private readonly ActionButtonsView _actionButtonsView;
 
-        public ActionButtonsHandler(ActionButtonsContainer buttonsContainer, BattlefieldInputAllowService inputAllowService)
+        public ActionButtonsHandler(ActionButtonsContainer buttonsContainer,
+            BattlefieldInputAllowService inputAllowService, ActionButtonsView actionButtonsView)
         {
+            _actionButtonsView = actionButtonsView;
             _inputAllowService = inputAllowService;
-            
+
             foreach (ActionButton button in buttonsContainer.ActionButtons)
                 button.Clicked.Subscribe(OnActionButtonClicked).AddTo(_compositeDisposable);
         }
@@ -23,7 +25,8 @@ namespace Warlords.Battle.Field
         {
             ActionType type = context.Value.ActionType;
 
-            Debug.Log("action button clicked");
+            _actionButtonsView.Show(context.Sender);
+            _inputAllowService.Disallow();
             
             switch (type)
             {
@@ -64,6 +67,22 @@ namespace Warlords.Battle.Field
         public void Dispose()
         {
             _compositeDisposable.Dispose();
+        }
+
+        public void ActHappened(ActContext context)
+        {
+            _actionButtonsView.HideAll();
+            _inputAllowService.Disallow();
+        }
+    }
+
+    public struct ActContext
+    {
+        public ActionType ActionType;
+
+        public ActContext(ActionType actionType)
+        {
+            ActionType = actionType;
         }
     }
 }

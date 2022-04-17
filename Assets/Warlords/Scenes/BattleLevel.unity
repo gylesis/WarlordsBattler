@@ -568,34 +568,34 @@ MonoBehaviour:
   - {fileID: 2038748503}
   - {fileID: 1736093297}
   - {fileID: 1027815800}
-  - {fileID: 1234886967}
-  - {fileID: 1189135297}
-  - {fileID: 1592441439}
-  - {fileID: 303588648}
   - {fileID: 1036157470}
+  - {fileID: 303588648}
+  - {fileID: 1592441439}
+  - {fileID: 1189135297}
+  - {fileID: 1234886967}
   - {fileID: 153792117}
   - {fileID: 1130458408}
   - {fileID: 141077880}
   - {fileID: 605254091}
-  - {fileID: 284960398}
-  - {fileID: 1418749197}
-  - {fileID: 1517909863}
-  - {fileID: 1872549346}
   - {fileID: 1420891970}
+  - {fileID: 1872549346}
+  - {fileID: 1517909863}
+  - {fileID: 1418749197}
+  - {fileID: 284960398}
   EnemyBattlefields:
-  - {fileID: 1372114038}
-  - {fileID: 623873391}
-  - {fileID: 130277667}
   - {fileID: 1074587362}
+  - {fileID: 130277667}
+  - {fileID: 623873391}
+  - {fileID: 1372114038}
   - {fileID: 628303317}
   - {fileID: 361241771}
   - {fileID: 2043293894}
   - {fileID: 953340829}
   - {fileID: 462860240}
-  - {fileID: 1343092863}
-  - {fileID: 1543124700}
-  - {fileID: 1219675500}
   - {fileID: 1420207449}
+  - {fileID: 1219675500}
+  - {fileID: 1543124700}
+  - {fileID: 1343092863}
   - {fileID: 819328668}
   - {fileID: 1990918066}
   - {fileID: 1438411805}

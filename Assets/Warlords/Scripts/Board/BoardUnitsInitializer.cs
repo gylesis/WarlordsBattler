@@ -5,16 +5,13 @@ namespace Warlords.Board
 {
     public class BoardUnitsInitializer : IAsyncLoad
     {
-        private readonly UnitsFactory _unitsFactory;
         private readonly BoardDataService _boardDataService;
-        private ISaveLoadDataService _saveLoadDataService;
+        private readonly UnitsFactory _unitsFactory;
 
-        public BoardUnitsInitializer(ISaveLoadDataService saveLoadDataService, BoardDataService boardDataService,
-            UnitsFactory unitsFactory)
+        public BoardUnitsInitializer(BoardDataService boardDataService , UnitsFactory unitsFactory)
         {
-            _boardDataService = boardDataService;
-            _saveLoadDataService = saveLoadDataService;
             _unitsFactory = unitsFactory;
+            _boardDataService = boardDataService;
         }
 
         public async UniTask AsyncLoad()
@@ -23,9 +20,18 @@ namespace Warlords.Board
             {
                 var unitContext = new UnitContext();
                 BattlefieldUnitInfo battlefieldUnitInfo = _boardDataService.Battlefields[i - 1].BattlefieldUnitInfo;
-                
+
                 unitContext.UnitPivotTransform = battlefieldUnitInfo.Pivot;
-                unitContext.Stats = new Stats(){ AttackPower = 1,AttackSpeed = 1,CastSpeed = 1,MagicResistance = 1,MovementSpeed = 1, HitPoints = 1, SpellPower = 1};
+                unitContext.Stats = new Stats
+                {
+                    AttackPower = 1,
+                    AttackSpeed = 1,
+                    CastSpeed = 1,
+                    MagicResistance = 1,
+                    MovementSpeed = 1,
+                    HitPoints = 1,
+                    SpellPower = 1
+                };
 
                 Unit unit = _unitsFactory.Create(unitContext);
 

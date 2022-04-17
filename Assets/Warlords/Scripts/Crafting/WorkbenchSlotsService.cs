@@ -51,12 +51,12 @@ namespace Warlords.Crafting
                 {
                     item = ingredientItemRecipe.Output;
 
-                    Debug.Log($"Ingredient {item.Name}");
+                  //  Debug.Log($"Ingredient {item.Name}");
                     return true;
                 }
 
                 item = recipe.Output;
-                Debug.Log($"Not Ingredient {item.Name}");
+                //Debug.Log($"Not Ingredient {item.Name}");
                 return true;
             }
 

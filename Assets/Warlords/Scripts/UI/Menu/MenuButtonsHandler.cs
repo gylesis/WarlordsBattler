@@ -1,5 +1,4 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using UniRx;
 using Warlords.Player.Attributes;
 using Warlords.Utils;
@@ -13,8 +12,6 @@ namespace Warlords.UI.Menu
         private readonly MenuTagsContainer _menuTagsContainers;
         private readonly PlayerInfoPreSaver _playerInfoPreSaver;
         private readonly FirstActionsChecker _firstActionsChecker;
-
-        private MenuTag _currentTag;
 
         public MenuButtonsHandler(MenuSwitcher menuSwitcher, PlayerInfoPreSaver playerInfoPreSaver,
             MenuTagsContainer menuTagsContainers, FirstActionsChecker firstActionsChecker)
@@ -33,7 +30,6 @@ namespace Warlords.UI.Menu
         private void ProcessClick(EventContext<MenuButton, MenuTag> context)
         {
             MenuTag menuTag = context.Value;
-            if (_currentTag == menuTag) return;
 
             _playerInfoPreSaver.Discard();
 
@@ -57,7 +53,6 @@ namespace Warlords.UI.Menu
                 }
             }
 
-            _currentTag = menuTag;
         }
 
         public void Dispose()

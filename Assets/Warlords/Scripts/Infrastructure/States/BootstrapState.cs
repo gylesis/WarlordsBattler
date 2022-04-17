@@ -18,8 +18,8 @@ namespace Warlords.Infrastructure.States
         {
             await _saveLoadDataService.Load();
 
-            await _sceneLoader.LoadScene(Constants.SceneNames.BattleLevel);
-            //await _sceneLoader.LoadScene(Constants.SceneNames.MainMenu);
+            //await _sceneLoader.LoadScene(Constants.SceneNames.BattleLevel);
+            await _sceneLoader.LoadScene(Constants.SceneNames.MainMenu);
         }
 
         public async UniTask Exit()

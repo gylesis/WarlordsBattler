@@ -24,273 +24,353 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8d5694b85fd1f849af3745027f54027, type: 2}
   Upgrades: {fileID: 11400000, guid: 7e44c0ae1e2568d4fab477922395222f, type: 2}
   AttributesPerFactions:
-  - name: Aridian Sway
+  - name: 
     Faction: {fileID: 11400000, guid: bcdd4bd16b42e5e4995ff7738a4fbe51, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Attack Power
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Attack Speed
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Cast Speed
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Hit Points
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Magic Resistance
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Movement Speed
       Stat:
-        _value: 0
+        Value:
+          value: 0
     - Name: Spell Power
       Stat:
-        _value: 0
-  - name: Astral Knights
+        Value:
+          value: 0
+  - name: 
     Faction: {fileID: 11400000, guid: 72c867770c1e3684199e2a844e6b0f18, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Attack Power
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Attack Speed
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Cast Speed
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Hit Points
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Magic Resistance
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Movement Speed
       Stat:
-        _value: 1
+        Value:
+          value: 1
     - Name: Spell Power
       Stat:
-        _value: 1
-  - name: Crowns Foil
+        Value:
+          value: 1
+  - name: 
     Faction: {fileID: 11400000, guid: 94af8ff6243d5da4cac5847a96f3c211, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Attack Power
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Attack Speed
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Cast Speed
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Hit Points
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Magic Resistance
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Movement Speed
       Stat:
-        _value: 2
+        Value:
+          value: 2
     - Name: Spell Power
       Stat:
-        _value: 2
-  - name: Crowns Reach
+        Value:
+          value: 2
+  - name: 
     Faction: {fileID: 11400000, guid: 18235d67e3b906c41bff982699e08e9c, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Attack Power
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Attack Speed
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Cast Speed
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Hit Points
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Magic Resistance
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Movement Speed
       Stat:
-        _value: 3
+        Value:
+          value: 3
     - Name: Spell Power
       Stat:
-        _value: 3
-  - name: Darken Marsh
+        Value:
+          value: 3
+  - name: 
     Faction: {fileID: 11400000, guid: a1d83a8fcc4c06a4db682ab9e88cd6e1, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Attack Power
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Attack Speed
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Cast Speed
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Hit Points
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Magic Resistance
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Movement Speed
       Stat:
-        _value: 4
+        Value:
+          value: 4
     - Name: Spell Power
       Stat:
-        _value: 4
-  - name: Deeping Fjord
+        Value:
+          value: 4
+  - name: 
     Faction: {fileID: 11400000, guid: 28685254d4b668548a5a09762355d929, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Attack Power
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Attack Speed
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Cast Speed
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Hit Points
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Magic Resistance
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Movement Speed
       Stat:
-        _value: 5
+        Value:
+          value: 5
     - Name: Spell Power
       Stat:
-        _value: 5
-  - name: Frostholds
+        Value:
+          value: 5
+  - name: 
     Faction: {fileID: 11400000, guid: 3d0c41ba28d06884a962c096583d37f9, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Attack Power
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Attack Speed
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Cast Speed
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Hit Points
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Magic Resistance
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Movement Speed
       Stat:
-        _value: 6
+        Value:
+          value: 6
     - Name: Spell Power
       Stat:
-        _value: 6
-  - name: Mirrored Vale
+        Value:
+          value: 6
+  - name: 
     Faction: {fileID: 11400000, guid: 87d39bf98d5a8c747867d0041529234a, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Attack Power
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Attack Speed
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Cast Speed
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Hit Points
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Magic Resistance
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Movement Speed
       Stat:
-        _value: 7
+        Value:
+          value: 7
     - Name: Spell Power
       Stat:
-        _value: 7
-  - name: Sylvan Empire
+        Value:
+          value: 7
+  - name: 
     Faction: {fileID: 11400000, guid: eba90dff351c86346b770899664fb058, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Attack Power
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Attack Speed
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Cast Speed
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Hit Points
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Magic Resistance
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Movement Speed
       Stat:
-        _value: 8
+        Value:
+          value: 8
     - Name: Spell Power
       Stat:
-        _value: 8
-  - name: Underkin
+        Value:
+          value: 8
+  - name: 
     Faction: {fileID: 11400000, guid: 7d3c1c691cb922a4d87d07ae28e032a7, type: 2}
     PlayerStartAttributes:
     - Name: Armor
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Attack Power
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Attack Speed
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Cast Speed
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Hit Points
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Magic Resistance
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Movement Speed
       Stat:
-        _value: 9
+        Value:
+          value: 9
     - Name: Spell Power
       Stat:
-        _value: 9
+        Value:
+          value: 9

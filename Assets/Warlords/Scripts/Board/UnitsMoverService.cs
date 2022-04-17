@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using Warlords.Battle.Field;
 
 namespace Warlords.Board
 {
-    public class UnitsMoverService
+    public class UnitsMoverService : IActionDispatcher, IBoardUpdateNotifier
     {
         private readonly BoardDataService _boardDataService;
-
         private readonly Stack<IMovingCommand> _commands = new Stack<IMovingCommand>();
-        private BattlefieldInputAllowService _inputAllowService;
+        
+        public ActionDispatchService DispatchService { get; set; }
+        public Subject<BoardUpdateContext> BoardUpdate { get; } = new Subject<BoardUpdateContext>();
 
-        public UnitsMoverService(BoardDataService boardDataService, BattlefieldInputAllowService inputAllowService)
+        public UnitsMoverService(BoardDataService boardDataService)
         {
-            _inputAllowService = inputAllowService;
             _boardDataService = boardDataService;
         }
         
-        public void Move(Unit unit, Battlefield targetBattlefield, IMovingCommand command = null)
+        public async void Move(Unit unit, Battlefield targetBattlefield, IMovingCommand command = null)
         {
             var tryGetUnitBattlefield = _boardDataService.TryGetUnitBattlefield(unit, out Battlefield startBattlefield);
 
@@ -33,14 +36,20 @@ namespace Warlords.Board
                 movingCommand = command;
 
             var moveCommandContext = new MoveCommandContext();
-
+            
             moveCommandContext.UnitTransform = unit.transform;
             moveCommandContext.StartBattlefield = startBattlefield;
             moveCommandContext.TargetBattlefield = targetBattlefield;
             
-            movingCommand.Move(moveCommandContext);
+            await movingCommand.Move(moveCommandContext);
+            await UniTask.Delay(100);
             
-            _inputAllowService.Disallow();
+            var actContext = new ActContext();
+            actContext.ActionType = ActionType.Move;
+            DispatchService.Dispatch(actContext);
+            
+            var boardUpdateContext = new BoardUpdateContext();
+            BoardUpdate.OnNext(boardUpdateContext);
             
             // ExecuteCommand(movingCommand);
         }
@@ -54,6 +63,7 @@ namespace Warlords.Board
                // await movingCommand.Move();
             }
         }
-
     }
+    
+    
 }

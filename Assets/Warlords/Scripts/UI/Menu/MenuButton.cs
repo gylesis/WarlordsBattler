@@ -11,7 +11,7 @@ namespace Warlords.UI.Menu
         protected override MenuButton Sender => this;
 
         [Inject]
-        private void Init(MenuButtonsHandler menuButtonsHandler)
+        private void Init(MenuButtonsHandler menuButtonsHandler)  // To replace
         {
             menuButtonsHandler.Register(this);
         }

@@ -5,9 +5,9 @@ namespace Warlords.Board
 {
     public class UnitsFactory : IFactory<UnitContext, Unit>
     {
-        private int temp = 0;
+        private int temp;
         private readonly Unit _prefab;
-        private MoveCommandsContainer _moveCommandsContainer;
+        private readonly MoveCommandsContainer _moveCommandsContainer;
 
         public UnitsFactory(Unit prefab, MoveCommandsContainer moveCommandsContainer)
         {
@@ -32,7 +32,7 @@ namespace Warlords.Board
 
             if (temp % 2 == 0)
             {
-                movingCommand = _moveCommandsContainer.Get<CheatMoveCommand>();
+                movingCommand = _moveCommandsContainer.Get<MoveByCellsCommand>();
                 color = Color.white;
             }
             else

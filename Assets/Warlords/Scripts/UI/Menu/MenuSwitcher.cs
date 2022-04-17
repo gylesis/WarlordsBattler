@@ -36,12 +36,6 @@ namespace Warlords.UI.Menu
                 OpenMenu(_menuContexts[0].Tag);
             }
         }
-
-        public void OpenPrevMenu()
-        {
-            
-        }
-        
         public void OpenMenu(MenuTag menuTag)
         {
             _menuTag = menuTag;

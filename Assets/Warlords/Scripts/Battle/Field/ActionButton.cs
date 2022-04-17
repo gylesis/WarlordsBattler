@@ -7,7 +7,9 @@ namespace Warlords.Battle.Field
     public class ActionButton : ReactiveButton<ActionButton, ActionPanelButtonContext>
     {
         [SerializeField] private ActionPanelButtonContext _context;
-
+        [SerializeField] private ActionButtonView _actionButtonView;
+        
+        public ActionButtonView ActionButtonView => _actionButtonView;
         protected override ActionPanelButtonContext Value => _context;
         protected override ActionButton Sender => this;
 
